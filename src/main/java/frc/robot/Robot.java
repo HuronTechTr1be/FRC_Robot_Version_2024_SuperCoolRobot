@@ -134,7 +134,7 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
      if (drive2Controller.getL1Button()) {
-      liftArmLeft.set(20);
+      liftArmLeft.set(20); 
     }
     else if (drive2Controller.getL2Button()) {
       liftArmLeft.set(-20);
