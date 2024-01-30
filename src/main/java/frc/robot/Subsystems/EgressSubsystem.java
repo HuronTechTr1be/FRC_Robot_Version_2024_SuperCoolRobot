@@ -17,8 +17,8 @@ import frc.robot.Constants.DriveConstants;
 import frc.utils.SwerveUtils;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-
-public class EgressSubsystem {
+   
+public class EgressSubsystem extends SubsystemBase {
     
     
 }

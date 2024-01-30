@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 //import main.java.frc.robot.RobotContainer;
 import frc.robot.Constants.OIConstants;
+import frc.robot.Subsystems.ClawSubsystem;
 
  /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -32,11 +33,11 @@ import frc.robot.Constants.OIConstants;
 public class Robot extends TimedRobot {
 
   private Command m_autonomousCommand;
-  PS4Controller drive2Controller = new PS4Controller(1);
-  CANSparkMax liftArmLeft = new CANSparkMax(21,MotorType.kBrushless);
-  CANSparkMax liftArmRight = new CANSparkMax(22,MotorType.kBrushless);
 
   private RobotContainer m_robotContainer;
+  private ClawSubsystem m_clawSubsystem;
+ 
+  PS4Controller drive2Controller = new PS4Controller(1);
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -48,6 +49,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+
 
   }
 
@@ -130,29 +132,38 @@ public class Robot extends TimedRobot {
      
   }
 
-  /** This function is called periodically during test mode. */
+  /** This function is called periodically during test mode.  */
   @Override
   public void testPeriodic() {
-     if (drive2Controller.getL1Button()) {
-      liftArmLeft.set(20); 
-    }
-    else if (drive2Controller.getL2Button()) {
-      liftArmLeft.set(-20);
-    } 
-    else {
-      liftArmLeft.set(0);
-    }
+
+    if (drive2Controller.getL1Button()) {
+      m_clawSubsystem.UppyDownyArmsLeft(20);
+     }
+      else if (drive2Controller.getL2Button()) {
+        m_clawSubsystem.UppyDownyArmsLeft(-20);
+        } 
+        else {
+          m_clawSubsystem.UppyDownyArmsLeft(0);
+
+          }
+  
 
     if (drive2Controller.getR1Button()) {
-      liftArmRight.set(20);
-    }
-    else if (drive2Controller.getR2Button()) {
-      liftArmRight.set(-20);
-    }
-    else {
-      liftArmRight.set(0);
-    }
+        m_clawSubsystem.UppyDownyArmsRight(20);
+      }
+      else if (drive2Controller.getR2Button()) {
+        m_clawSubsystem.UppyDownyArmsRight(-20);
+        } 
+        else {
+          m_clawSubsystem.UppyDownyArmsRight(0);
+
+          }
+
+        }
+      }
     
 
-  }
-}
+  
+
+
+
