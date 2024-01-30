@@ -35,8 +35,9 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
-  private ClawSubsystem m_clawSubsystem;
- 
+  private ClawSubsystem m_clawLeft = new ClawSubsystem(21);
+  private ClawSubsystem m_clawRight = new ClawSubsystem(22);
+
   PS4Controller drive2Controller = new PS4Controller(1);
 
   /**
@@ -136,31 +137,28 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
 
-    if (drive2Controller.getL1Button()) {
-      m_clawSubsystem.UppyDownyArmsLeft(20);
-     }
-      else if (drive2Controller.getL2Button()) {
-        m_clawSubsystem.UppyDownyArmsLeft(-20);
-        } 
-        else {
-          m_clawSubsystem.UppyDownyArmsLeft(0);
-
-          }
+    if (drive2Controller.getL2Button()) {
+      m_clawLeft.UppyDownyArmsUp();
+    }
+    else if (drive2Controller.getL2Axis() > 0.2) {
+      m_clawLeft.UppyDownyArmsDown();
+    } 
+    else {
+      m_clawLeft.UppyDownyArmsStill();
+    }
   
+    if (drive2Controller.getR2Button()) {
+      m_clawRight.UppyDownyArmsUp();
+    }
+    else if (drive2Controller.getR2Axis() > 0.2) {
+      m_clawRight.UppyDownyArmsDown();
+    } 
+    else {
+      m_clawRight.UppyDownyArmsStill();
+    }
 
-    if (drive2Controller.getR1Button()) {
-        m_clawSubsystem.UppyDownyArmsRight(20);
-      }
-      else if (drive2Controller.getR2Button()) {
-        m_clawSubsystem.UppyDownyArmsRight(-20);
-        } 
-        else {
-          m_clawSubsystem.UppyDownyArmsRight(0);
-
-          }
-
-        }
-      }
+  }
+}
     
 
   

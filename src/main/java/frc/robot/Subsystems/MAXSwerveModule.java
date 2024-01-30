@@ -32,8 +32,8 @@ public class MAXSwerveModule {
 
   public double m_chassisAngularOffset = 0;
   public SwerveModuleState m_desiredState = new SwerveModuleState(0.0, new Rotation2d());
-
-   /**
+ 
+   /** 
    * Constructs a MAXSwerveModule and configures the driving and turning motor,
    * encoder, and PID controller. This configuration is specific to the REV
    * MAXSwerve Module built with NEOs, SPARKS MAX, and a Through Bore
