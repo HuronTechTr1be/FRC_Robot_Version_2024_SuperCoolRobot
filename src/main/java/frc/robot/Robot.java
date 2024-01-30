@@ -122,6 +122,26 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
+    if (drive2Controller.getL2Button()) {
+      m_clawLeft.UppyDownyArmsUp();
+    }
+    else if (drive2Controller.getL2Button()) {
+      m_clawLeft.UppyDownyArmsDown();
+    } 
+    else {
+      m_clawLeft.UppyDownyArmsStill();
+    }
+  
+    if (drive2Controller.getR2Button()) {
+      m_clawRight.UppyDownyArmsUp();
+    }
+    else if (drive2Controller.getR2Button()) {
+      m_clawRight.UppyDownyArmsDown();
+    } 
+    else {
+      m_clawRight.UppyDownyArmsStill();
+    }
+
   }
 
   /** This function is called once each time the robot enters test mode. */
@@ -137,27 +157,8 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
 
-    if (drive2Controller.getL2Button()) {
-      m_clawLeft.UppyDownyArmsUp();
-    }
-    else if (drive2Controller.getL2Axis() > 0.2) {
-      m_clawLeft.UppyDownyArmsDown();
-    } 
-    else {
-      m_clawLeft.UppyDownyArmsStill();
-    }
-  
-    if (drive2Controller.getR2Button()) {
-      m_clawRight.UppyDownyArmsUp();
-    }
-    else if (drive2Controller.getR2Axis() > 0.2) {
-      m_clawRight.UppyDownyArmsDown();
-    } 
-    else {
-      m_clawRight.UppyDownyArmsStill();
-    }
-
   }
+  
 }
     
 
