@@ -140,4 +140,15 @@ public final class Constants {
   public static final class NeoMotorConstants {
     public static final double kFreeSpeedRpm = 5676;
   }
+
+  public static final class EgressConstants {
+
+    public static final double id41HighShootFactor = 10; //bottom high shooter power level
+    public static final double id42HighShootFactor = 20; //top high shooter power level
+    public static final double id41RejectFactor = -20; //bottom reject power level
+    public static final double id42RejectFactor = -10; //top reject power level
+    public static final double id41LowShootFactor = 5; //bottom low shooter power level
+    public static final double id42LowShootFactor = 10; //top low shooter power level
+
+  }
 }

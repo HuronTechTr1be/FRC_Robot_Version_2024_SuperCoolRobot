@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 //import main.java.frc.robot.RobotContainer;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Subsystems.ClawSubsystem;
+import frc.robot.Subsystems.EgressSubsystem;
 
  /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -37,6 +38,8 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
   private ClawSubsystem m_clawLeft = new ClawSubsystem(21);
   private ClawSubsystem m_clawRight = new ClawSubsystem(22);
+  private EgressSubsystem m_topShoot = new EgressSubsystem(42);
+  private EgressSubsystem m_bottomShoot = new EgressSubsystem(41);
 
   PS4Controller drive2Controller = new PS4Controller(1);
 
@@ -125,7 +128,7 @@ public class Robot extends TimedRobot {
     if (drive2Controller.getL2Button()) {
       m_clawLeft.UppyDownyArmsUp();
     }
-    else if (drive2Controller.getL2Button()) {
+    else if (drive2Controller.getL1Button()) {
       m_clawLeft.UppyDownyArmsDown();
     } 
     else {
@@ -135,7 +138,7 @@ public class Robot extends TimedRobot {
     if (drive2Controller.getR2Button()) {
       m_clawRight.UppyDownyArmsUp();
     }
-    else if (drive2Controller.getR2Button()) {
+    else if (drive2Controller.getR1Button()) {
       m_clawRight.UppyDownyArmsDown();
     } 
     else {
@@ -156,6 +159,25 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during test mode.  */
   @Override
   public void testPeriodic() {
+
+     if (drive2Controller.getCircleButton()) {
+      m_topShoot.HighShoot();
+      m_bottomShoot.HighShoot();
+    }
+    else if (drive2Controller.getSquareButton()) {
+      m_topShoot.LowShoot();
+      m_bottomShoot.LowShoot();
+    }
+
+    else if (drive2Controller.getCrossButton()) {
+      m_topShoot.Reject();
+      m_bottomShoot.Reject();
+    } 
+    else {
+      m_topShoot.ShootWheelsStill();
+      m_bottomShoot.ShootWheelsStill();
+
+    }
 
   }
   
