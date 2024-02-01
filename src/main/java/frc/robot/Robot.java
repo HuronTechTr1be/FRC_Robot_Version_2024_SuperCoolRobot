@@ -18,12 +18,14 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.PS4Controller;
+import edu.wpi.first.wpilibj.PS5Controller;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 //import main.java.frc.robot.RobotContainer;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Subsystems.ClawSubsystem;
 import frc.robot.Subsystems.EgressSubsystem;
+import frc.robot.Subsystems.IntakeModule;
 
  /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -40,6 +42,7 @@ public class Robot extends TimedRobot {
   private ClawSubsystem m_clawRight = new ClawSubsystem(22);
   private EgressSubsystem m_topShoot = new EgressSubsystem(42);
   private EgressSubsystem m_bottomShoot = new EgressSubsystem(41);
+  private IntakeModule m_conveyorBelt = new IntakeModule(33)
 
   PS4Controller drive2Controller = new PS4Controller(1);
 
@@ -172,10 +175,12 @@ public class Robot extends TimedRobot {
     else if (drive2Controller.getCrossButton()) {
       m_topShoot.Reject();
       m_bottomShoot.Reject();
+      m_conveyorBelt.reject();
     } 
     else {
       m_topShoot.ShootWheelsStill();
       m_bottomShoot.ShootWheelsStill();
+      m_conveyorBelt.still();
 
     }
 

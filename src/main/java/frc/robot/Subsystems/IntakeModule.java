@@ -11,12 +11,47 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.util.WPIUtilJNI;
 //import edu.wpi.first.wpilibj.ADIS16470_IMU;
 //import edu.wpi.first.wpilibj.ADIS16470_IMU.IMUAxis;
-import com.ctre.phoenix.sensors.WPI_PigeonIMU; 
-
+import com.ctre.phoenix.sensors.WPI_PigeonIMU;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkLowLevel.MotorType;
 import frc.robot.Constants.DriveConstants;
 import frc.utils.SwerveUtils;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class IntakeModule {
+   
+private CANSparkMax conveyorBelt; 
+
+public IntakeModule(int deviceId){
+
+    conveyorBelt = new CANSparkMax(deviceId,MotorType.kBrushless);
+
+}
+
+    public void reject(){
+
+        conveyorBelt.set(-20);
+
+}
+    public void pickUp() {
+
+        conveyorBelt.set(20);
+
+    }
+    
+    public void still(){
+
+        conveyorBelt.set(0);
+
+    }
+}
+
+
+
+
+
+
+
+
     
 } 
