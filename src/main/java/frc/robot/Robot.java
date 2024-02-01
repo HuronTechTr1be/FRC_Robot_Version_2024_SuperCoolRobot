@@ -26,6 +26,7 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.Subsystems.ClawSubsystem;
 import frc.robot.Subsystems.EgressSubsystem;
 import frc.robot.Subsystems.IntakeModule;
+import frc.robot.Subsystems.SweeperWheelsSubsystem;
 
  /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -42,7 +43,9 @@ public class Robot extends TimedRobot {
   private ClawSubsystem m_clawRight = new ClawSubsystem(22);
   private EgressSubsystem m_topShoot = new EgressSubsystem(42);
   private EgressSubsystem m_bottomShoot = new EgressSubsystem(41);
-  private IntakeModule m_conveyorBelt = new IntakeModule(33)
+  private IntakeModule m_conveyorBelt = new IntakeModule(33);
+  private SweeperWheelsSubsystem m_leftSweeperWheel = new SweeperWheelsSubsystem(31);
+  private SweeperWheelsSubsystem m_rightSweeperWheel = new SweeperWheelsSubsystem(32);
 
   PS4Controller drive2Controller = new PS4Controller(1);
 
@@ -171,17 +174,19 @@ public class Robot extends TimedRobot {
       m_topShoot.LowShoot();
       m_bottomShoot.LowShoot();
     }
-
     else if (drive2Controller.getCrossButton()) {
       m_topShoot.Reject();
       m_bottomShoot.Reject();
       m_conveyorBelt.reject();
+      m_leftSweeperWheel.Reject(); 
+      m_rightSweeperWheel.Reject();
     } 
     else {
       m_topShoot.ShootWheelsStill();
       m_bottomShoot.ShootWheelsStill();
       m_conveyorBelt.still();
-
+      m_leftSweeperWheel.Still();
+      m_rightSweeperWheel.Still();
     }
 
   }

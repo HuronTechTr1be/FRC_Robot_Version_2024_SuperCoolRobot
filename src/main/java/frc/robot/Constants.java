@@ -151,4 +151,12 @@ public final class Constants {
     public static final double id42LowShootFactor = 10; //top low shooter power level
 
   }
+
+  public static final class SweeperWheelConstants {
+
+    public static final double id31PickUpFactor = 10;
+    public static final double id32PickUpFactor = 10;
+    public static final double id31RejectFactor = -10;
+    public static final double id32RejectFactor = -10;
+  }
 }
