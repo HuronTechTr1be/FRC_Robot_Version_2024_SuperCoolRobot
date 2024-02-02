@@ -34,13 +34,13 @@ public class ClawSubsystem extends SubsystemBase {
 
   public void UppyDownyArmsUp() {
 
-    arm.set(20);
+    arm.set(1);
 
   }
 
   public void UppyDownyArmsDown() {
 
-    arm.set(-20);
+    arm.set(-1);
 
   }
   public void UppyDownyArmsStill() {
