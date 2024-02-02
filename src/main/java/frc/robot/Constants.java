@@ -143,20 +143,20 @@ public final class Constants {
 
   public static final class EgressConstants {
 
-    public static final double id41HighShootFactor = 10; //bottom high shooter power level
-    public static final double id42HighShootFactor = 20; //top high shooter power level
-    public static final double id41RejectFactor = -20; //bottom reject power level
-    public static final double id42RejectFactor = -10; //top reject power level
-    public static final double id41LowShootFactor = 5; //bottom low shooter power level
-    public static final double id42LowShootFactor = 10; //top low shooter power level
+    public static final double id41HighShootFactor = 1; //bottom high shooter power level
+    public static final double id42HighShootFactor = 1; //top high shooter power level
+    public static final double id41RejectFactor = -1; //bottom reject power level
+    public static final double id42RejectFactor = -1; //top reject power level
+    public static final double id41LowShootFactor = 1; //bottom low shooter power level
+    public static final double id42LowShootFactor = 1; //top low shooter power level
 
   }
 
   public static final class SweeperWheelConstants {
 
-    public static final double id31PickUpFactor = 10;
-    public static final double id32PickUpFactor = 10;
-    public static final double id31RejectFactor = -10;
-    public static final double id32RejectFactor = -10;
+    public static final double id31PickUpFactor = 1;
+    public static final double id32PickUpFactor = 1;
+    public static final double id31RejectFactor = -1;
+    public static final double id32RejectFactor = -1;
   }
 }

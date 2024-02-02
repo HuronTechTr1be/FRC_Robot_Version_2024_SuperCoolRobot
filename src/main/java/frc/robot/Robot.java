@@ -13,16 +13,16 @@ import edu.wpi.first.wpilibj.TimedRobot;
 //import edu.wpi.first.wpilibj.XboxController;
 //import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 //import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
-import com.revrobotics.CANSparkMax;
+/*import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
-
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.PS4Controller;
-import edu.wpi.first.wpilibj.PS5Controller;
+import frc.robot.Constants.OIConstants;*/
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj.PS4Controller;
+import edu.wpi.first.wpilibj.PS5Controller;
+import edu.wpi.first.wpilibj.XboxController;
 //import main.java.frc.robot.RobotContainer;
-import frc.robot.Constants.OIConstants;
+
 import frc.robot.Subsystems.ClawSubsystem;
 import frc.robot.Subsystems.EgressSubsystem;
 import frc.robot.Subsystems.IntakeModule;
@@ -59,7 +59,6 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-
 
   }
 
@@ -169,11 +168,14 @@ public class Robot extends TimedRobot {
      if (drive2Controller.getCircleButton()) {
       m_topShoot.HighShoot();
       m_bottomShoot.HighShoot();
+      m_conveyorBelt.HighShoot();
     }
     else if (drive2Controller.getSquareButton()) {
       m_topShoot.LowShoot();
       m_bottomShoot.LowShoot();
+      m_conveyorBelt.LowShoot();
     }
+    //
     else if (drive2Controller.getCrossButton()) {
       m_topShoot.Reject();
       m_bottomShoot.Reject();
@@ -181,15 +183,22 @@ public class Robot extends TimedRobot {
       m_leftSweeperWheel.Reject(); 
       m_rightSweeperWheel.Reject();
     } 
+     else if (drive2Controller.getTriangleButton()) {;
+      m_conveyorBelt.PickUp();
+      m_leftSweeperWheel.PickUp();
+      m_rightSweeperWheel.PickUp();
+    }
     else {
-      m_topShoot.ShootWheelsStill();
-      m_bottomShoot.ShootWheelsStill();
+      m_topShoot.Still();
+      m_bottomShoot.Still();
       m_conveyorBelt.still();
       m_leftSweeperWheel.Still();
       m_rightSweeperWheel.Still();
     }
 
   }
+
+  
   
 }
     
