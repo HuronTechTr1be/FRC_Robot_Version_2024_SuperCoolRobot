@@ -12,6 +12,8 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.util.WPIUtilJNI;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 //import edu.wpi.first.wpilibj.ADIS16470_IMU;
 //import edu.wpi.first.wpilibj.ADIS16470_IMU.IMUAxis;
 import com.ctre.phoenix.sensors.WPI_PigeonIMU; 
@@ -187,6 +189,9 @@ public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelativ
       xSpeedDelivered*= DriveConstants.kReduceSpeedFactor;
       ySpeedDelivered*= DriveConstants.kReduceSpeedFactor;
     }
+
+    SmartDashboard.putNumber("X Speed:", xSpeedDelivered);
+    SmartDashboard.putNumber("Y Speed:", ySpeedDelivered);
 
     var swerveModuleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(
         fieldRelative
