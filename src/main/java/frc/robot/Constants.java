@@ -1,13 +1,11 @@
 package frc.robot;
  
-// IDK
 import com.revrobotics.CANSparkBase.IdleMode;
 
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
-// IDK
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
@@ -147,16 +145,18 @@ public final class Constants {
     public static final double id42HighShootFactor = 1; //top high shooter power level
     public static final double id41RejectFactor = -1; //bottom reject power level
     public static final double id42RejectFactor = -1; //top reject power level
-    public static final double id41LowShootFactor = 1; //bottom low shooter power level
-    public static final double id42LowShootFactor = 1; //top low shooter power level
+    public static final double id41LowShootFactor = .7; //bottom low shooter power level
+    public static final double id42LowShootFactor = .7; //top low shooter power level
+    public static final double id41PickUpFactor = .1; //bottom pick up power level
+    public static final double id42PickUpFactor = 1; //top pick up power level
 
   }
 
   public static final class SweeperWheelConstants {
 
-    public static final double id31PickUpFactor = 1;
-    public static final double id32PickUpFactor = 1;
-    public static final double id31RejectFactor = -1;
-    public static final double id32RejectFactor = -1;
+    public static final double id31PickUpFactor = 1; // right pick up power level
+    public static final double id32PickUpFactor = 1; // left pick up power level
+    public static final double id31RejectFactor = 1; // right reject power level
+    public static final double id32RejectFactor = 1; // left reject power level
   }
 }

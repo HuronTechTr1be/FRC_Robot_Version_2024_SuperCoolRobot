@@ -64,7 +64,16 @@ public void LowShoot() {
     }
 
   }
+  public void PickUp() {
 
+    if(shooterWheel.getDeviceId()==41){
+    shooterWheel.set(EgressConstants.id41PickUpFactor);
+    }
+    else if(shooterWheel.getDeviceId()==42){
+    shooterWheel.set(EgressConstants.id42PickUpFactor);
+    }
+
+  }
   public void Still() {
 
     shooterWheel.set(0);

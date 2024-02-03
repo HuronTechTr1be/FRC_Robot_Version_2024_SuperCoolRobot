@@ -27,6 +27,7 @@ import frc.robot.Subsystems.ClawSubsystem;
 import frc.robot.Subsystems.EgressSubsystem;
 import frc.robot.Subsystems.IntakeModule;
 import frc.robot.Subsystems.SweeperWheelsSubsystem;
+import frc.robot.Subsystems.FlapSubsystem;
 
  /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -46,6 +47,7 @@ public class Robot extends TimedRobot {
   private IntakeModule m_conveyorBelt = new IntakeModule(33);
   private SweeperWheelsSubsystem m_leftSweeperWheel = new SweeperWheelsSubsystem(31);
   private SweeperWheelsSubsystem m_rightSweeperWheel = new SweeperWheelsSubsystem(32);
+  private FlapSubsystem m_flap = new FlapSubsystem(51);
 
   PS4Controller drive2Controller = new PS4Controller(1);
 
@@ -187,6 +189,8 @@ public class Robot extends TimedRobot {
       m_conveyorBelt.PickUp();
       m_leftSweeperWheel.PickUp();
       m_rightSweeperWheel.PickUp();
+      //m_topShoot.Reject();
+      m_bottomShoot.PickUp();
     }
     else {
       m_topShoot.Still();
@@ -198,6 +202,22 @@ public class Robot extends TimedRobot {
 
   }
 
+  /*
+
+    if (drive2Controller.get?Button()) {
+      m_flap.Up();
+    } 
+    else{
+      m_flap.Still();
+    }
+    if (drive2Controller.get?Button()) {
+      m_flap.Down();
+    }
+    else {
+      m_flap.Still();
+    }
+
+ */
   
   
 }
