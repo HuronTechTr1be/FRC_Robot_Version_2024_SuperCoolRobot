@@ -13,7 +13,7 @@ import edu.wpi.first.util.WPIUtilJNI;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import frc.robot.Subsystems.ClawSubsystem;
 //import edu.wpi.first.wpilibj.ADIS16470_IMU;
 //import edu.wpi.first.wpilibj.ADIS16470_IMU.IMUAxis;
 import com.ctre.phoenix.sensors.WPI_PigeonIMU; 
@@ -45,6 +45,8 @@ public class DriveSubsystem extends SubsystemBase {
 
   XboxController drive1Controller = new XboxController(0);
 
+  private ClawSubsystem m_clawLeft = new ClawSubsystem(21);
+  private ClawSubsystem m_clawRight = new ClawSubsystem(22);
 
   // The gyro sensor
   private final WPI_PigeonIMU m_gyro = new WPI_PigeonIMU(0);
@@ -189,9 +191,26 @@ public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelativ
       xSpeedDelivered*= DriveConstants.kReduceSpeedFactor;
       ySpeedDelivered*= DriveConstants.kReduceSpeedFactor;
     }
+    if (drive1Controller.getLeftTriggerAxis()>0.05) {
+      m_clawLeft.UppyDownyArmsUp(drive1Controller.getLeftTriggerAxis());
+    }
+    else if (drive1Controller.getLeftBumper()) {
+      m_clawLeft.UppyDownyArmsDown();
+    } 
+    else {
+      m_clawLeft.UppyDownyArmsStill();
+    }
+    if (drive1Controller.getRightTriggerAxis()>0.05) {
+      m_clawRight.UppyDownyArmsUp(drive1Controller.getRightTriggerAxis());
+    }
+    else if (drive1Controller.getRightBumper()) {
+      m_clawRight.UppyDownyArmsDown();
+    } 
+    else {
+      m_clawRight.UppyDownyArmsStill();
+    }
 
-    SmartDashboard.putNumber("X Speed:", xSpeedDelivered);
-    SmartDashboard.putNumber("Y Speed:", ySpeedDelivered);
+    
 
     var swerveModuleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(
         fieldRelative

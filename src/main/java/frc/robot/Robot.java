@@ -22,7 +22,7 @@ import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.PS5Controller;
 import edu.wpi.first.wpilibj.XboxController;
 //import main.java.frc.robot.RobotContainer;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Subsystems.ClawSubsystem;
 import frc.robot.Subsystems.EgressSubsystem;
 import frc.robot.Subsystems.IntakeModule;
@@ -40,8 +40,8 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
-  private ClawSubsystem m_clawLeft = new ClawSubsystem(21);
-  private ClawSubsystem m_clawRight = new ClawSubsystem(22);
+  //private ClawSubsystem m_clawLeft = new ClawSubsystem(21);
+  //private ClawSubsystem m_clawRight = new ClawSubsystem(22);
   private EgressSubsystem m_topShoot = new EgressSubsystem(42);
   private EgressSubsystem m_bottomShoot = new EgressSubsystem(41);
   private IntakeModule m_conveyorBelt = new IntakeModule(33);
@@ -132,25 +132,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
-    if (drive2Controller.getL2Button()) {
-      m_clawLeft.UppyDownyArmsUp();
-    }
-    else if (drive2Controller.getL1Button()) {
-      m_clawLeft.UppyDownyArmsDown();
-    } 
-    else {
-      m_clawLeft.UppyDownyArmsStill();
-    }
   
-    if (drive2Controller.getR2Button()) {
-      m_clawRight.UppyDownyArmsUp();
-    }
-    else if (drive2Controller.getR1Button()) {
-      m_clawRight.UppyDownyArmsDown();
-    } 
-    else {
-      m_clawRight.UppyDownyArmsStill();
-    }
 
   }
 
@@ -199,6 +181,7 @@ public class Robot extends TimedRobot {
       m_leftSweeperWheel.Still();
       m_rightSweeperWheel.Still();
     }
+
 
   }
 
