@@ -10,7 +10,7 @@ import frc.robot.Constants.SweeperWheelConstants;
 public class SweeperWheelsSubsystem extends SubsystemBase{
 
     private CANSparkMax sweeperWheel;
-
+ 
     public SweeperWheelsSubsystem(int deviceId){
 
         sweeperWheel = new CANSparkMax(deviceId,MotorType.kBrushless);

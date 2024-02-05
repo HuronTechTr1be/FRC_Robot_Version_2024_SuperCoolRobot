@@ -14,55 +14,61 @@ import com.revrobotics.RelativeEncoder;
 public class ClawSubsystem extends SubsystemBase {
 
   private CANSparkMax arm;
-  private AbsoluteEncoder m_AbsoluteEncoder;
-
-  //public final AbsoluteEncoder m_armEndoEncoder;
-  //m_armEncoder = arm.getEncoder();
+  private RelativeEncoder m_RelativeEncoder;
+  private double m_setPointRaised = 145;
+    private double m_setPointLowered = 0; 
 
   public ClawSubsystem(int deviceId) {
 
     arm = new CANSparkMax(deviceId,MotorType.kBrushless);
-    m_AbsoluteEncoder = arm.getAbsoluteEncoder(Type.kDutyCycle);
-
-
-  }
-
-  public void UppyDownyArmsUp() {
-
-    arm.set(1);
+    m_RelativeEncoder = arm.getEncoder();
 
   }
 
   public void UppyDownyArmsUp(double speed) {
 
-    arm.set(speed);
-
+    if (isRaised())
+      arm.set(0);
+    else
+      arm.set(speed);
   }
 
   public void UppyDownyArmsDown() {
 
-    arm.set(-1);
+    if (isLowered())
+      arm.set(0);
+    else
+      arm.set(-1);
 
   }
   
   public void UppyDownyArmsStill() {
 
     arm.set(0);
+
+  }
+
+  private boolean isRaised(){
+
+    return Math.abs(m_setPointRaised - m_RelativeEncoder.getPosition()) <= 10;
+
+  }
+
+  private boolean isLowered(){
+
+    return Math.abs(m_setPointLowered - m_RelativeEncoder.getPosition()) <= 10;
+
   }
 
   public void periodic(){
 
     if(arm.getDeviceId()==21){
-      SmartDashboard.putNumber("LeftArmEncoder",m_AbsoluteEncoder.getPosition());
+      SmartDashboard.putNumber("LeftArmEncoder",m_RelativeEncoder.getPosition());
     }
     else if(arm.getDeviceId()==22){
-      SmartDashboard.putNumber("RightArmEncoder",m_AbsoluteEncoder.getPosition());
-
+      SmartDashboard.putNumber("RightArmEncoder",m_RelativeEncoder.getPosition());
     }
     
-
-
-
   }
 
 }

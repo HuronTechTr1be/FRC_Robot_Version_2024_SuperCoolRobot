@@ -148,8 +148,6 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
 
-
-
      if (drive2Controller.getCircleButton()) {
       m_topShoot.HighShoot();
       m_bottomShoot.HighShoot();
@@ -160,7 +158,6 @@ public class Robot extends TimedRobot {
       m_bottomShoot.LowShoot();
       m_conveyorBelt.LowShoot();
     }
-    //
     else if (drive2Controller.getCrossButton()) {
       m_topShoot.Reject();
       m_bottomShoot.Reject();
@@ -182,8 +179,6 @@ public class Robot extends TimedRobot {
       m_leftSweeperWheel.Still();
       m_rightSweeperWheel.Still();
     }
-
-
   }
 
   /*
