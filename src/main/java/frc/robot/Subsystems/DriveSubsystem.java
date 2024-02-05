@@ -209,7 +209,8 @@ public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelativ
     else {
       m_clawRight.UppyDownyArmsStill();
     }
-
+    m_clawLeft.periodic();
+    m_clawRight.periodic();
     
 
     var swerveModuleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(

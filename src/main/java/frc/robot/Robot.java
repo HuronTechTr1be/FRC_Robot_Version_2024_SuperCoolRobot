@@ -132,7 +132,6 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
-  
 
   }
 
@@ -148,6 +147,8 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during test mode.  */
   @Override
   public void testPeriodic() {
+
+
 
      if (drive2Controller.getCircleButton()) {
       m_topShoot.HighShoot();
