@@ -122,9 +122,13 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
+    
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+
+    m_robotContainer.resetRobot();
+
   }
 
   /** This function is called periodically during operator control. */
@@ -132,6 +136,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
+     
 
   }
 
@@ -141,14 +146,14 @@ public class Robot extends TimedRobot {
 
     // Cancels all running commands at the start of test mode.
     CommandScheduler.getInstance().cancelAll();
-     
+
   }
 
   /** This function is called periodically during test mode.  */
   @Override
   public void testPeriodic() {
 
-     if (drive2Controller.getCircleButton()) {
+    if (drive2Controller.getCircleButton()) {
       m_topShoot.HighShoot();
       m_bottomShoot.HighShoot();
       m_conveyorBelt.HighShoot();
@@ -179,7 +184,6 @@ public class Robot extends TimedRobot {
       m_leftSweeperWheel.Still();
       m_rightSweeperWheel.Still();
     }
-  }
 
   /*
 
@@ -198,7 +202,7 @@ public class Robot extends TimedRobot {
 
  */
   
-  
+  }
 }
     
 

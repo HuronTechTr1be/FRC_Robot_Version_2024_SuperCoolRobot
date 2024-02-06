@@ -15,13 +15,36 @@ public class ClawSubsystem extends SubsystemBase {
 
   private CANSparkMax arm;
   private RelativeEncoder m_RelativeEncoder;
-  private double m_setPointRaised = 145;
-    private double m_setPointLowered = 0; 
+  private double m_PointRaised = 145;
+  private double m_PointLowered = 0; 
+  private double m_maxLeftCurrent = 0;
+  private double m_maxRightCurrent = 0;
+
 
   public ClawSubsystem(int deviceId) {
 
     arm = new CANSparkMax(deviceId,MotorType.kBrushless);
     m_RelativeEncoder = arm.getEncoder();
+
+  }
+
+  public void armSetZero(){
+
+    SmartDashboard.putNumber("im here",1);
+    double current = arm.getOutputCurrent();
+    SmartDashboard.putNumber("current",current);
+      while(current<20){
+ 
+       SmartDashboard.putNumber("RightArmCurrent",arm.getOutputCurrent());
+       SmartDashboard.putNumber("LeftArmCurrent",arm.getOutputCurrent());
+       UppyDownyArmsDown();
+
+        SmartDashboard.putNumber("still here",2);
+        current = arm.getOutputCurrent();
+     }
+    
+      UppyDownyArmsStill(); 
+      m_RelativeEncoder.setPosition(0);
 
   }
 
@@ -50,13 +73,13 @@ public class ClawSubsystem extends SubsystemBase {
 
   private boolean isRaised(){
 
-    return Math.abs(m_setPointRaised - m_RelativeEncoder.getPosition()) <= 10;
+    return Math.abs(m_PointRaised - m_RelativeEncoder.getPosition()) <= 10;
 
   }
 
   private boolean isLowered(){
 
-    return Math.abs(m_setPointLowered - m_RelativeEncoder.getPosition()) <= 10;
+    return Math.abs(m_PointLowered - m_RelativeEncoder.getPosition()) <= 10;
 
   }
 
@@ -64,11 +87,22 @@ public class ClawSubsystem extends SubsystemBase {
 
     if(arm.getDeviceId()==21){
       SmartDashboard.putNumber("LeftArmEncoder",m_RelativeEncoder.getPosition());
+      SmartDashboard.putNumber("LefttArmCurrent",arm.getOutputCurrent());
+      if (arm.getOutputCurrent()>m_maxLeftCurrent){
+        m_maxLeftCurrent = arm.getOutputCurrent();
     }
+    SmartDashboard.putNumber("maxLeftCurrent", m_maxLeftCurrent);
+  }
     else if(arm.getDeviceId()==22){
       SmartDashboard.putNumber("RightArmEncoder",m_RelativeEncoder.getPosition());
+      SmartDashboard.putNumber("RightArmCurrent",arm.getOutputCurrent());
+      if (arm.getOutputCurrent()>m_maxRightCurrent){
+        m_maxRightCurrent = arm.getOutputCurrent();
     }
-    
+    SmartDashboard.putNumber("maxRightCurrent", m_maxRightCurrent);
+
+    }
+
   }
 
 }

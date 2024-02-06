@@ -61,6 +61,12 @@ public class RobotContainer {
             m_robotDrive));
   }
 
+  public void resetRobot(){
+
+    m_robotDrive.resetClaws();
+
+  }
+
   /**
    * Use this method to define your button->command mappings. Buttons can be
    * created by

@@ -116,6 +116,13 @@ public class DriveSubsystem extends SubsystemBase {
           pose);
   }
 
+  public void resetClaws(){
+
+    //m_clawLeft.armSetZero();
+    m_clawRight.armSetZero();
+
+  }
+
   /**
    * Method to drive the robot using joystick info.
    *
@@ -186,7 +193,7 @@ public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelativ
     double rotDelivered = m_currentRotation * DriveConstants.kMaxAngularSpeed;
 
     //Reduce speed with A on drive controller
-    //Change factor line 36 Constants
+    //Change factor Constants
     if(drive1Controller.getAButton()){
       xSpeedDelivered*= DriveConstants.kReduceSpeedFactor;
       ySpeedDelivered*= DriveConstants.kReduceSpeedFactor;
@@ -211,7 +218,6 @@ public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelativ
     }
     m_clawLeft.periodic();
     m_clawRight.periodic();
-    
     
 
     var swerveModuleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(
