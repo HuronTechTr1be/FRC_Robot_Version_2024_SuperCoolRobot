@@ -29,7 +29,7 @@ public class ClawSubsystem extends SubsystemBase {
   }
 
   public void armSetZero(){
-
+ 
     SmartDashboard.putNumber("im here",1);
     double current = arm.getOutputCurrent();
     SmartDashboard.putNumber("current",current);
@@ -41,7 +41,7 @@ public class ClawSubsystem extends SubsystemBase {
 
         SmartDashboard.putNumber("still here",2);
         current = arm.getOutputCurrent();
-     }
+     } 
     
       UppyDownyArmsStill(); 
       m_RelativeEncoder.setPosition(0);
