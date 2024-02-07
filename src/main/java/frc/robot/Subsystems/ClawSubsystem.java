@@ -9,6 +9,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.SparkAbsoluteEncoder.Type;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.RelativeEncoder;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.Constants.ArmConstants;
+
 
 
 public class ClawSubsystem extends SubsystemBase {
@@ -19,6 +22,8 @@ public class ClawSubsystem extends SubsystemBase {
   private double m_PointLowered = 0; 
   private double m_maxLeftCurrent = 0;
   private double m_maxRightCurrent = 0;
+  private static WaitCommand waitCommand = new WaitCommand(10);
+
 
 
   public ClawSubsystem(int deviceId) {
@@ -30,21 +35,36 @@ public class ClawSubsystem extends SubsystemBase {
 
   public void armSetZero(){
  
+    waitCommand.initialize();
+
     SmartDashboard.putNumber("im here",1);
     double current = arm.getOutputCurrent();
     SmartDashboard.putNumber("current",current);
-      while(current<20){
+    int x = 0; 
+    UppyDownyArmsDownInit();
+    waitCommand.execute();
+    double m_maxRight = 0;
+
+      while(current<20 && x<50000){
  
        SmartDashboard.putNumber("RightArmCurrent",arm.getOutputCurrent());
        SmartDashboard.putNumber("LeftArmCurrent",arm.getOutputCurrent());
-       UppyDownyArmsDown();
+       SmartDashboard.putNumber("still here",2);
+       current = arm.getOutputCurrent();
+       SmartDashboard.putNumber("still here",2323);
+       x++;
+       SmartDashboard.putNumber("x", x);
+       if (arm.getOutputCurrent()>=m_maxRight){
+        m_maxRight = arm.getOutputCurrent();
+        SmartDashboard.putNumber("MaxRightArmCurrentWhileLoop",m_maxRight);
 
-        SmartDashboard.putNumber("still here",2);
-        current = arm.getOutputCurrent();
+    }
+      waitCommand.execute();
+
      } 
     
       UppyDownyArmsStill(); 
-      m_RelativeEncoder.setPosition(0);
+      //m_RelativeEncoder.setPosition(0);
 
   }
 
@@ -57,14 +77,21 @@ public class ClawSubsystem extends SubsystemBase {
   }
 
   public void UppyDownyArmsDown() {
-
     if (isLowered())
       arm.set(0);
     else
-      arm.set(-1);
+      arm.set(ArmConstants.k_initArmSpeedDown);
 
   }
   
+ public void UppyDownyArmsDownInit() {
+    if (isLowered())
+      arm.set(0);
+    else
+      arm.set(ArmConstants.k_initArmSpeedRoboInit);
+
+  }
+
   public void UppyDownyArmsStill() {
 
     arm.set(0);
