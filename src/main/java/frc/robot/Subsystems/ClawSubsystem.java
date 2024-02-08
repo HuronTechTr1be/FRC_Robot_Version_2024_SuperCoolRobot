@@ -73,7 +73,7 @@ public class ClawSubsystem extends SubsystemBase {
     if (isRaised())
       arm.set(0);
     else
-      arm.set(speed);
+      arm.set((speed));
   }
 
   public void UppyDownyArmsDown() {
@@ -85,9 +85,6 @@ public class ClawSubsystem extends SubsystemBase {
   }
   
  public void UppyDownyArmsDownInit() {
-    if (isLowered())
-      arm.set(0);
-    else
       arm.set(ArmConstants.k_initArmSpeedRoboInit);
 
   }
