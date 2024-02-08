@@ -19,6 +19,7 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Subsystems.DriveSubsystem;
+import frc.robot.Subsystems.FlapSubsystem;
 import frc.robot.Subsystems.ClawSubsystem;  
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -35,6 +36,8 @@ import java.util.List;
 public class RobotContainer {
   // The robot's subsystems
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
+  private final FlapSubsystem m_robotFlap = new FlapSubsystem(51);
+
 
   // The driver's controller
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
@@ -64,6 +67,7 @@ public class RobotContainer {
   public void resetRobot(){
 
     m_robotDrive.resetClaws();
+    //m_robotFlap.flapSetZero();
 
   }
 
