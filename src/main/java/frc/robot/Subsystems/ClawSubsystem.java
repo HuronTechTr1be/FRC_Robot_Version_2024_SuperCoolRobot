@@ -37,21 +37,22 @@ public class ClawSubsystem extends SubsystemBase {
  
     waitCommand.initialize();
 
-    SmartDashboard.putNumber("im here",1);
-    double current = arm.getOutputCurrent();
-    SmartDashboard.putNumber("current",current);
+    SmartDashboard.putNumber("inside armSetZero void",1);
+    double ArmCurrent = arm.getOutputCurrent();
+    SmartDashboard.putNumber("ArmCurrent",ArmCurrent);
     int x = 0; 
     UppyDownyArmsDownInit();
     waitCommand.execute();
     double m_maxRight = 0;
 
-      while(current<20 && x<50000){
- 
+      while(ArmCurrent<20 && x<50000){
+        
+       arm.setOpenLoopRampRate(1.0);
        SmartDashboard.putNumber("RightArmCurrent",arm.getOutputCurrent());
        SmartDashboard.putNumber("LeftArmCurrent",arm.getOutputCurrent());
-       SmartDashboard.putNumber("still here",2);
-       current = arm.getOutputCurrent();
-       SmartDashboard.putNumber("still here",2323);
+       SmartDashboard.putNumber("inside armSetZero while loop",2);
+       ArmCurrent = arm.getOutputCurrent();
+       SmartDashboard.putNumber("still here(arm)",2323);
        x++;
        SmartDashboard.putNumber("x", x);
        if (arm.getOutputCurrent()>=m_maxRight){
@@ -64,7 +65,9 @@ public class ClawSubsystem extends SubsystemBase {
      } 
     
       UppyDownyArmsStill(); 
-      //m_RelativeEncoder.setPosition(0);
+      m_RelativeEncoder.setPosition(0);
+      arm.setOpenLoopRampRate(0);
+      // Idk if we need this - arm.burnFlash();
 
   }
 

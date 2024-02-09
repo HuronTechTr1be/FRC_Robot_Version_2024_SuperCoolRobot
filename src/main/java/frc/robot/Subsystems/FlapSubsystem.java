@@ -30,19 +30,20 @@ public class FlapSubsystem extends SubsystemBase {
  
     waitCommand.initialize();
 
-    SmartDashboard.putNumber("im here",1);
-    double current = flap.getOutputCurrent();
-    SmartDashboard.putNumber("Current",current);
+    SmartDashboard.putNumber("inside flapSetZero void",1);
+    double FlapCurrent = flap.getOutputCurrent();
+    SmartDashboard.putNumber("FlapCurrent",FlapCurrent);
     int x = 0; 
     UppyDownyFlapDownInit();
     waitCommand.execute();
 
-      while(current<20 && x<50000){
+      while(FlapCurrent<20 && x<50000){
  
+       flap.setOpenLoopRampRate(1.0);
        SmartDashboard.putNumber("FlapCurrent",flap.getOutputCurrent());
-       SmartDashboard.putNumber("still here",2);
-       current = flap.getOutputCurrent();
-       SmartDashboard.putNumber("still here",2323);
+       SmartDashboard.putNumber("iinside flapSetZero while loop",2);
+       FlapCurrent = flap.getOutputCurrent();
+       SmartDashboard.putNumber("still here(flap)",2323);
        x++;
        SmartDashboard.putNumber("x", x);
     
@@ -51,7 +52,10 @@ public class FlapSubsystem extends SubsystemBase {
      
     
       UppyDownyFlapStill(); 
-      //m_RelativeEncoder.setPosition(0);
+      m_RelativeEncoder.setPosition(0);
+      flap.setOpenLoopRampRate(0);
+      // Idk if we need this - arm.burnFlash();
+
     }
   
 
@@ -121,6 +125,7 @@ public class FlapSubsystem extends SubsystemBase {
     //     flap.set(0);
 
     // }
+
     }
 
 
