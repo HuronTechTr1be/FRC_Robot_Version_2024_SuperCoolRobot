@@ -18,6 +18,7 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import frc.robot.Constants.OIConstants;*/
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.PS5Controller;
 import edu.wpi.first.wpilibj.XboxController;
@@ -28,6 +29,7 @@ import frc.robot.Subsystems.EgressSubsystem;
 import frc.robot.Subsystems.IntakeModule;
 import frc.robot.Subsystems.SweeperWheelsSubsystem;
 import frc.robot.Subsystems.FlapSubsystem;
+import frc.robot.AutonSwitch;
 
  /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -40,6 +42,7 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
+  private AutonSwitch m_autonSwitch;
   //private ClawSubsystem m_clawLeft = new ClawSubsystem(21);
   //private ClawSubsystem m_clawRight = new ClawSubsystem(22);
   private EgressSubsystem m_topShoot = new EgressSubsystem(42);
@@ -47,9 +50,10 @@ public class Robot extends TimedRobot {
   private IntakeModule m_conveyorBelt = new IntakeModule(33);
   private SweeperWheelsSubsystem m_leftSweeperWheel = new SweeperWheelsSubsystem(31);
   private SweeperWheelsSubsystem m_rightSweeperWheel = new SweeperWheelsSubsystem(32);
-  private FlapSubsystem m_flap = new FlapSubsystem(51);
-
+  //private FlapSubsystem m_flap = new FlapSubsystem(51);
   PS4Controller drive2Controller = new PS4Controller(1);
+
+  DigitalInput autonSwitchInput = new DigitalInput(0);
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -95,6 +99,7 @@ public class Robot extends TimedRobot {
 
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
+
     /*
      * String autoSelected = SmartDashboard.getString("Auto Selector",
      * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
@@ -111,6 +116,14 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
+
+    if (autonSwitchInput.get()) {
+      m_autonSwitch.scoreAuton();
+//this is called if the switch is up????????
+    } else {
+        m_autonSwitch.hangAuton();
+//this is called if the switch is down???????
+    }
 
   }
 
