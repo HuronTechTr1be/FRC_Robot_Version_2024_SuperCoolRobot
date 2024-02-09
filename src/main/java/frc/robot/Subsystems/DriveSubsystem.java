@@ -16,7 +16,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Subsystems.ClawSubsystem;
 //import edu.wpi.first.wpilibj.ADIS16470_IMU;
 //import edu.wpi.first.wpilibj.ADIS16470_IMU.IMUAxis;
-import com.ctre.phoenix.sensors.WPI_PigeonIMU; 
+import com.ctre.phoenix6.configs.Pigeon2Configuration;
+import com.ctre.phoenix6.controls.DutyCycleOut;
+import com.ctre.phoenix6.hardware.Pigeon2;
+import com.ctre.phoenix6.hardware.TalonFX;
 import frc.robot.Constants.DriveConstants;
 import frc.utils.SwerveUtils;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -49,7 +52,7 @@ public class DriveSubsystem extends SubsystemBase {
   private ClawSubsystem m_clawRight = new ClawSubsystem(22);
 
   // The gyro sensor
-  private final WPI_PigeonIMU m_gyro = new WPI_PigeonIMU(0);
+  private final Pigeon2 m_gyro = new Pigeon2(10);
 
   // Slew rate filter variables for controlling lateral acceleration
   private double m_currentRotation = 0.0;
@@ -122,6 +125,23 @@ public class DriveSubsystem extends SubsystemBase {
     m_clawRight.armSetZero();
 
   }
+
+  //Concept for autobalancer using encoder data
+  // public void autoBalance(){
+  //   double tilt = 15;
+  //   if(tilt>10){
+  //     while(tilt>10){
+  //     m_clawLeft.UppyDownyArmsUp(drive1Controller.getLeftTriggerAxis());
+  //     }
+  //     m_clawLeft.UppyDownyArmsStill();
+  //   }
+  //   if(tilt<-10){
+  //     while(tilt<-10){
+  //     m_clawRight.UppyDownyArmsUp(drive1Controller.getRightTriggerAxis());
+  //     }
+  //     m_clawRight.UppyDownyArmsStill();
+  //   }
+  // }
 
   /**
    * Method to drive the robot using joystick info.
@@ -218,6 +238,9 @@ public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelativ
     }
     m_clawLeft.periodic();
     m_clawRight.periodic();
+    SmartDashboard.putNumber("turn rate",getTurnRate());
+    SmartDashboard.putNumber("heading",getHeading());
+
     
 
     var swerveModuleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(
@@ -231,6 +254,7 @@ public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelativ
     m_rearLeft.setDesiredState(swerveModuleStates[2]);
     m_rearRight.setDesiredState(swerveModuleStates[3]);
   }
+  //end of drive
 
   /**
    * Sets the wheels into an X formation to prevent movement.
