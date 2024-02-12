@@ -112,7 +112,7 @@ public class ClawSubsystem extends SubsystemBase {
 
   public void periodic(){
 
-    if(arm.getDeviceId()==21){
+    if(arm.getDeviceId()==21){ 
       SmartDashboard.putNumber("LeftArmEncoder",m_RelativeEncoder.getPosition());
       SmartDashboard.putNumber("LefttArmCurrent",arm.getOutputCurrent());
       if (arm.getOutputCurrent()>m_maxLeftCurrent){
