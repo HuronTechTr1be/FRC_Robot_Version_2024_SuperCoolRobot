@@ -4,6 +4,7 @@ package frc.robot.Subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.SparkAbsoluteEncoder.Type;
@@ -23,7 +24,6 @@ public class ClawSubsystem extends SubsystemBase {
   //private double m_maxLeftCurrent = 0;
   //private double m_maxRightCurrent = 0;
   private static WaitCommand waitCommand = new WaitCommand(10);
-
 
 
   public ClawSubsystem(int deviceId) {
@@ -70,6 +70,7 @@ public class ClawSubsystem extends SubsystemBase {
   }
 
   public void UppyDownyArmsDown() {
+
     if (isLowered())
       arm.set(0);
     else
@@ -78,6 +79,7 @@ public class ClawSubsystem extends SubsystemBase {
   }
   
  public void UppyDownyArmsDownInit() {
+
       arm.set(ArmConstants.k_initArmSpeedRoboInit);
 
   }
@@ -92,6 +94,7 @@ public class ClawSubsystem extends SubsystemBase {
 
     return Math.abs(m_PointRaised - m_RelativeEncoder.getPosition()) <= 10;
 
+      
   }
 
   private boolean isLowered(){

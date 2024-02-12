@@ -15,7 +15,7 @@ public class FlapSubsystem extends SubsystemBase {
     private RelativeEncoder m_RelativeEncoder;
     private double m_PointRaised = 145;
     private double m_PointLowered = 0; 
-    private double m_maxFlapCurrent = 0;
+    //private double m_maxFlapCurrent = 0;
     private static WaitCommand waitCommand = new WaitCommand(10);
 
     public FlapSubsystem(int deviceId){
@@ -29,25 +29,20 @@ public class FlapSubsystem extends SubsystemBase {
     public void flapSetZero(){
  
     waitCommand.initialize();
-
-    SmartDashboard.putNumber("inside flapSetZero void",1);
     double FlapCurrent = flap.getOutputCurrent();
     SmartDashboard.putNumber("FlapCurrent",FlapCurrent);
     int x = 0; 
     UppyDownyFlapDownInit();
     waitCommand.execute();
 
-      while(FlapCurrent<20 && x<50000){
+      while(FlapCurrent<20 && x<100000000){
  
        flap.setOpenLoopRampRate(1.0);
        SmartDashboard.putNumber("FlapCurrent",flap.getOutputCurrent());
-       SmartDashboard.putNumber("iinside flapSetZero while loop",2);
        FlapCurrent = flap.getOutputCurrent();
-       SmartDashboard.putNumber("still here(flap)",2323);
        x++;
        SmartDashboard.putNumber("x", x);
-    
-      waitCommand.execute();
+
       }
      
     
@@ -100,12 +95,13 @@ public class FlapSubsystem extends SubsystemBase {
 
   public void periodic(){
 
-      SmartDashboard.putNumber("FlapEncoder",m_RelativeEncoder.getPosition());
-      SmartDashboard.putNumber("FlapCurrent",flap.getOutputCurrent());
-      if (flap.getOutputCurrent()>m_maxFlapCurrent){
-        m_maxFlapCurrent = flap.getOutputCurrent();
-        SmartDashboard.putNumber("maxFlapCurrent", m_maxFlapCurrent);
-      }
+      // SmartDashboard.putNumber("FlapEncoder",m_RelativeEncoder.getPosition());
+      // SmartDashboard.putNumber("FlapCurrent",flap.getOutputCurrent());
+      // if (flap.getOutputCurrent()>m_maxFlapCurrent){
+      //   m_maxFlapCurrent = flap.getOutputCurrent();
+      //   SmartDashboard.putNumber("maxFlapCurrent", m_maxFlapCurrent);
+      // }
+
   }
     
     // public void Up(){
