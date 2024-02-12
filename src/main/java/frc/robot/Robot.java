@@ -24,6 +24,7 @@ import edu.wpi.first.wpilibj.PS5Controller;
 import edu.wpi.first.wpilibj.XboxController;
 //import main.java.frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Constants.EgressConstants;
 import frc.robot.Subsystems.ClawSubsystem;
 import frc.robot.Subsystems.EgressSubsystem;
 import frc.robot.Subsystems.IntakeModule;
@@ -51,6 +52,10 @@ public class Robot extends TimedRobot {
   private SweeperWheelsSubsystem m_leftSweeperWheel = new SweeperWheelsSubsystem(31);
   private SweeperWheelsSubsystem m_rightSweeperWheel = new SweeperWheelsSubsystem(32);
   //private FlapSubsystem m_flap = new FlapSubsystem(51);
+<<<<<<< HEAD
+
+=======
+>>>>>>> 60f738bd362586a150972cc07488fc4d9c0556e6
   PS4Controller drive2Controller = new PS4Controller(1);
 
   DigitalInput autonSwitchInput = new DigitalInput(0);
@@ -157,6 +162,10 @@ public class Robot extends TimedRobot {
   @Override
   public void testInit() {
 
+    // SmartDashboard.putNumber("Bottom Low Shoot Factor:", EgressConstants.id41LowShootFactor);
+    // SmartDashboard.putNumber("Bottom High Shoot Factor:", EgressConstants.id41HighShootFactor);
+    // SmartDashboard.putNumber("Top Low Shoot Factor:", EgressConstants.id42LowShootFactor);
+    // SmartDashboard.putNumber("Top High Shoot Factor:", EgressConstants.id42HighShootFactor);
     // Cancels all running commands at the start of test mode.
     CommandScheduler.getInstance().cancelAll();
 
@@ -165,28 +174,64 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during test mode.  */
   @Override
   public void testPeriodic() {
+    
+    double bottomHighShootFactor = SmartDashboard.getNumber("Bottom High Shoot Factor:", EgressConstants.id41HighShootFactor);
+    SmartDashboard.setDefaultNumber("Bottom High Shoot Factor:", bottomHighShootFactor);
+    if(Math.abs(bottomHighShootFactor)>1){
+      bottomHighShootFactor = 0;
+    }
+    double topHighShootFactor = SmartDashboard.getNumber("Top High Shoot Factor:", EgressConstants.id42HighShootFactor);
+    SmartDashboard.setDefaultNumber("Top High Shoot Factor:", topHighShootFactor);
+    if(Math.abs(topHighShootFactor)>1){
+      topHighShootFactor = 0;
+    }
+    double bottomLowShootFactor = SmartDashboard.getNumber("Bottom Low Shoot Factor:", EgressConstants.id41LowShootFactor);
+    SmartDashboard.setDefaultNumber("Bottom Low Shoot Factor:", bottomLowShootFactor);
+    if(Math.abs(bottomLowShootFactor)>1){
+      bottomLowShootFactor = 0;
+    }
+    double topLowShootFactor = SmartDashboard.getNumber("Top Low Shoot Factor:", EgressConstants.id42LowShootFactor);
+    SmartDashboard.setDefaultNumber("Top Low Shoot Factor:", topLowShootFactor);
+    if(Math.abs(topLowShootFactor)>1){
+      topLowShootFactor = 0;
+    }
 
     if (drive2Controller.getCircleButton()) {
+      if(bottomHighShootFactor==EgressConstants.id41HighShootFactor && topHighShootFactor==EgressConstants.id42HighShootFactor){
       m_topShoot.HighShoot();
       m_bottomShoot.HighShoot();
       m_conveyorBelt.HighShoot();
+      }
+      else{
+      m_topShoot.adjustedHighShoot(topHighShootFactor);
+      m_bottomShoot.adjustedHighShoot(bottomHighShootFactor);
+      m_conveyorBelt.HighShoot();  
+      }
+      
     }
     else if (drive2Controller.getSquareButton()) {
+      if(bottomLowShootFactor==EgressConstants.id41LowShootFactor && topLowShootFactor==EgressConstants.id42LowShootFactor){
       m_topShoot.LowShoot();
       m_bottomShoot.LowShoot();
       m_conveyorBelt.LowShoot();
+      }
+      else{
+      m_topShoot.adjustedLowShoot(topLowShootFactor);
+      m_bottomShoot.adjustedLowShoot(bottomLowShootFactor);
+      m_conveyorBelt.LowShoot();
+      }
     }
     else if (drive2Controller.getCrossButton()) {
       m_topShoot.Reject();
       m_bottomShoot.Reject();
       m_conveyorBelt.reject();
-      m_leftSweeperWheel.Reject(); 
-      m_rightSweeperWheel.Reject();
+      //m_leftSweeperWheel.Reject(); 
+      //m_rightSweeperWheel.Reject();
     } 
      else if (drive2Controller.getTriangleButton()) {;
       m_conveyorBelt.PickUp();
-      m_leftSweeperWheel.PickUp();
-      m_rightSweeperWheel.PickUp();
+      //m_leftSweeperWheel.PickUp();
+      //m_rightSweeperWheel.PickUp();
       //m_topShoot.Reject();
       m_bottomShoot.PickUp();
     }
@@ -194,8 +239,8 @@ public class Robot extends TimedRobot {
       m_topShoot.Still();
       m_bottomShoot.Still();
       m_conveyorBelt.still();
-      m_leftSweeperWheel.Still();
-      m_rightSweeperWheel.Still();
+      //m_leftSweeperWheel.Still();
+      //m_rightSweeperWheel.Still();
     }
 
   /*
