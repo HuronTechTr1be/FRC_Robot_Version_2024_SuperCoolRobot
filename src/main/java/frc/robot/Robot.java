@@ -52,10 +52,7 @@ public class Robot extends TimedRobot {
   private SweeperWheelsSubsystem m_leftSweeperWheel = new SweeperWheelsSubsystem(31);
   private SweeperWheelsSubsystem m_rightSweeperWheel = new SweeperWheelsSubsystem(32);
   //private FlapSubsystem m_flap = new FlapSubsystem(51);
-<<<<<<< HEAD
 
-=======
->>>>>>> 60f738bd362586a150972cc07488fc4d9c0556e6
   PS4Controller drive2Controller = new PS4Controller(1);
 
   DigitalInput autonSwitchInput = new DigitalInput(0);

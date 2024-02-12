@@ -121,7 +121,7 @@ public class DriveSubsystem extends SubsystemBase {
 
   public void resetClaws(){
 
-    //m_clawLeft.armSetZero();
+    m_clawLeft.armSetZero();
     m_clawRight.armSetZero();
 
   }

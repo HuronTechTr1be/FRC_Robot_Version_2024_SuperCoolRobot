@@ -161,7 +161,7 @@ public final class Constants {
   }
 
   public static final class ArmConstants {
-      public static final double k_initArmSpeedRoboInit = -0.25; // left pick up power level
+      public static final double k_initArmSpeedRoboInit = -1; // left pick up power level
       public static final double k_initArmSpeedDown = -1; // left pick up power level
 
   }
