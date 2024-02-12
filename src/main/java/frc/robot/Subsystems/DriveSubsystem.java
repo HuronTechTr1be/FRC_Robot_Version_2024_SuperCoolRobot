@@ -121,10 +121,11 @@ public class DriveSubsystem extends SubsystemBase {
 
   public void resetClaws(){
 
-    //m_clawLeft.armSetZero();
+    m_clawLeft.armSetZero();
     m_clawRight.armSetZero();
 
   }
+  
 
   //Concept for autobalancer using encoder data
   // public void autoBalance(){

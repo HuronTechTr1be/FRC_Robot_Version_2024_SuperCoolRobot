@@ -4,6 +4,7 @@ package frc.robot.Subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.SparkAbsoluteEncoder.Type;
@@ -20,10 +21,9 @@ public class ClawSubsystem extends SubsystemBase {
   private RelativeEncoder m_RelativeEncoder;
   private double m_PointRaised = 145;
   private double m_PointLowered = 0; 
-  private double m_maxLeftCurrent = 0;
-  private double m_maxRightCurrent = 0;
+  // private double m_maxLeftCurrent = 0;
+  // private double m_maxRightCurrent = 0;
   private static WaitCommand waitCommand = new WaitCommand(10);
-
 
 
   public ClawSubsystem(int deviceId) {
@@ -53,23 +53,23 @@ public class ClawSubsystem extends SubsystemBase {
     adjustedUppyDownyArmsDownInit(armDownInitFactor);
   }
     waitCommand.execute();
-    double m_maxRight = 0;
+    //double m_maxRight = 0;
+    //double m_maxLeft = 0;
 
       while(ArmCurrent<20 && x<50000){
         
-       arm.setOpenLoopRampRate(1.0);
+       arm.setOpenLoopRampRate(3);
        SmartDashboard.putNumber("RightArmCurrent",arm.getOutputCurrent());
        SmartDashboard.putNumber("LeftArmCurrent",arm.getOutputCurrent());
-       SmartDashboard.putNumber("inside armSetZero while loop",2);
        ArmCurrent = arm.getOutputCurrent();
-       SmartDashboard.putNumber("still here(arm)",2323);
        x++;
        SmartDashboard.putNumber("x", x);
-       if (arm.getOutputCurrent()>=m_maxRight){
-        m_maxRight = arm.getOutputCurrent();
-        SmartDashboard.putNumber("MaxRightArmCurrentWhileLoop",m_maxRight);
 
-    }
+    //    if (arm.getOutputCurrent()>=m_maxRight){
+    //     m_maxRight = arm.getOutputCurrent();
+    //     SmartDashboard.putNumber("MaxRightArmCurrentWhileLoop",m_maxRight);
+    // }
+
       waitCommand.execute();
 
      } 
@@ -77,7 +77,7 @@ public class ClawSubsystem extends SubsystemBase {
       UppyDownyArmsStill(); 
       m_RelativeEncoder.setPosition(0);
       arm.setOpenLoopRampRate(0);
-      // Idk if we need this - arm.burnFlash();
+      arm.burnFlash();
 
   }
 
@@ -90,6 +90,7 @@ public class ClawSubsystem extends SubsystemBase {
   }
 
   public void UppyDownyArmsDown() {
+
     if (isLowered())
       arm.set(0);
     else
@@ -104,6 +105,7 @@ public class ClawSubsystem extends SubsystemBase {
   } 
 
  public void UppyDownyArmsDownInit() {
+
   arm.set(ArmConstants.k_initArmSpeedRoboInit);
 
   }
@@ -116,13 +118,14 @@ public class ClawSubsystem extends SubsystemBase {
 
   private boolean isRaised(){
 
-    return Math.abs(m_PointRaised - m_RelativeEncoder.getPosition()) <= 10;
+    return Math.abs(m_PointRaised - m_RelativeEncoder.getPosition()) <= 5;
 
+      
   }
 
   private boolean isLowered(){
 
-    return Math.abs(m_PointLowered - m_RelativeEncoder.getPosition()) <= 10;
+    return Math.abs(m_PointLowered - m_RelativeEncoder.getPosition()) <= 5;
 
   }
 
@@ -131,18 +134,18 @@ public class ClawSubsystem extends SubsystemBase {
     if(arm.getDeviceId()==21){ 
       SmartDashboard.putNumber("LeftArmEncoder",m_RelativeEncoder.getPosition());
       SmartDashboard.putNumber("LefttArmCurrent",arm.getOutputCurrent());
-      if (arm.getOutputCurrent()>m_maxLeftCurrent){
-        m_maxLeftCurrent = arm.getOutputCurrent();
-    }
-    SmartDashboard.putNumber("maxLeftCurrent", m_maxLeftCurrent);
+    //   if (arm.getOutputCurrent()>m_maxLeftCurrent){
+    //     m_maxLeftCurrent = arm.getOutputCurrent();
+    // }
+    // SmartDashboard.putNumber("maxLeftCurrent", m_maxLeftCurrent);
   }
     else if(arm.getDeviceId()==22){
       SmartDashboard.putNumber("RightArmEncoder",m_RelativeEncoder.getPosition());
       SmartDashboard.putNumber("RightArmCurrent",arm.getOutputCurrent());
-      if (arm.getOutputCurrent()>m_maxRightCurrent){
-        m_maxRightCurrent = arm.getOutputCurrent();
-    }
-    SmartDashboard.putNumber("maxRightCurrent", m_maxRightCurrent);
+      // if (arm.getOutputCurrent()>m_maxRightCurrent){
+      //   m_maxRightCurrent = arm.getOutputCurrent();
+      //}
+    // SmartDashboard.putNumber("maxRightCurrent", m_maxRightCurrent);
 
     }
 
