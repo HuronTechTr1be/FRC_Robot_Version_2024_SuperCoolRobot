@@ -33,6 +33,10 @@ public final class Constants {
     
     public static final double kReduceSpeedFactor = .25; //reduce drive speed with A on drive controller
 
+    public static final double kSpeedFactor = 1; //reduce drive speed with driver dashboard
+    public static final double kRotateFactor = 1; //reduce rotation speed with driver dashboard
+
+
     // Chassis configuration
     public static final double kTrackWidth = Units.inchesToMeters(26.5);
     // Distance between centers of right and left wheels on robot
@@ -158,6 +162,7 @@ public final class Constants {
     public static final double id32PickUpFactor = 1; // left pick up power level
     public static final double id31RejectFactor = 1; // right reject power level
     public static final double id32RejectFactor = 1; // left reject power level
+    
   }
 
   public static final class ArmConstants {
@@ -171,4 +176,12 @@ public final class Constants {
       public static final double k_initFlapSpeedDown = -1; // left pick up power level
 
   }
+
+  public static final class BeltConstants {
+      public static final double k_beltRejectSpeed = -1;
+      public static final double k_beltHighShootSpeed = 1;
+      public static final double k_beltLowShootSpeed = 1;
+      public static final double k_beltPickupSpeed = 1;
+  }
+  
 }

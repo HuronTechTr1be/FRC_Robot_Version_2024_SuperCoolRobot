@@ -40,8 +40,18 @@ public class ClawSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("inside armSetZero void",1);
     double ArmCurrent = arm.getOutputCurrent();
     SmartDashboard.putNumber("ArmCurrent",ArmCurrent);
-    int x = 0; 
+    int x = 0;
+    double armDownInitFactor = SmartDashboard.getNumber("Bottom High Shoot Factor:", ArmConstants.k_initArmSpeedRoboInit);
+    SmartDashboard.setDefaultNumber("Bottom High Shoot Factor:", armDownInitFactor);
+    if(Math.abs(armDownInitFactor)>1){
+      armDownInitFactor = 0;
+    }
+    if(armDownInitFactor==ArmConstants.k_initArmSpeedRoboInit){
     UppyDownyArmsDownInit();
+    }
+  else{
+    adjustedUppyDownyArmsDownInit(armDownInitFactor);
+  }
     waitCommand.execute();
     double m_maxRight = 0;
 
@@ -86,9 +96,15 @@ public class ClawSubsystem extends SubsystemBase {
       arm.set(ArmConstants.k_initArmSpeedDown);
 
   }
+
+ public void adjustedUppyDownyArmsDownInit(double speed){
   
+  arm.set(speed);
+ 
+  } 
+
  public void UppyDownyArmsDownInit() {
-      arm.set(ArmConstants.k_initArmSpeedRoboInit);
+  arm.set(ArmConstants.k_initArmSpeedRoboInit);
 
   }
 
