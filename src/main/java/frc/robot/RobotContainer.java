@@ -36,7 +36,7 @@ import java.util.List;
 public class RobotContainer {
   // The robot's subsystems
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
-  private final FlapSubsystem m_robotFlap = new FlapSubsystem(51);
+  //private final FlapSubsystem m_robotFlap = new FlapSubsystem(51);
 
 
   // The driver's controller

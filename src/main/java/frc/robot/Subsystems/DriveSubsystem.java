@@ -213,26 +213,26 @@ public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelativ
     double ySpeedDelivered = ySpeedCommanded * DriveConstants.kMaxSpeedMetersPerSecond;
     double rotDelivered = m_currentRotation * DriveConstants.kMaxAngularSpeed;
 
-    double adjustedSpeedFactor = SmartDashboard.getNumber("Speed Factor", DriveConstants.kSpeedFactor);
-    double adjustedRotateFactor = SmartDashboard.getNumber("Rotate Factor", DriveConstants.kRotateFactor);
+    // double adjustedSpeedFactor = SmartDashboard.getNumber("Speed Factor", DriveConstants.kSpeedFactor);
+    // double adjustedRotateFactor = SmartDashboard.getNumber("Rotate Factor", DriveConstants.kRotateFactor);
     
-    if (Math.abs(adjustedSpeedFactor)>1){
-      adjustedSpeedFactor=0;
-    }
-    if (Math.abs(adjustedRotateFactor)>1){
-      adjustedRotateFactor=0;
-    }
+    // if (Math.abs(adjustedSpeedFactor)>1){
+    //   adjustedSpeedFactor=0;
+    // }
+    // if (Math.abs(adjustedRotateFactor)>1){
+    //   adjustedRotateFactor=0;
+    // }
 
-    if(adjustedSpeedFactor==DriveConstants.kSpeedFactor && adjustedRotateFactor==DriveConstants.kRotateFactor){
-    xSpeedDelivered*= DriveConstants.kSpeedFactor;
-    ySpeedDelivered*= DriveConstants.kSpeedFactor;
-    rotDelivered*= DriveConstants.kRotateFactor;
-    }
-    else{
-    xSpeedDelivered*= adjustedSpeedFactor;
-    ySpeedDelivered*= adjustedSpeedFactor;
-    rotDelivered*= adjustedRotateFactor;
-    }
+    // if(adjustedSpeedFactor==DriveConstants.kSpeedFactor && adjustedRotateFactor==DriveConstants.kRotateFactor){
+    // xSpeedDelivered*= DriveConstants.kSpeedFactor;
+    // ySpeedDelivered*= DriveConstants.kSpeedFactor;
+    // rotDelivered*= DriveConstants.kRotateFactor;
+    // }
+    // else{
+    // xSpeedDelivered*= adjustedSpeedFactor;
+    // ySpeedDelivered*= adjustedSpeedFactor;
+    // rotDelivered*= adjustedRotateFactor;
+    // }
 
 
     //Reduce speed with A on drive controller
@@ -241,6 +241,13 @@ public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelativ
       xSpeedDelivered*= DriveConstants.kReduceSpeedFactor;
       ySpeedDelivered*= DriveConstants.kReduceSpeedFactor;
     }
+
+SmartDashboard.putNumber("X Speed", xSpeedDelivered);
+SmartDashboard.putNumber("Y Speed", ySpeedDelivered);
+SmartDashboard.putNumber("Rotation Speed", rotDelivered);
+
+
+
     if (drive1Controller.getLeftTriggerAxis()>0.05) {
       m_clawLeft.UppyDownyArmsUp(drive1Controller.getLeftTriggerAxis());
     }
