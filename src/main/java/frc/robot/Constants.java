@@ -32,6 +32,7 @@ public final class Constants {
     public static final double kRotationalSlewRate = 2.0; // percent per second (1 = 100%)
     
     public static final double kReduceSpeedFactor = .25; //reduce drive speed with A on drive controller
+    public static final double kReduceRotationRactor = .25;//reduce rotation speed with A on drive controller
 
     public static final double kSpeedFactor = 1; //reduce drive speed with driver dashboard
     public static final double kRotateFactor = 1; //reduce rotation speed with driver dashboard
@@ -145,8 +146,8 @@ public final class Constants {
  
   public static final class EgressConstants {
 
-    public static final double id41HighShootFactor = .8; //bottom high shooter power level
-    public static final double id42HighShootFactor = .8; //top high shooter power level
+    public static final double id41HighShootFactor = 1; //bottom high shooter power level
+    public static final double id42HighShootFactor = 1; //top high shooter power level
     public static final double id41RejectFactor = -1; //bottom reject power level
     public static final double id42RejectFactor = -1; //top reject power level
     public static final double id41LowShootFactor = .25; //bottom low shooter power level

@@ -51,6 +51,8 @@ public class DriveSubsystem extends SubsystemBase {
   private ClawSubsystem m_clawLeft = new ClawSubsystem(21);
   private ClawSubsystem m_clawRight = new ClawSubsystem(22);
 
+  boolean reverseDrive = false;
+
   // The gyro sensor
   private final Pigeon2 m_gyro = new Pigeon2(10);
 
@@ -234,12 +236,25 @@ public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelativ
     // rotDelivered*= adjustedRotateFactor;
     // }
 
+    
+    if(drive1Controller.getYButtonReleased()){
+      reverseDrive = !reverseDrive;
+    }
+SmartDashboard.setDefaultBoolean("Reverse Drive", reverseDrive);
+SmartDashboard.putBoolean("Reverse Drive", reverseDrive);
+
+    if(reverseDrive){
+      ySpeedDelivered*=-1;
+      xSpeedDelivered*=-1;
+      //rotDelivered*=-1;
+    }
 
     //Reduce speed with A on drive controller
     //Change factor Constants
     if(drive1Controller.getAButton()){
       xSpeedDelivered*= DriveConstants.kReduceSpeedFactor;
       ySpeedDelivered*= DriveConstants.kReduceSpeedFactor;
+      rotDelivered*=DriveConstants.kReduceRotationRactor;
     }
 
 SmartDashboard.putNumber("X Speed", xSpeedDelivered);

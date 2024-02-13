@@ -235,22 +235,21 @@ public class Robot extends TimedRobot {
       m_topShoot.Reject();
       m_bottomShoot.Reject();
       m_conveyorBelt.reject();
-      //m_leftSweeperWheel.Reject(); 
-      //m_rightSweeperWheel.Reject();
+      m_leftSweeperWheel.Reject(); 
+      m_rightSweeperWheel.Reject();
     } 
      else if (drive2Controller.getTriangleButton()) {;
       m_conveyorBelt.PickUp();
-      //m_leftSweeperWheel.PickUp();
-      //m_rightSweeperWheel.PickUp();
-      //m_topShoot.Reject();
+      m_leftSweeperWheel.PickUp();
+      m_rightSweeperWheel.PickUp();
       m_bottomShoot.PickUp();
     }
     else {
       m_topShoot.Still();
       m_bottomShoot.Still();
       m_conveyorBelt.still();
-      //m_leftSweeperWheel.Still();
-      //m_rightSweeperWheel.Still();
+      m_leftSweeperWheel.Still();
+      m_rightSweeperWheel.Still();
     }
 
   /*
