@@ -123,13 +123,13 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
 
-    if (autonSwitchInput.get()) {
-      m_autonSwitch.scoreAuton();
-//this is called if the switch is up????????
-    } else {
-        m_autonSwitch.hangAuton();
-//this is called if the switch is down???????
-    }
+//     if (autonSwitchInput.get()) {
+//       m_autonSwitch.scoreAuton();
+// //this is called if the switch is up????????
+//     } else {
+//         m_autonSwitch.hangAuton();
+// //this is called if the switch is down???????
+//     }
 
   }
 
