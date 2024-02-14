@@ -161,8 +161,8 @@ public final class Constants {
 
     public static final double id31PickUpFactor = 1; // right pick up power level
     public static final double id32PickUpFactor = 1; // left pick up power level
-    public static final double id31RejectFactor = 1; // right reject power level
-    public static final double id32RejectFactor = 1; // left reject power level
+    public static final double id31RejectFactor = -1; // right reject power level
+    public static final double id32RejectFactor = -1; // left reject power level
     
   }
 

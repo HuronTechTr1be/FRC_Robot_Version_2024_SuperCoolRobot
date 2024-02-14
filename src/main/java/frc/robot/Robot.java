@@ -26,6 +26,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.BeltConstants;
+import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.EgressConstants;
 import frc.robot.Constants.SweeperWheelConstants;
 import frc.robot.Subsystems.ClawSubsystem;
@@ -162,14 +163,9 @@ public class Robot extends TimedRobot {
   /** This function is called once each time the robot enters test mode. */
   @Override
   public void testInit() {
-    SmartDashboard.getNumber("Belt Reject Factor", BeltConstants.k_beltRejectSpeed);
-    SmartDashboard.getNumber("Belt High Shoot Factor", BeltConstants.k_beltHighShootSpeed);
-    SmartDashboard.getNumber("Belt Low Shoot Factor", BeltConstants.k_beltLowShootSpeed);
-    SmartDashboard.getNumber("Belt Pickup Factor", BeltConstants.k_beltPickupSpeed);
-    SmartDashboard.getNumber("Sweeper Wheel 31 Pickup Factor", SweeperWheelConstants.id31PickUpFactor);
-    SmartDashboard.getNumber("Sweeper Wheel 32 Pickup Factor", SweeperWheelConstants.id32PickUpFactor);
-    SmartDashboard.getNumber("Sweeper Wheel 32 Reject Factor", SweeperWheelConstants.id32RejectFactor);
-    SmartDashboard.getNumber("Sweeper Wheel 31 Reject Factor", SweeperWheelConstants.id31RejectFactor);
+    SmartDashboard.setDefaultNumber("Speed Factor", DriveConstants.kSpeedFactor);
+    SmartDashboard.setDefaultNumber("Rotate Factor", DriveConstants.kRotateFactor);
+    
 
 
     // SmartDashboard.putNumber("Bottom Low Shoot Factor:", EgressConstants.id41LowShootFactor);
