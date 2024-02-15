@@ -48,8 +48,7 @@ public class DriveSubsystem extends SubsystemBase {
 
   XboxController drive1Controller = new XboxController(0);
 
-  private ClawSubsystem m_clawLeft = new ClawSubsystem(21);
-  private ClawSubsystem m_clawRight = new ClawSubsystem(22);
+  private ClawSubsystem m_Arms = new ClawSubsystem();
 
   boolean reverseDrive = false;
 
@@ -123,8 +122,7 @@ public class DriveSubsystem extends SubsystemBase {
 
   public void resetClaws(){
 
-    m_clawLeft.armSetZero();
-    m_clawRight.armSetZero();
+    m_Arms.armSetZero();
 
   }
   
@@ -264,25 +262,24 @@ SmartDashboard.putNumber("Rotation Speed", rotDelivered);
 
 
     if (drive1Controller.getLeftTriggerAxis()>0.05) {
-      m_clawLeft.UppyDownyArmsUp(drive1Controller.getLeftTriggerAxis());
+      m_Arms.LeftArmUp(drive1Controller.getLeftTriggerAxis());
     }
     else if (drive1Controller.getLeftBumper()) {
-      m_clawLeft.UppyDownyArmsDown();
+      m_Arms.LeftArmDown();
     } 
     else {
-      m_clawLeft.UppyDownyArmsStill();
+      m_Arms.LeftArmStill();
     }
     if (drive1Controller.getRightTriggerAxis()>0.05) {
-      m_clawRight.UppyDownyArmsUp(drive1Controller.getRightTriggerAxis());
+      m_Arms.RightArmUp(drive1Controller.getRightTriggerAxis());
     }
     else if (drive1Controller.getRightBumper()) {
-      m_clawRight.UppyDownyArmsDown();
+      m_Arms.RightArmDown();
     } 
     else {
-      m_clawRight.UppyDownyArmsStill();
+      m_Arms.RightArmStill();
     }
-    m_clawLeft.periodic();
-    m_clawRight.periodic();
+    m_Arms.periodic();
     SmartDashboard.putNumber("turn rate",getTurnRate());
     SmartDashboard.putNumber("heading",getHeading());
 
