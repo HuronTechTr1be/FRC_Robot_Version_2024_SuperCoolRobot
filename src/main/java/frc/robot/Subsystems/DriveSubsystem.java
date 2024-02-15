@@ -245,7 +245,7 @@ SmartDashboard.putBoolean("Reverse Drive", reverseDrive);
 
     if(reverseDrive){
       ySpeedDelivered*=-1;
-      xSpeedDelivered*=-1;
+      //xSpeedDelivered*=-1;
       //rotDelivered*=-1;
     }
 
@@ -283,6 +283,7 @@ SmartDashboard.putNumber("Rotation Speed", rotDelivered);
     }
     m_clawLeft.periodic();
     m_clawRight.periodic();
+
     SmartDashboard.putNumber("turn rate",getTurnRate());
     SmartDashboard.putNumber("heading",getHeading());
 

@@ -5,13 +5,16 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.SparkAbsoluteEncoder.Type;
+import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants.ArmConstants;
+import com.revrobotics.SparkLimitSwitch;
 
 
 
@@ -19,19 +22,24 @@ public class ClawSubsystem extends SubsystemBase {
 
   private CANSparkMax arm;
   private RelativeEncoder m_RelativeEncoder;
+  private SparkLimitSwitch m_LimitSwitch;
   private double m_PointRaised = 145;
   private double m_PointLowered = 0; 
   // private double m_maxLeftCurrent = 0;
   // private double m_maxRightCurrent = 0;
   private static WaitCommand waitCommand = new WaitCommand(10);
 
+  
 
   public ClawSubsystem(int deviceId) {
 
     arm = new CANSparkMax(deviceId,MotorType.kBrushless);
     m_RelativeEncoder = arm.getEncoder();
+    m_LimitSwitch = arm.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyOpen);
 
   }
+
+  
 
   public void armSetZero(){
  
@@ -91,11 +99,13 @@ public class ClawSubsystem extends SubsystemBase {
 
   public void UppyDownyArmsDown() {
 
-    if (isLowered())
-      arm.set(0);
-    else
-      arm.set(ArmConstants.k_initArmSpeedDown);
 
+    if (isLowered()){
+      arm.set(0);
+    }
+      else{
+      arm.set(ArmConstants.k_initArmSpeedDown);
+      }
   }
 
  public void adjustedUppyDownyArmsDownInit(double speed){
@@ -125,15 +135,39 @@ public class ClawSubsystem extends SubsystemBase {
 
   private boolean isLowered(){
 
-    return Math.abs(m_PointLowered - m_RelativeEncoder.getPosition()) <= 5;
+    if (m_LimitSwitch.isPressed()){
+      if(arm.getDeviceId()==21){
+      SmartDashboard.putBoolean("Left Arm Down", true);
+      }
+      if(arm.getDeviceId()==22){
+      SmartDashboard.putBoolean("Right Arm Down", true);
+      }
+      return true;
+    }
+    else{
+      if(arm.getDeviceId()==21){
+      SmartDashboard.putBoolean("Left Arm Down", false);
+      }
+      if(arm.getDeviceId()==22){
+      SmartDashboard.putBoolean("Right Arm Down", false);
+      }      
+      return false;
+    }
 
   }
 
   public void periodic(){
+    
 
     if(arm.getDeviceId()==21){ 
       SmartDashboard.putNumber("LeftArmEncoder",m_RelativeEncoder.getPosition());
       SmartDashboard.putNumber("LefttArmCurrent",arm.getOutputCurrent());
+      if (m_LimitSwitch.isPressed()){
+      SmartDashboard.putBoolean("LeftisPressed", true);
+    }
+    else{
+      SmartDashboard.putBoolean("LeftisPressed", false);
+    }
     //   if (arm.getOutputCurrent()>m_maxLeftCurrent){
     //     m_maxLeftCurrent = arm.getOutputCurrent();
     // }
@@ -142,6 +176,12 @@ public class ClawSubsystem extends SubsystemBase {
     else if(arm.getDeviceId()==22){
       SmartDashboard.putNumber("RightArmEncoder",m_RelativeEncoder.getPosition());
       SmartDashboard.putNumber("RightArmCurrent",arm.getOutputCurrent());
+      if (m_LimitSwitch.isPressed()){
+      SmartDashboard.putBoolean("RightisPressed", true);
+    }
+      else{
+      SmartDashboard.putBoolean("RightisPressed", false);
+      }
       // if (arm.getOutputCurrent()>m_maxRightCurrent){
       //   m_maxRightCurrent = arm.getOutputCurrent();
       //}
