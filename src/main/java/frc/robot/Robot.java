@@ -19,6 +19,10 @@ import frc.robot.Constants.OIConstants;*/
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.cscore.VideoSink;
+import edu.wpi.first.cscore.VideoSource.ConnectionStrategy;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.PS5Controller;
@@ -59,7 +63,6 @@ public class Robot extends TimedRobot {
   private SweeperWheelsSubsystem m_rightSweeperWheel = new SweeperWheelsSubsystem(32);
   //private FlapSubsystem m_flap = new FlapSubsystem(51);
 
-
   PS4Controller drive2Controller = new PS4Controller(1);
 
   DigitalInput autonSwitchInput = new DigitalInput(0);
@@ -75,8 +78,7 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
 
-    CameraServer.startAutomaticCapture(0); 
-    CameraServer.startAutomaticCapture(1); 
+    CameraServer.startAutomaticCapture(1);
 
   }
 
@@ -132,10 +134,10 @@ public class Robot extends TimedRobot {
   public void autonomousPeriodic() {
 
 //     if (autonSwitchInput.get()) {
-//       m_autonSwitch.scoreAuton();
+//       m_autonSwitch.speakerAuton();
 // //this is called if the switch is up????????
 //     } else {
-//         m_autonSwitch.hangAuton();
+//         m_autonSwitch.ampAuton();
 // //this is called if the switch is down???????
 //     }
 
