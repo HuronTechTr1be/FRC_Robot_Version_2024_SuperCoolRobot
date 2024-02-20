@@ -31,8 +31,13 @@ public class UppyDownyArms {
     m_RelativeEncoder = arm.getEncoder();
 
     m_armSide = armSide;
-    arm.setOpenLoopRampRate(3); //set initial ramp rate
 
+  }
+
+  public void setRampRate(int rampRate){
+
+    arm.setOpenLoopRampRate(rampRate);
+    
   }
 
 
@@ -103,7 +108,7 @@ public class UppyDownyArms {
 
     if(arm.getDeviceId()==21){ 
       SmartDashboard.putNumber("LeftArmEncoder",m_RelativeEncoder.getPosition());
-      SmartDashboard.putNumber("LefttArmCurrent",arm.getOutputCurrent());
+      SmartDashboard.putNumber("LeftArmCurrentPeriodic",arm.getOutputCurrent());
     //   if (arm.getOutputCurrent()>m_maxLeftCurrent){
     //     m_maxLeftCurrent = arm.getOutputCurrent();
     // }
@@ -111,7 +116,7 @@ public class UppyDownyArms {
   }
     else if(arm.getDeviceId()==22){
       SmartDashboard.putNumber("RightArmEncoder",m_RelativeEncoder.getPosition());
-      SmartDashboard.putNumber("RightArmCurrent",arm.getOutputCurrent());
+      SmartDashboard.putNumber("RightArmCurrentPeriodic",arm.getOutputCurrent());
       // if (arm.getOutputCurrent()>m_maxRightCurrent){
       //   m_maxRightCurrent = arm.getOutputCurrent();
       //}

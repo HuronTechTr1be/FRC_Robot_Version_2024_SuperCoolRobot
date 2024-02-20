@@ -25,10 +25,12 @@ public void armSetZero(){
 
   SmartDashboard.putNumber("inside armSetZero void",1);
   double LeftArmCurrent = m_armLeft.getCurrent();
-   double RightArmCurrent = m_armRight.getCurrent();
+  double RightArmCurrent = m_armRight.getCurrent();
   int x = 0;
   double armDownInitFactor = SmartDashboard.getNumber("Arm Down Init Factor:", ArmConstants.k_initArmSpeedRoboInit);
   SmartDashboard.setDefaultNumber("Arm Down Init Factor:", armDownInitFactor);
+  m_armLeft.setRampRate(3);
+  m_armRight.setRampRate(3);
 
   
   if(Math.abs(armDownInitFactor)>1){
@@ -73,8 +75,9 @@ else{
 
   public void periodic(){
 
-   
-   
+    m_armRight.periodic();
+    m_armLeft.periodic();
+    
   }
 
   public void LeftArmUp(double speed) {
