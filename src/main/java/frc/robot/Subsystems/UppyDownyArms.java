@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.SparkAbsoluteEncoder.Type;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkLimitSwitch;
+
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants.ArmConstants;
 
@@ -18,17 +20,18 @@ public class UppyDownyArms {
 
   private CANSparkMax arm;
   private RelativeEncoder m_RelativeEncoder;
-  private double m_PointRaised = 145;
-  private double m_PointLowered = 0; 
+  private double m_PointRaised = 120;
 
   private String m_armSide;
   private static WaitCommand waitCommand = new WaitCommand(10);
+  private SparkLimitSwitch m_LimitSwitch;
 
 
   public UppyDownyArms(int deviceId, String armSide) {
 
     arm = new CANSparkMax(deviceId,MotorType.kBrushless);
     m_RelativeEncoder = arm.getEncoder();
+    m_LimitSwitch = arm.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyOpen);
 
     m_armSide = armSide;
 
@@ -37,7 +40,7 @@ public class UppyDownyArms {
   public void setRampRate(int rampRate){
 
     arm.setOpenLoopRampRate(rampRate);
-    
+
   }
 
 
@@ -85,7 +88,12 @@ public class UppyDownyArms {
 
   private boolean isLowered(){
 
-    return Math.abs(m_PointLowered - m_RelativeEncoder.getPosition()) <= 5;
+    if (m_LimitSwitch.isPressed()){
+      return true;
+    }
+    else{
+      return false;
+    }
 
   }
 
@@ -109,6 +117,10 @@ public class UppyDownyArms {
     if(arm.getDeviceId()==21){ 
       SmartDashboard.putNumber("LeftArmEncoder",m_RelativeEncoder.getPosition());
       SmartDashboard.putNumber("LeftArmCurrentPeriodic",arm.getOutputCurrent());
+      SmartDashboard.putBoolean("LeftArmIsLowered",isLowered());
+      if(isLowered()){
+      m_RelativeEncoder.setPosition(0);
+      }
     //   if (arm.getOutputCurrent()>m_maxLeftCurrent){
     //     m_maxLeftCurrent = arm.getOutputCurrent();
     // }
@@ -117,6 +129,10 @@ public class UppyDownyArms {
     else if(arm.getDeviceId()==22){
       SmartDashboard.putNumber("RightArmEncoder",m_RelativeEncoder.getPosition());
       SmartDashboard.putNumber("RightArmCurrentPeriodic",arm.getOutputCurrent());
+      SmartDashboard.putBoolean("RightArmIsLowered",isLowered());
+      if(isLowered()){
+      m_RelativeEncoder.setPosition(0);
+      }
       // if (arm.getOutputCurrent()>m_maxRightCurrent){
       //   m_maxRightCurrent = arm.getOutputCurrent();
       //}
