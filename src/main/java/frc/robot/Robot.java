@@ -113,7 +113,23 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
 
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+      m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+
+      double autonOption = SmartDashboard.getNumber("Auton Option", 0);
+
+    if (autonOption == 1) 
+      m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+
+    if (autonOption == 2) 
+      m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+
+    if (autonOption == 3) 
+      m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+
+    else
+      m_autonomousCommand = m_robotContainer.stillAutonomousCommand();
+
+  
 
 
     /*
@@ -127,19 +143,14 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
+
   }
 
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
 
-//     if (autonSwitchInput.get()) {
-//       m_autonSwitch.speakerAuton();
-// //this is called if the switch is up????????
-//     } else {
-//         m_autonSwitch.ampAuton();
-// //this is called if the switch is down???????
-//     }
+
 
   }
 
@@ -172,6 +183,7 @@ public class Robot extends TimedRobot {
   /** This function is called once each time the robot enters test mode. */
   @Override
   public void testInit() {
+
     SmartDashboard.setDefaultNumber("Speed Factor", DriveConstants.kSpeedFactor);
     SmartDashboard.setDefaultNumber("Rotate Factor", DriveConstants.kRotateFactor);
     
