@@ -46,7 +46,7 @@ else{
 }
     //waitCommand.execute();
 
-  while((LeftArmCurrent<20 || RightArmCurrent<20) && x<50000){
+  while((LeftArmCurrent<20 || RightArmCurrent<20) && x<100000){
       
     LeftArmCurrent = m_armLeft.getCurrent();
     RightArmCurrent = m_armRight.getCurrent();

@@ -115,23 +115,6 @@ public class Robot extends TimedRobot {
 
       m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
-      double autonOption = SmartDashboard.getNumber("Auton Option", 0);
-
-    if (autonOption == 1) 
-      m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-
-    if (autonOption == 2) 
-      m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-
-    if (autonOption == 3) 
-      m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-
-    else
-      m_autonomousCommand = m_robotContainer.stillAutonomousCommand();
-
-  
-
-
     /*
      * String autoSelected = SmartDashboard.getString("Auto Selector",
      * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand

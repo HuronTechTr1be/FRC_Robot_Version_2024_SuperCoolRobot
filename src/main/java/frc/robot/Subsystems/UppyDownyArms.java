@@ -20,7 +20,7 @@ public class UppyDownyArms {
 
   private CANSparkMax arm;
   private RelativeEncoder m_RelativeEncoder;
-  private double m_PointRaised = 120;
+  private double m_PointRaised = 117;
 
   private String m_armSide;
   private static WaitCommand waitCommand = new WaitCommand(10);
