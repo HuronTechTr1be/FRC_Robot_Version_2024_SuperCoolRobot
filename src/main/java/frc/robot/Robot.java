@@ -19,6 +19,10 @@ import frc.robot.Constants.OIConstants;*/
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.cscore.VideoSink;
+import edu.wpi.first.cscore.VideoSource.ConnectionStrategy;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.PS5Controller;
@@ -59,7 +63,6 @@ public class Robot extends TimedRobot {
   private SweeperWheelsSubsystem m_rightSweeperWheel = new SweeperWheelsSubsystem(32);
   //private FlapSubsystem m_flap = new FlapSubsystem(51);
 
-
   PS4Controller drive2Controller = new PS4Controller(1);
 
   DigitalInput autonSwitchInput = new DigitalInput(0);
@@ -76,6 +79,8 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
     
      //CameraServer.startAutomaticCapture();
+
+    CameraServer.startAutomaticCapture(1);
 
   }
 
@@ -95,8 +100,6 @@ public class Robot extends TimedRobot {
      // block in order for anything in the Command-based framework to work.
      CommandScheduler.getInstance().run();
 
-    // CameraServer.startAutomaticCapture(); 
-
    }
  
   /** This function is  called once each time the robot enters Disabled mode. */
@@ -111,8 +114,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
 
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-
+      m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     /*
      * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -125,19 +127,14 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
+
   }
 
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
 
-//     if (autonSwitchInput.get()) {
-//       m_autonSwitch.scoreAuton();
-// //this is called if the switch is up????????
-//     } else {
-//         m_autonSwitch.hangAuton();
-// //this is called if the switch is down???????
-//     }
+
 
   }
 
@@ -170,6 +167,7 @@ public class Robot extends TimedRobot {
   /** This function is called once each time the robot enters test mode. */
   @Override
   public void testInit() {
+
     SmartDashboard.setDefaultNumber("Speed Factor", DriveConstants.kSpeedFactor);
     SmartDashboard.setDefaultNumber("Rotate Factor", DriveConstants.kRotateFactor);
     

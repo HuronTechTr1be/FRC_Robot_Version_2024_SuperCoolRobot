@@ -8,15 +8,15 @@ public class AutonSwitch {
 
     }
 
-    public void scoreAuton() {
+    public void speakerAuton() {
 
-        // here is where we add code for scoring in auton
+        // here is where we add code for speaker in auton
 
     }
 
-    public void hangAuton() {
+    public void ampAutonAuton() {
 
-        // here is where we add code for hanging in auton
+        // here is where we add code for amp in auton
 
 
     }
