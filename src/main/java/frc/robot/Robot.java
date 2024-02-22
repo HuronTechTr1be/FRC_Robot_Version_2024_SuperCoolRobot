@@ -40,6 +40,7 @@ import frc.robot.Subsystems.IntakeModule;
 import frc.robot.Subsystems.SweeperWheelsSubsystem;
 import frc.robot.Subsystems.FlapSubsystem;
 import frc.robot.AutonSwitch;
+import frc.robot.Autons.MiddleSpeakerAuton;
 import edu.wpi.first.cameraserver.CameraServer;
 
  /**
@@ -51,19 +52,16 @@ import edu.wpi.first.cameraserver.CameraServer;
 public class Robot extends TimedRobot {
 
   private Command m_autonomousCommand;
+  
 
   private RobotContainer m_robotContainer;
   private AutonSwitch m_autonSwitch;
   //private ClawSubsystem m_clawLeft = new ClawSubsystem(21);
   //private ClawSubsystem m_clawRight = new ClawSubsystem(22);
-  private EgressSubsystem m_topShoot = new EgressSubsystem(42);
-  private EgressSubsystem m_bottomShoot = new EgressSubsystem(41);
-  private IntakeModule m_conveyorBelt = new IntakeModule(33);
-  private SweeperWheelsSubsystem m_leftSweeperWheel = new SweeperWheelsSubsystem(31);
-  private SweeperWheelsSubsystem m_rightSweeperWheel = new SweeperWheelsSubsystem(32);
+  
   //private FlapSubsystem m_flap = new FlapSubsystem(51);
 
-  PS4Controller drive2Controller = new PS4Controller(1);
+  
 
   DigitalInput autonSwitchInput = new DigitalInput(0);
 
@@ -160,7 +158,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
-     
+     m_robotContainer.periodic();
 
   }
 
@@ -186,6 +184,9 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
     
+    m_robotContainer.periodic();
+    
+
     double bottomHighShootFactor = SmartDashboard.getNumber("Bottom High Shoot Factor:", EgressConstants.id41HighShootFactor);
     SmartDashboard.setDefaultNumber("Bottom High Shoot Factor:", bottomHighShootFactor);
     if(Math.abs(bottomHighShootFactor)>1){
@@ -207,51 +208,51 @@ public class Robot extends TimedRobot {
       topLowShootFactor = 0;
     }
 
-    if (drive2Controller.getCircleButton()) {
-      if(bottomHighShootFactor==EgressConstants.id41HighShootFactor && topHighShootFactor==EgressConstants.id42HighShootFactor){
-      m_topShoot.HighShoot();
-      m_bottomShoot.HighShoot();
-      m_conveyorBelt.HighShoot();
-      }
-      else{
-      m_topShoot.adjustedHighShoot(topHighShootFactor);
-      m_bottomShoot.adjustedHighShoot(bottomHighShootFactor);
-      m_conveyorBelt.HighShoot();  
-      }
+    // if (drive2Controller.getCircleButton()) {
+    //   if(bottomHighShootFactor==EgressConstants.id41HighShootFactor && topHighShootFactor==EgressConstants.id42HighShootFactor){
+    //   m_topShoot.HighShoot();
+    //   m_bottomShoot.HighShoot();
+    //   m_conveyorBelt.HighShoot();
+    //   }
+    //   else{
+    //   m_topShoot.adjustedHighShoot(topHighShootFactor);
+    //   m_bottomShoot.adjustedHighShoot(bottomHighShootFactor);
+    //   m_conveyorBelt.HighShoot();  
+    //   }
       
-    }
-    else if (drive2Controller.getSquareButton()) {
-      if(bottomLowShootFactor==EgressConstants.id41LowShootFactor && topLowShootFactor==EgressConstants.id42LowShootFactor){
-      m_topShoot.LowShoot();
-      m_bottomShoot.LowShoot();
-      m_conveyorBelt.LowShoot();
-      }
-      else{
-      m_topShoot.adjustedLowShoot(topLowShootFactor);
-      m_bottomShoot.adjustedLowShoot(bottomLowShootFactor);
-      m_conveyorBelt.LowShoot();
-      }
-    }
-    else if (drive2Controller.getCrossButton()) {
-      m_topShoot.Reject();
-      m_bottomShoot.Reject();
-      m_conveyorBelt.reject();
-      m_leftSweeperWheel.Reject(); 
-      m_rightSweeperWheel.Reject();
-    } 
-     else if (drive2Controller.getTriangleButton()) {;
-      m_conveyorBelt.PickUp();
-      m_leftSweeperWheel.PickUp();
-      m_rightSweeperWheel.PickUp();
-      m_bottomShoot.PickUp();
-    }
-    else {
-      m_topShoot.Still();
-      m_bottomShoot.Still();
-      m_conveyorBelt.still();
-      m_leftSweeperWheel.Still();
-      m_rightSweeperWheel.Still();
-    }
+    // }
+    // else if (drive2Controller.getSquareButton()) {
+    //   if(bottomLowShootFactor==EgressConstants.id41LowShootFactor && topLowShootFactor==EgressConstants.id42LowShootFactor){
+    //   m_topShoot.LowShoot();
+    //   m_bottomShoot.LowShoot();
+    //   m_conveyorBelt.LowShoot();
+    //   }
+    //   else{
+    //   m_topShoot.adjustedLowShoot(topLowShootFactor);
+    //   m_bottomShoot.adjustedLowShoot(bottomLowShootFactor);
+    //   m_conveyorBelt.LowShoot();
+    //   }
+    // }
+    // else if (drive2Controller.getCrossButton()) {
+    //   m_topShoot.Reject();
+    //   m_bottomShoot.Reject();
+    //   m_conveyorBelt.reject();
+    //   m_leftSweeperWheel.Reject(); 
+    //   m_rightSweeperWheel.Reject();
+    // } 
+    //  else if (drive2Controller.getTriangleButton()) {;
+    //   m_conveyorBelt.PickUp();
+    //   m_leftSweeperWheel.PickUp();
+    //   m_rightSweeperWheel.PickUp();
+    //   m_bottomShoot.PickUp();
+    // }
+    // else {
+    //   m_topShoot.Still();
+    //   m_bottomShoot.Still();
+    //   m_conveyorBelt.still();
+    //   m_leftSweeperWheel.Still();
+    //   m_rightSweeperWheel.Still();
+    // }
 
   /*
 

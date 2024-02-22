@@ -14,18 +14,31 @@ import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.PS4Controller.Button;
+import frc.robot.Autons.MiddleSpeakerAuton;
+import frc.robot.Commands.HighShootCommand;
+import frc.robot.Commands.LowShootCommand;
+import frc.robot.Commands.MotorsStillCommand;
+import frc.robot.Commands.PickUpCommand;
+import frc.robot.Commands.RejectCommand;
+//import frc.robot.Commands.HighShootCommand;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Subsystems.DriveSubsystem;
+import frc.robot.Subsystems.EgressSubsystem;
 import frc.robot.Subsystems.FlapSubsystem;
+import frc.robot.Subsystems.IntakeModule;
+import frc.robot.Subsystems.SweeperWheelsSubsystem;
 import frc.robot.Subsystems.ClawSubsystem;  
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import java.util.List;
+//import frc.robot.Commands.HighShootCommand;
 
 /*
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -36,11 +49,40 @@ import java.util.List;
 public class RobotContainer {
   // The robot's subsystems
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
+  private EgressSubsystem m_Shoot = new EgressSubsystem();
+  private IntakeModule m_conveyorBelt = new IntakeModule(33);
+  private SweeperWheelsSubsystem m_SweeperWheels = new SweeperWheelsSubsystem();
   //private final FlapSubsystem m_robotFlap = new FlapSubsystem(51);
 
 
   // The driver's controller
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
+  PS4Controller m_shooterController = new PS4Controller(1);
+
+  JoystickButton CrossButton = new JoystickButton(m_shooterController, PS4Controller.Button.kCross.value);
+  JoystickButton CircleButton = new JoystickButton(m_shooterController, PS4Controller.Button.kCircle.value);
+  JoystickButton SquareButton = new JoystickButton(m_shooterController, PS4Controller.Button.kSquare.value);
+  JoystickButton TriangleButton = new JoystickButton(m_shooterController, PS4Controller.Button.kTriangle.value);
+  JoystickButton ShooterLeftBumper = new JoystickButton(m_shooterController, PS4Controller.Button.kL2.value);
+  JoystickButton ShooterRightBumper = new JoystickButton(m_shooterController, PS4Controller.Button.kR2.value);
+  JoystickButton ShooterLeftTrigger = new JoystickButton(m_shooterController, PS4Controller.Button.kL1.value);
+  JoystickButton ShooterRightTrigger = new JoystickButton(m_shooterController, PS4Controller.Button.kR1.value);
+
+  HighShootCommand HighShoot = new HighShootCommand(m_Shoot, m_conveyorBelt);
+  LowShootCommand LowShoot = new LowShootCommand(m_Shoot, m_conveyorBelt);
+  RejectCommand Reject = new RejectCommand(m_Shoot, m_conveyorBelt, m_SweeperWheels);
+  PickUpCommand PickUp = new PickUpCommand(m_Shoot, m_conveyorBelt, m_SweeperWheels);
+  MotorsStillCommand MotorsStill = new MotorsStillCommand(m_Shoot, m_conveyorBelt, m_SweeperWheels);
+  MiddleSpeakerAuton MiddleSpeaker = new MiddleSpeakerAuton(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels);
+
+  public void periodic(){
+    if(!(CrossButton.getAsBoolean()||SquareButton.getAsBoolean()||CircleButton.getAsBoolean()||TriangleButton.getAsBoolean()||ShooterLeftBumper.getAsBoolean()||ShooterRightBumper.getAsBoolean()||ShooterLeftTrigger.getAsBoolean()||ShooterRightTrigger.getAsBoolean())){
+      m_Shoot.Still();
+      m_SweeperWheels.Still();
+      m_conveyorBelt.Still();
+    }
+  }
+
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -71,6 +113,9 @@ public class RobotContainer {
 
   }
 
+  
+
+
   /**
    * Use this method to define your button->command mappings. Buttons can be
    * created by
@@ -85,6 +130,11 @@ public class RobotContainer {
         .whileTrue(new RunCommand(
             () -> m_robotDrive.setX(),
             m_robotDrive));
+        CircleButton.whileTrue(HighShoot);
+        SquareButton.whileTrue(LowShoot);
+        CrossButton.whileTrue(Reject);
+        TriangleButton.whileTrue(PickUp);
+
   }
 
   /**
@@ -130,7 +180,8 @@ public class RobotContainer {
     m_robotDrive.resetOdometry(exampleTrajectory.getInitialPose());
 
     // Run path following command, then stop at the end.
-    return swerveControllerCommand.andThen(() -> m_robotDrive.drive(0, 0, 0, false, false));
+    //return swerveControllerCommand.andThen(() -> m_robotDrive.drive(0, 0, 0, false, false));
+      return MiddleSpeaker;
   }
 
 }

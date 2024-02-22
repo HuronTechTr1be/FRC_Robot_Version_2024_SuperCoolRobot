@@ -153,7 +153,7 @@ public final class Constants {
     public static final double id41LowShootFactor = .25; //bottom low shooter power level
     public static final double id42LowShootFactor = .25; //top low shooter power level
     public static final double id41PickUpFactor = .1; //bottom pick up power level
-    public static final double id42PickUpFactor = 1; //top pick up power level
+    public static final double id42PickUpFactor = 0; //top pick up power level
 
   }
 

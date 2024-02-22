@@ -20,9 +20,10 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.BeltConstants;
 
-public class IntakeModule {
+public class IntakeModule extends SubsystemBase {
    
 private CANSparkMax conveyorBelt; 
 
@@ -32,7 +33,7 @@ public IntakeModule(int deviceId){
 
 }
 
-    public void reject(){
+    public void Reject(){
         double beltRejectFactor=SmartDashboard.getNumber("Belt Reject Factor", BeltConstants.k_beltRejectSpeed);
         if(Math.abs(beltRejectFactor)>1){
             beltRejectFactor=0;
@@ -92,7 +93,7 @@ public IntakeModule(int deviceId){
         }
 
     }
-    public void still(){
+    public void Still(){
 
         conveyorBelt.set(0);
 

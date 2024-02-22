@@ -10,79 +10,24 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.BeltConstants;
 import frc.robot.Constants.SweeperWheelConstants;
+import frc.robot.Subsystems.SweeperWheelsBasic;
 public class SweeperWheelsSubsystem extends SubsystemBase{
 
-    private CANSparkMax sweeperWheel;
- 
-    public SweeperWheelsSubsystem(int deviceId){
+    private SweeperWheelsBasic m_left = new SweeperWheelsBasic(31);
+    private SweeperWheelsBasic m_right = new SweeperWheelsBasic(32);
 
-        sweeperWheel = new CANSparkMax(deviceId,MotorType.kBrushless);
-
+    public void PickUp(){
+        m_left.PickUp();
+        m_right.PickUp();
     }
 
-    public void PickUp() {
-
-        if(sweeperWheel.getDeviceId()==31){
-            double sweeperWheel31PickupFactor=SmartDashboard.getNumber("Sweeper Wheel 31 Pickup Factor", SweeperWheelConstants.id31PickUpFactor);
-        if(Math.abs(sweeperWheel31PickupFactor)>1){
-            sweeperWheel31PickupFactor=0;
-        }
-        if(sweeperWheel31PickupFactor==SweeperWheelConstants.id31PickUpFactor){
-        sweeperWheel.set(SweeperWheelConstants.id31PickUpFactor);
-        }
-        else{
-        sweeperWheel.set(sweeperWheel31PickupFactor);
-        }
-            
-    }
-            else if(sweeperWheel.getDeviceId()==32){
-            double sweeperWheel32PickupFactor=SmartDashboard.getNumber("Sweeper Wheel 32 Pickup Factor", SweeperWheelConstants.id32PickUpFactor);
-        if(Math.abs(sweeperWheel32PickupFactor)>1){
-            sweeperWheel32PickupFactor=0;
-        }
-        if(sweeperWheel32PickupFactor==SweeperWheelConstants.id32PickUpFactor){
-        sweeperWheel.set(SweeperWheelConstants.id32PickUpFactor);
-        }
-        else{
-        sweeperWheel.set(sweeperWheel32PickupFactor);
-        }
-         }
+    public void Reject(){
+        m_left.Reject();
+        m_right.Reject();
     }
 
-    public void Reject() {
-
-        if(sweeperWheel.getDeviceId()==31){
-            double sweeperWheel31RejectFactor=SmartDashboard.getNumber("Sweeper Wheel 31 Reject Factor", SweeperWheelConstants.id31RejectFactor);
-        if(Math.abs(sweeperWheel31RejectFactor)>1){
-            sweeperWheel31RejectFactor=0;
-        }
-        if(sweeperWheel31RejectFactor==SweeperWheelConstants.id31RejectFactor){
-        sweeperWheel.set(SweeperWheelConstants.id31RejectFactor);
-        }
-        else{
-        sweeperWheel.set(sweeperWheel31RejectFactor);
-        }
-            
+    public void Still(){
+        m_left.Still();
+        m_right.Still();
     }
-            else if(sweeperWheel.getDeviceId()==32){
-            double sweeperWheel32RejectFactor=SmartDashboard.getNumber("Sweeper Wheel 32 Reject Factor", SweeperWheelConstants.id32RejectFactor);
-        if(Math.abs(sweeperWheel32RejectFactor)>1){
-            sweeperWheel32RejectFactor=0;
-        }
-        if(sweeperWheel32RejectFactor==SweeperWheelConstants.id32RejectFactor){
-        sweeperWheel.set(SweeperWheelConstants.id32RejectFactor);
-        }
-        else{
-        sweeperWheel.set(sweeperWheel32RejectFactor);
-        }
-         }
-
-    }
-
-    public void Still() {
-
-        sweeperWheel.set(0);
-
-        }
-
-    }
+}

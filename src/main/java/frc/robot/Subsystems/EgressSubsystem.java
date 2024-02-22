@@ -24,110 +24,32 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
    
 public class EgressSubsystem extends SubsystemBase {
     
-private CANSparkMax shooterWheel;    
+private EgressBasic m_top = new EgressBasic(42);
+private EgressBasic m_bottom = new EgressBasic(41);    
 
-    
-public EgressSubsystem(int deviceId) {
-
-    shooterWheel = new CANSparkMax(deviceId,MotorType.kBrushless);
-
-  }
-  public void adjustedHighShoot(double speed) {
-    shooterWheel.set(speed);
-  }
-
-  public void HighShoot() {
-    
-    if(shooterWheel.getDeviceId()==41){
-      shooterWheel.set(EgressConstants.id41HighShootFactor);
-    }
-    else if(shooterWheel.getDeviceId()==42){
-      shooterWheel.set(EgressConstants.id42HighShootFactor);
-    }
-    
-    // double bottomHighShootFactor = SmartDashboard.getNumber("High Shoot Factor:", EgressConstants.id41HighShootFactor);
-    // double topHighShootFactor = SmartDashboard.getNumber("High Shoot Factor:", EgressConstants.id42HighShootFactor);
-    // if(shooterWheel.getDeviceId()==41){
-    // if(bottomHighShootFactor == EgressConstants.id41HighShootFactor){
-    //   shooterWheel.set(EgressConstants.id41HighShootFactor);
-    // }
-    // else{
-    //   shooterWheel.set(bottomHighShootFactor);
-    // }
-    //   }
-
-    // else if(shooterWheel.getDeviceId()==42){
-    //   if(topHighShootFactor == EgressConstants.id42HighShootFactor){
-    //   shooterWheel.set(EgressConstants.id42HighShootFactor);
-    // }
-    // else{
-    //   shooterWheel.set(topHighShootFactor);
-    // }
-    // }
-
+public void PickUp(){
+  m_top.PickUp();
+  m_bottom.PickUp();
 }
 
-public void adjustedLowShoot(double speed) {
-  shooterWheel.set(speed);
+public void Reject(){
+  m_top.Reject();
+  m_bottom.Reject();
 }
 
-public void LowShoot() {
+public void HighShoot(){
+  m_top.HighShoot();
+  m_bottom.HighShoot();
+}
 
-    // double bottomLowShootFactor = SmartDashboard.getNumber("Bottom Low Shoot Factor:", EgressConstants.id41LowShootFactor);
-    // double topLowShootFactor = SmartDashboard.getNumber("High Low Shoot Factor:", EgressConstants.id42LowShootFactor);
+public void LowShoot(){
+  m_top.LowShoot();
+  m_bottom.LowShoot();
+}
 
-    if(shooterWheel.getDeviceId()==41){
-      shooterWheel.set(EgressConstants.id41LowShootFactor);
-    }
-    else if(shooterWheel.getDeviceId()==42){
-      shooterWheel.set(EgressConstants.id42LowShootFactor);
-    }
-
-
-    // if(shooterWheel.getDeviceId()==41){
-    // if(bottomLowShootFactor == EgressConstants.id41LowShootFactor){
-    //   shooterWheel.set(EgressConstants.id41LowShootFactor);
-    // }
-    // else{
-    //   shooterWheel.set(bottomLowShootFactor);
-    // }
-    //   }
-
-    // else if(shooterWheel.getDeviceId()==42){
-    //   if(topLowShootFactor == EgressConstants.id42LowShootFactor){
-    //   shooterWheel.set(EgressConstants.id42LowShootFactor);
-    // }
-    // else{
-    //   shooterWheel.set(topLowShootFactor);
-    // }
-    // }
-
-   }
-
-  public void Reject() {
-
-    if(shooterWheel.getDeviceId()==41){
-    shooterWheel.set(EgressConstants.id41RejectFactor);
-    }
-    else if(shooterWheel.getDeviceId()==42){
-    shooterWheel.set(EgressConstants.id42RejectFactor);
-    }
-
-  }
-  public void PickUp() {
-
-    if(shooterWheel.getDeviceId()==41){
-    shooterWheel.set(EgressConstants.id41PickUpFactor);
-    }
-    else if(shooterWheel.getDeviceId()==42){
-    shooterWheel.set(EgressConstants.id42PickUpFactor);
-    }
-
-  }
-  public void Still() {
-
-    shooterWheel.set(0);
-
-  }
+public void Still(){
+  m_bottom.Still();
+  m_top.Still();
+}
 
 }

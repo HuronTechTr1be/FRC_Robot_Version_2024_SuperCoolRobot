@@ -16,7 +16,7 @@ import frc.robot.Constants.ArmConstants;
 
 
 
-public class UppyDownyArms {
+public class ClawBasic {
 
   private CANSparkMax arm;
   private RelativeEncoder m_RelativeEncoder;
@@ -27,7 +27,7 @@ public class UppyDownyArms {
   private SparkLimitSwitch m_LimitSwitch;
 
 
-  public UppyDownyArms(int deviceId, String armSide) {
+  public ClawBasic(int deviceId, String armSide) {
 
     arm = new CANSparkMax(deviceId,MotorType.kBrushless);
     m_RelativeEncoder = arm.getEncoder();

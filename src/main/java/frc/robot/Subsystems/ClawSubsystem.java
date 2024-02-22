@@ -20,8 +20,8 @@ import com.revrobotics.SparkLimitSwitch;
 
 public class ClawSubsystem extends SubsystemBase {
   
-private UppyDownyArms m_armLeft = new UppyDownyArms(21, "left");
-private UppyDownyArms m_armRight = new UppyDownyArms(22, "right");
+private ClawBasic m_armLeft = new ClawBasic(21, "left");
+private ClawBasic m_armRight = new ClawBasic(22, "right");
 
 public void armSetZero(){
  

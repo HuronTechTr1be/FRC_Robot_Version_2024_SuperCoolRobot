@@ -46,7 +46,7 @@ public class FlapSubsystem extends SubsystemBase {
       }
      
     
-      UppyDownyFlapStill(); 
+      FlapStill(); 
       m_RelativeEncoder.setPosition(0);
       flap.setOpenLoopRampRate(0);
       // Idk if we need this - arm.burnFlash();
@@ -54,7 +54,7 @@ public class FlapSubsystem extends SubsystemBase {
     }
   
 
-  public void UppyDownyFlapUp(double speed) {
+  public void FlapUp(double speed) {
 
     if (isRaised())
       flap.set(0);
@@ -62,7 +62,7 @@ public class FlapSubsystem extends SubsystemBase {
       flap.set((speed));
   }
 
-  public void UppyDownyFlapDown() {
+  public void FlapDown() {
     if (isLowered())
       flap.set(0);
     else
@@ -75,7 +75,7 @@ public class FlapSubsystem extends SubsystemBase {
 
   }
 
-  public void UppyDownyFlapStill() {
+  public void FlapStill() {
 
     flap.set(0);
 
