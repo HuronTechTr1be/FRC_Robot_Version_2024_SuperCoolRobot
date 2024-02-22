@@ -53,7 +53,7 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
-  private AutonSwitch m_autonSwitch;
+  //private AutonSwitch m_autonSwitch;
   //private ClawSubsystem m_clawLeft = new ClawSubsystem(21);
   //private ClawSubsystem m_clawRight = new ClawSubsystem(22);
   private EgressSubsystem m_topShoot = new EgressSubsystem(42);

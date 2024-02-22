@@ -36,6 +36,7 @@ import java.util.List;
 public class RobotContainer {
   // The robot's subsystems
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
+  //private final ClawSubsystem asdf = new ClawSubsystem();
   //private final FlapSubsystem m_robotFlap = new FlapSubsystem(51);
 
 
@@ -93,6 +94,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
+    // ---- This section is used to create drive constants that will be referenced later --- JNL
     // Create config for trajectory
     TrajectoryConfig config = new TrajectoryConfig(
         AutoConstants.kMaxSpeedMetersPerSecond,
@@ -100,22 +102,51 @@ public class RobotContainer {
         // Add kinematics to ensure max speed is actually obeyed
         .setKinematics(DriveConstants.kDriveKinematics);
 
+        // ---- This section of code should be use to make the list of steps to move ---- JNL
+        ///  ----  this could be the first example for if we are on the left side. ---- JNL
     // An example trajectory to follow. All units in meters.
-    Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
-        // Start at the origin facing the +X direction
+    Trajectory speakerRightNoteSEQ = TrajectoryGenerator.generateTrajectory(
         new Pose2d(0, 0, new Rotation2d(0)),
-        // Pass through these two interior waypoints, making an 's' curve path
-        List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
-        // End 3 meters straight ahead of where we started, facing forward
-        new Pose2d(3, 0, new Rotation2d(0)),
-        config);
 
+        List.of(
+            new Translation2d(0, 1),
+            new Translation2d(0, 0)
+          ),
+          new Pose2d(0, 0, new Rotation2d(0)), config);
+
+        // ---- second sequence that can be used if on the right side ... or whatever  ---  JNL
+        // Trajectory speakerMiddleNoteSEQ = TrajectoryGenerator.generateTrajectory(
+        // // Start at the origin facing the +X direction
+        // new Pose2d(0, 0, new Rotation2d(0)),
+        // // Pass through these two interior waypoints, making an 's' curve path
+        // List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
+        // // End 3 meters straight ahead of where we started, facing forward
+        // new Pose2d(3, 0, new Rotation2d(0)),
+        // // ----   Need to create a new step type that gives you pickup and another typ of shoot.  like Pose2d...   ---- JNL
+
+        // config);
+
+         Trajectory exampleTrajectory; 
+          //   --- do some magic to have a switch to select what version you run. ------    JNL
+        // if (condition) {
+        //   exampleTrajectory = speakerMiddleNoteSEQ;
+        // }else{
+          exampleTrajectory = speakerRightNoteSEQ;
+       // }
+
+        //---- create X & Y motor PIDs to tune the control of the closed loop control for these parameters --- JNL
     var thetaController = new ProfiledPIDController(
         AutoConstants.kPThetaController, 0, 0, AutoConstants.kThetaControllerConstraints);
     thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
+
+    // at this point you need to choose one of the SEQ options above and stuff it into the conatainer here - - JNL
+
+          // ---- Briing all of the things above together into a container ---- JNL
     SwerveControllerCommand swerveControllerCommand = new SwerveControllerCommand(
-        exampleTrajectory,
+      // at this point you need to choose one of the SEQ options above and stuff it into the conatainer here - - JNL
+
+      speakerRightNoteSEQ,
         m_robotDrive::getPose, // Functional interface to feed supplier
         DriveConstants.kDriveKinematics,
 
@@ -126,8 +157,9 @@ public class RobotContainer {
         m_robotDrive::setModuleStates,
         m_robotDrive);
 
+      // ---- As stated below - clears the old distance and rotation values from previous call ----  JNL  
     // Reset odometry to the starting pose of the trajectory.
-    m_robotDrive.resetOdometry(exampleTrajectory.getInitialPose());
+    m_robotDrive.resetOdometry(speakerRightNoteSEQ.getInitialPose());
 
     // Run path following command, then stop at the end.
     return swerveControllerCommand.andThen(() -> m_robotDrive.drive(0, 0, 0, false, false));
