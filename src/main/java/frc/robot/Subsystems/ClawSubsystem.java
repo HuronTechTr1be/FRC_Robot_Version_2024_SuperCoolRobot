@@ -5,18 +5,21 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.SparkAbsoluteEncoder.Type;
+import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants.ArmConstants;
+import com.revrobotics.SparkLimitSwitch;
 
 
 
 public class ClawSubsystem extends SubsystemBase {
-
+  
 private UppyDownyArms m_armLeft = new UppyDownyArms(21, "left");
 private UppyDownyArms m_armRight = new UppyDownyArms(22, "right");
 
@@ -36,9 +39,11 @@ public void armSetZero(){
   if(Math.abs(armDownInitFactor)>1){
     armDownInitFactor = 0;
   }
+
   if(armDownInitFactor==ArmConstants.k_initArmSpeedRoboInit){
   m_armRight.ArmsDownInit();
   m_armLeft.ArmsDownInit();
+
   }
 else{
   m_armLeft.adjustedArmsDownInit(armDownInitFactor);
@@ -109,6 +114,7 @@ else{
     m_armLeft.ArmsStill();
 
   }
+
 
   public void RightArmStill() {
   
