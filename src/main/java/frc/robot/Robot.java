@@ -78,7 +78,7 @@ public class Robot extends TimedRobot {
     
      //CameraServer.startAutomaticCapture();
 
-    CameraServer.startAutomaticCapture(1);
+    CameraServer.startAutomaticCapture(0);
 
   }
 
@@ -112,7 +112,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
 
-      m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+      m_autonomousCommand = m_robotContainer.getMiddleSpeakerAuton();
 
     /*
      * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -150,7 +150,7 @@ public class Robot extends TimedRobot {
     }
 
     m_robotContainer.resetRobot();
-
+    SmartDashboard.setDefaultString("FlapDown", "Default");
   }
 
   /** This function is called periodically during operator control. */
@@ -159,6 +159,8 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
 
      m_robotContainer.periodic();
+     m_robotContainer.FlapRun();
+
 
   }
 
@@ -184,8 +186,8 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
     
-    m_robotContainer.periodic();
-    
+    m_robotContainer.periodic();  
+    //m_robotContainer.FlapRun();  
 
     double bottomHighShootFactor = SmartDashboard.getNumber("Bottom High Shoot Factor:", EgressConstants.id41HighShootFactor);
     SmartDashboard.setDefaultNumber("Bottom High Shoot Factor:", bottomHighShootFactor);

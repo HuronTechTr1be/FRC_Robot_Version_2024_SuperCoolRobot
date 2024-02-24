@@ -115,9 +115,9 @@ public class ClawBasic {
   public void periodic(){
 
     if(arm.getDeviceId()==21){ 
-      SmartDashboard.putNumber("LeftArmEncoder",m_RelativeEncoder.getPosition());
-      SmartDashboard.putNumber("LeftArmCurrentPeriodic",arm.getOutputCurrent());
-      SmartDashboard.putBoolean("LeftArmIsLowered",isLowered());
+      // SmartDashboard.putNumber("LeftArmEncoder",m_RelativeEncoder.getPosition());
+      // SmartDashboard.putNumber("LeftArmCurrentPeriodic",arm.getOutputCurrent());
+      // SmartDashboard.putBoolean("LeftArmIsLowered",isLowered());
       if(isLowered()){
       m_RelativeEncoder.setPosition(0);
       }
@@ -127,9 +127,9 @@ public class ClawBasic {
     // SmartDashboard.putNumber("maxLeftCurrent", m_maxLeftCurrent);
   }
     else if(arm.getDeviceId()==22){
-      SmartDashboard.putNumber("RightArmEncoder",m_RelativeEncoder.getPosition());
-      SmartDashboard.putNumber("RightArmCurrentPeriodic",arm.getOutputCurrent());
-      SmartDashboard.putBoolean("RightArmIsLowered",isLowered());
+      // SmartDashboard.putNumber("RightArmEncoder",m_RelativeEncoder.getPosition());
+      // SmartDashboard.putNumber("RightArmCurrentPeriodic",arm.getOutputCurrent());
+      // SmartDashboard.putBoolean("RightArmIsLowered",isLowered());
       if(isLowered()){
       m_RelativeEncoder.setPosition(0);
       }

@@ -23,6 +23,7 @@ import frc.robot.Commands.TrajectoryForwardAuton;
 import frc.robot.Commands.TrajectoryBackwardAuton;
 import frc.robot.Commands.HighShootCommand;
 import frc.robot.Commands.HighShootTimed;
+import frc.robot.Commands.LowShootTimed;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
@@ -43,22 +44,23 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import java.util.List;
 import frc.robot.Commands.HighShootCommand;
 
-public class MiddleSpeakerAuton extends SequentialCommandGroup     {
+public class RightAmpAuton extends SequentialCommandGroup     {
     
   private RobotContainer m_robotContainer;
 
-    public MiddleSpeakerAuton(DriveSubsystem drive, EgressSubsystem shoot, IntakeModule conveyorBelt, SweeperWheelsSubsystem sweepers){
+    public RightAmpAuton(DriveSubsystem drive, EgressSubsystem shoot, IntakeModule conveyorBelt, SweeperWheelsSubsystem sweepers){
         addCommands(
-            new HighShootTimed(shoot, conveyorBelt, sweepers, 0.3),
-            new WaitCommand(0.5),
+            new LowShootTimed(shoot, conveyorBelt, sweepers, 0.3),
+            new DriveTimed(drive, 0, -0.5, 0, 0.5),
+            new WaitCommand(.3), 
             new PickUpCommand(shoot, conveyorBelt, sweepers),
-            new WaitCommand(.1), 
             new DriveTimed(drive, -0.5, 0, 0, 0.8),  
             new MotorsStillCommand(shoot, conveyorBelt, sweepers),
             new WaitCommand(.3),
             new DriveTimed(drive, 0.5, 0, 0, 0.7),
-            new WaitCommand(.1),
-            new HighShootTimed(shoot, conveyorBelt, sweepers, 0.3)         
+            new WaitCommand(.3),
+            new DriveTimed(drive, 0, 0.5, 0, 0.5),
+            new LowShootTimed(shoot, conveyorBelt, sweepers, 0.3)           
             );
     }
 

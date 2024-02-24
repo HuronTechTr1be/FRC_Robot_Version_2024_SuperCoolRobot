@@ -243,7 +243,7 @@ SmartDashboard.putBoolean("Reverse Drive", reverseDrive);
 
     if(reverseDrive){
       ySpeedDelivered*=-1;
-      //xSpeedDelivered*=-1;
+      xSpeedDelivered*=-1;
       //rotDelivered*=-1;
     }
 

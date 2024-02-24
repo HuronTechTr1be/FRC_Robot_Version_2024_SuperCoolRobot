@@ -28,19 +28,19 @@ import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import java.util.List;
 
-  public class DriveBackwardCommand extends Command {
+  public class FlapUpCommand extends Command {
   // The subsystem the command runs on
-    private final DriveSubsystem m_Drive;
+  private final FlapSubsystem m_flap;
 
-  public DriveBackwardCommand(DriveSubsystem subsystem) {
-    m_Drive = subsystem;
-    addRequirements(m_Drive);
+  public FlapUpCommand(FlapSubsystem flap) {
+    m_flap = flap;
+    addRequirements(m_flap);
   }
 
   @Override
   public void initialize() {
-    m_Drive.drive(-0.5, 0, 0, false, true);
-}
+    m_flap.FlapUp(0.5);
+  }
 
   @Override
   public boolean isFinished() {

@@ -127,7 +127,7 @@ public final class Constants {
  
   public static final class AutoConstants {
     public static final double kMaxSpeedMetersPerSecond = 2;
-    public static final double kMaxAccelerationMetersPerSecondSquared = 3;
+    public static final double kMaxAccelerationMetersPerSecondSquared = 1.5;
     public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
     public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
 
@@ -173,8 +173,8 @@ public final class Constants {
   }
 
   public static final class FlapConstants {
-      public static final double k_initFlapSpeedRoboInit = -0.25; // left pick up power level
-      public static final double k_initFlapSpeedDown = -1; // left pick up power level
+      public static final double k_initFlapSpeedRoboInit = 0.5; // left pick up power level
+      public static final double k_FlapSpeedDown = -0.5; // left pick up power level
 
   }
 
