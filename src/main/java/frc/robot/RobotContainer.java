@@ -16,7 +16,8 @@ import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.PS4Controller.Button;
-import frc.robot.Autons.MiddleSpeakerAuton;
+import frc.robot.Autons.AmpNote;
+import frc.robot.Autons.SpeakerMiddleNote;
 import frc.robot.Commands.FlapDownCommand;
 import frc.robot.Commands.FlapUpCommand;
 import frc.robot.Commands.HighShootCommand;
@@ -32,6 +33,7 @@ import frc.robot.Subsystems.DriveSubsystem;
 import frc.robot.Subsystems.EgressSubsystem;
 import frc.robot.Subsystems.FlapSubsystem;
 import frc.robot.Subsystems.IntakeModule;
+import frc.robot.Subsystems.MAXSwerveModule;
 import frc.robot.Subsystems.SweeperWheelsSubsystem;
 import frc.robot.Subsystems.ClawSubsystem;  
 import edu.wpi.first.wpilibj2.command.Command;
@@ -70,21 +72,25 @@ public class RobotContainer {
   JoystickButton ShooterLeftTrigger = new JoystickButton(m_shooterController, PS4Controller.Button.kL1.value);
   JoystickButton ShooterRightTrigger = new JoystickButton(m_shooterController, PS4Controller.Button.kR1.value);
 
+
+
   HighShootCommand HighShoot = new HighShootCommand(m_Shoot, m_conveyorBelt);
   LowShootCommand LowShoot = new LowShootCommand(m_Shoot, m_conveyorBelt);
   RejectCommand Reject = new RejectCommand(m_Shoot, m_conveyorBelt, m_SweeperWheels);
   PickUpCommand PickUp = new PickUpCommand(m_Shoot, m_conveyorBelt, m_SweeperWheels);
   FlapUpCommand FlapUp = new FlapUpCommand(m_robotFlap);
   FlapDownCommand FlapDown = new FlapDownCommand(m_robotFlap);
-  MotorsStillCommand MotorsStill = new MotorsStillCommand(m_Shoot, m_conveyorBelt, m_SweeperWheels);
-  MiddleSpeakerAuton MiddleSpeaker = new MiddleSpeakerAuton(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels);
+  MotorsStillCommand MotorsStill = new MotorsStillCommand(m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
+  SpeakerMiddleNote MiddleSpeaker = new SpeakerMiddleNote(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels,m_robotFlap);
+  AmpNote ampNote = new AmpNote(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
+
 
   public void periodic(){
     if(!(CrossButton.getAsBoolean()||SquareButton.getAsBoolean()||CircleButton.getAsBoolean()||TriangleButton.getAsBoolean()||ShooterLeftBumper.getAsBoolean()||ShooterRightBumper.getAsBoolean()||ShooterLeftTrigger.getAsBoolean()||ShooterRightTrigger.getAsBoolean())){
       m_Shoot.Still();
       m_SweeperWheels.Still();
       m_conveyorBelt.Still();
-      //m_robotFlap.FlapStill();
+      m_robotFlap.FlapStill();
     }
   }
 
@@ -100,6 +106,10 @@ public class RobotContainer {
       m_robotFlap.FlapStill();
     }
 
+  }
+
+  public void initReset(){
+    m_robotDrive.resetFrontRightEncoder();
   }
 
   /**
@@ -127,7 +137,7 @@ public class RobotContainer {
   public void resetRobot(){
     
     m_robotDrive.resetClaws();
-    m_robotFlap.flapSetZero();
+    //m_robotFlap.flapSetZero();
 
   }
 
@@ -204,7 +214,8 @@ public class RobotContainer {
   }
 
   public Command getMiddleSpeakerAuton(){
-    return MiddleSpeaker;
+    //return MiddleSpeaker;
+    return ampNote;
   }
 
 }

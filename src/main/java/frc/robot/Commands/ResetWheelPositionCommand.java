@@ -1,5 +1,4 @@
 package frc.robot.Commands;
-
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
@@ -19,36 +18,39 @@ import frc.robot.Subsystems.DriveSubsystem;
 import frc.robot.Subsystems.EgressSubsystem;
 import frc.robot.Subsystems.FlapSubsystem;
 import frc.robot.Subsystems.IntakeModule;
+import frc.robot.Subsystems.MAXSwerveModule;
 import frc.robot.Subsystems.SweeperWheelsSubsystem;
 import frc.robot.Subsystems.ClawSubsystem;  
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import java.util.List;
+import frc.robot.Subsystems.DriveSubsystem;
 
-  public class FlapDownCommand extends Command {
-  // The subsystem the command runs on
-  private final FlapSubsystem m_flap;
+public class ResetWheelPositionCommand extends Command{
 
-  public FlapDownCommand(FlapSubsystem flap) {
-    m_flap = flap;
-    addRequirements(m_flap);
-  }
+    private final DriveSubsystem m_Drive;
 
-  @Override
-  public void initialize() {
-    m_flap.FlapDown();
-    while(m_flap.isLowered()==false){
+
+    public ResetWheelPositionCommand(DriveSubsystem subsystem){
+
+        m_Drive = subsystem;
+        addRequirements(m_Drive);
+
 
     }
-    
-    m_flap.FlapStill();
-  }
 
-  @Override
-  public boolean isFinished() {
-    return true;
+    @Override
+    public void initialize() {
+        m_Drive.resetFrontRightEncoder();
   }
+  
+    @Override
+    public boolean isFinished() {
+      return true;
+    }
+
 }

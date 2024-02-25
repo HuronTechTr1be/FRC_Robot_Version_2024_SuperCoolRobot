@@ -40,7 +40,7 @@ import frc.robot.Subsystems.IntakeModule;
 import frc.robot.Subsystems.SweeperWheelsSubsystem;
 import frc.robot.Subsystems.FlapSubsystem;
 import frc.robot.AutonSwitch;
-import frc.robot.Autons.MiddleSpeakerAuton;
+import frc.robot.Autons.SpeakerMiddleNote;
 import edu.wpi.first.cameraserver.CameraServer;
 
  /**
@@ -258,18 +258,6 @@ public class Robot extends TimedRobot {
 
   /*
 
-    if (drive2Controller.get?Button()) {
-      m_flap.Up();
-    } 
-    else{
-      m_flap.Still();
-    }
-    if (drive2Controller.get?Button()) {
-      m_flap.Down();
-    }
-    else {
-      m_flap.Still();
-    }
 
  */
   

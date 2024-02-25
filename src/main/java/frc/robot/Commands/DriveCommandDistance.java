@@ -30,12 +30,13 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import java.util.List;
 
-  public class DriveCommand extends Command {
+  public class DriveCommandDistance extends Command {
   // The subsystem the command runs on
     private final DriveSubsystem m_Drive;
     private final double xSpeed;
     private final double ySpeed;
     private final double rot;
+    private final double distance;
 
   //   private final MAXSwerveModule m_frontLeft = new MAXSwerveModule(
   //     DriveConstants.kFrontLeftDrivingCanId,
@@ -57,21 +58,22 @@ import java.util.List;
   //     DriveConstants.kRearRightTurningCanId,
   //     DriveConstants.kBackRightChassisAngularOffset);
 
-  public DriveCommand(DriveSubsystem subsystem, double XSpeed, double YSpeed, double Rot) {
+  public DriveCommandDistance(DriveSubsystem subsystem, double XSpeed, double YSpeed, double Rot, double driveDistance) {
     m_Drive = subsystem;
     xSpeed = XSpeed;
     ySpeed = YSpeed;
     rot = Rot;
+    distance = driveDistance;
     addRequirements(m_Drive);
   }
 
   @Override
   public void initialize() {
     m_Drive.drive(xSpeed, ySpeed, rot, false, true);
-    // while(m_frontLeft.m_drivingEncoder.getPosition()<1000){
+    while (Math.abs(m_Drive.getFrontRightEncoder())<Math.abs(distance)){
 
-    // }
-    
+    }
+    m_Drive.drive(0,0,0,false,true);
 }
 
   @Override

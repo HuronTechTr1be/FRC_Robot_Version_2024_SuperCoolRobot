@@ -42,7 +42,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import java.util.List;
 import frc.robot.Commands.HighShootCommand;
 
-public class MiddleSpeakerGoTwiceAuton extends SequentialCommandGroup     {
+public class SpeakerRightNote extends SequentialCommandGroup     {
     
   private RobotContainer m_robotContainer;
 
@@ -57,26 +57,26 @@ public class MiddleSpeakerGoTwiceAuton extends SequentialCommandGroup     {
 //     PickUpCommand PickUp = new PickUpCommand(m_Shoot, m_conveyorBelt, m_SweeperWheels);
 //     MotorsStillCommand MotorsStill = new MotorsStillCommand(m_Shoot, m_conveyorBelt, m_SweeperWheels);
 
-    public MiddleSpeakerGoTwiceAuton(DriveSubsystem drive, EgressSubsystem shoot, IntakeModule conveyorBelt, SweeperWheelsSubsystem sweepers){
+    public SpeakerRightNote(DriveSubsystem drive, EgressSubsystem shoot, IntakeModule conveyorBelt, SweeperWheelsSubsystem sweepers, FlapSubsystem flap){
         addCommands(
-            new HighShootTimed(shoot, conveyorBelt, sweepers, 0.3),
+            new HighShootTimed(shoot, conveyorBelt, sweepers, flap, 0.3),
             new WaitCommand(0.1),
             new PickUpCommand(shoot, conveyorBelt, sweepers), 
             new DriveTimed(drive, -0.5, 0, 0, 0.8),    
-            new MotorsStillCommand(shoot, conveyorBelt, sweepers),
+            new MotorsStillCommand(shoot, conveyorBelt, sweepers, flap),
             new WaitCommand(.3),
             new DriveTimed(drive, 0.5, 0, 0, 0.9),
-            new HighShootTimed(shoot, conveyorBelt, sweepers, 0.3),
+            new HighShootTimed(shoot, conveyorBelt, sweepers, flap,0.3),
 
             new WaitCommand(1),
-            new HighShootTimed(shoot, conveyorBelt, sweepers, 0.3),
+            new HighShootTimed(shoot, conveyorBelt, sweepers, flap,0.3),
             new WaitCommand(0.1),
             new PickUpCommand(shoot, conveyorBelt, sweepers), 
             new DriveTimed(drive, -0.5, 0, 0, 1),    
-            new MotorsStillCommand(shoot, conveyorBelt, sweepers),
+            new MotorsStillCommand(shoot, conveyorBelt, sweepers,flap),
             new WaitCommand(.3),
             new DriveTimed(drive, 0.5, 0, 0, 0.7),
-            new HighShootTimed(shoot, conveyorBelt, sweepers, 0.3)
+            new HighShootTimed(shoot, conveyorBelt, sweepers,flap, 0.3)
             );
     }
 

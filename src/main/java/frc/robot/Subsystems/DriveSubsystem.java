@@ -20,6 +20,8 @@ import com.ctre.phoenix6.configs.Pigeon2Configuration;
 import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.hardware.Pigeon2;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.revrobotics.RelativeEncoder;
+
 import frc.robot.Constants.DriveConstants;
 import frc.utils.SwerveUtils;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -29,12 +31,14 @@ public class DriveSubsystem extends SubsystemBase {
   private final MAXSwerveModule m_frontLeft = new MAXSwerveModule(
       DriveConstants.kFrontLeftDrivingCanId,
       DriveConstants.kFrontLeftTurningCanId,
-      DriveConstants.kFrontLeftChassisAngularOffset);
+      DriveConstants.kFrontLeftChassisAngularOffset
+      );
 
   private final MAXSwerveModule m_frontRight = new MAXSwerveModule(
       DriveConstants.kFrontRightDrivingCanId,
       DriveConstants.kFrontRightTurningCanId,
-      DriveConstants.kFrontRightChassisAngularOffset);
+      DriveConstants.kFrontRightChassisAngularOffset
+      );
 
   private final MAXSwerveModule m_rearLeft = new MAXSwerveModule(
       DriveConstants.kRearLeftDrivingCanId,
@@ -44,7 +48,8 @@ public class DriveSubsystem extends SubsystemBase {
   private final MAXSwerveModule m_rearRight = new MAXSwerveModule(
       DriveConstants.kRearRightDrivingCanId,
       DriveConstants.kRearRightTurningCanId,
-      DriveConstants.kBackRightChassisAngularOffset);
+      DriveConstants.kBackRightChassisAngularOffset
+      );
 
   XboxController drive1Controller = new XboxController(0);
 
@@ -79,6 +84,16 @@ public class DriveSubsystem extends SubsystemBase {
       /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {
   }
+
+public void resetFrontRightEncoder(){
+  m_frontRight.m_drivingEncoder.setPosition(0);
+}
+
+public double getFrontRightEncoder(){
+  SmartDashboard.putNumber("Position Fr Auton", m_frontRight.m_drivingEncoder.getPosition());
+  return m_frontRight.m_drivingEncoder.getPosition();
+
+}
 
   @Override
   public void periodic() {
@@ -156,6 +171,11 @@ public class DriveSubsystem extends SubsystemBase {
    */
 public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative, boolean rateLimit) {
     
+    SmartDashboard.putNumber("x Speed Drive", xSpeed);
+        SmartDashboard.putNumber("y Speed Drive", ySpeed);
+            SmartDashboard.putNumber("rot Speed Drive", rot);
+
+
     double xSpeedCommanded;
     double ySpeedCommanded;
 
@@ -258,8 +278,8 @@ SmartDashboard.putBoolean("Reverse Drive", reverseDrive);
 SmartDashboard.putNumber("X Speed", xSpeedDelivered);
 SmartDashboard.putNumber("Y Speed", ySpeedDelivered);
 SmartDashboard.putNumber("Rotation Speed", rotDelivered);
-
-
+SmartDashboard.putNumber("Position FR", m_frontRight.m_drivingEncoder.getPosition());
+   
 
     if (drive1Controller.getLeftTriggerAxis()>0.05) {
       m_Arms.LeftArmUp(drive1Controller.getLeftTriggerAxis());
@@ -323,6 +343,7 @@ SmartDashboard.putNumber("Rotation Speed", rotDelivered);
     m_rearLeft.setDesiredState(desiredStates[2]);
     m_rearRight.setDesiredState(desiredStates[3]);
   }
+
 
   /** Resets the drive encoders to currently read a position of 0. */
   public void resetEncoders() {

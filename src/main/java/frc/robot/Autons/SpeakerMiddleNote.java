@@ -12,9 +12,11 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.PS4Controller.Button;
 import frc.robot.Commands.DriveCommand;
+import frc.robot.Commands.DriveCommandDistance;
 import frc.robot.Commands.DriveTimed;
 import frc.robot.Commands.HighShootCommand;
 import frc.robot.Commands.LowShootCommand;
+import frc.robot.Commands.ResetWheelPositionCommand;
 import frc.robot.Commands.MotorsStillCommand;
 import frc.robot.Commands.PickUpCommand;
 import frc.robot.Commands.RejectCommand;
@@ -43,22 +45,24 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import java.util.List;
 import frc.robot.Commands.HighShootCommand;
 
-public class MiddleSpeakerAuton extends SequentialCommandGroup     {
+public class SpeakerMiddleNote extends SequentialCommandGroup     {
     
   private RobotContainer m_robotContainer;
 
-    public MiddleSpeakerAuton(DriveSubsystem drive, EgressSubsystem shoot, IntakeModule conveyorBelt, SweeperWheelsSubsystem sweepers){
+    public SpeakerMiddleNote(DriveSubsystem drive, EgressSubsystem shoot, IntakeModule conveyorBelt, SweeperWheelsSubsystem sweepers, FlapSubsystem flap){
         addCommands(
-            new HighShootTimed(shoot, conveyorBelt, sweepers, 0.3),
+            new HighShootTimed(shoot, conveyorBelt, sweepers,flap, 0.3),
             new WaitCommand(0.5),
             new PickUpCommand(shoot, conveyorBelt, sweepers),
             new WaitCommand(.1), 
-            new DriveTimed(drive, -0.5, 0, 0, 0.8),  
-            new MotorsStillCommand(shoot, conveyorBelt, sweepers),
+            new ResetWheelPositionCommand(drive),        
+            new DriveCommandDistance(drive, -0.5, 0, 0, -1.5),  
+            new MotorsStillCommand(shoot, conveyorBelt, sweepers,flap),
             new WaitCommand(.3),
-            new DriveTimed(drive, 0.5, 0, 0, 0.7),
+            new ResetWheelPositionCommand(drive),
+            new DriveCommandDistance(drive, 0.5, 0, 0, 1.4),  
             new WaitCommand(.1),
-            new HighShootTimed(shoot, conveyorBelt, sweepers, 0.3)         
+            new HighShootTimed(shoot, conveyorBelt, sweepers, flap,0.3)         
             );
     }
 

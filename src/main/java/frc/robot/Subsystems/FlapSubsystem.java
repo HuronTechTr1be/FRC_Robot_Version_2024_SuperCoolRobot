@@ -30,6 +30,10 @@ public class FlapSubsystem extends SubsystemBase {
 
     }
 
+    public void flapEncoderZero(){
+      m_RelativeEncoder.setPosition(0);
+    }
+
     public void flapSetZero(){
  
     //waitCommand.initialize();
@@ -121,13 +125,13 @@ x=0;
 
   }
 
-  private boolean isRaised(){
+  public boolean isRaised(){
 
     return m_LimitSwitch.isPressed();
 
   }
 
-  private boolean isLowered(){
+  public boolean isLowered(){
 
     //return false;
     return Math.abs(m_PointLowered - m_RelativeEncoder.getPosition()) <= 5;

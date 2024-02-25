@@ -40,6 +40,12 @@ import java.util.List;
   @Override
   public void initialize() {
     m_flap.FlapUp(0.5);
+    while(m_flap.isRaised()==false){
+
+    }
+    m_flap.flapEncoderZero();
+    m_flap.FlapStill();
+
   }
 
   @Override

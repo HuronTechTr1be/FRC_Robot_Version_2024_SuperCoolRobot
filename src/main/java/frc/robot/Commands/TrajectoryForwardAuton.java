@@ -26,7 +26,7 @@ import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.PS4Controller.Button;
-import frc.robot.Autons.MiddleSpeakerAuton;
+import frc.robot.Autons.SpeakerMiddleNote;
 import frc.robot.Commands.HighShootCommand;
 import frc.robot.Commands.LowShootCommand;
 import frc.robot.Commands.MotorsStillCommand;
