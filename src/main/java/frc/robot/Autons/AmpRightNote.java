@@ -48,34 +48,80 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import java.util.List;
 import frc.robot.Commands.HighShootCommand;
 
-public class AmpNote extends SequentialCommandGroup     {
+public class AmpRightNote extends SequentialCommandGroup     {
     
   private RobotContainer m_robotContainer;
 
-    public AmpNote(DriveSubsystem drive, EgressSubsystem shoot, IntakeModule conveyorBelt, SweeperWheelsSubsystem sweepers, FlapSubsystem flap){
+    public AmpRightNote(DriveSubsystem drive, EgressSubsystem shoot, IntakeModule conveyorBelt, SweeperWheelsSubsystem sweepers, FlapSubsystem flap){
         addCommands(
-            new FlapUpCommand(flap),
-            new WaitCommand(0.1),
-            new LowShootTimed(shoot, conveyorBelt, sweepers, flap,0.5),
-            new FlapDownCommand(flap),
-            // new WaitCommand(0.3),
-            // new MotorsStillCommand(shoot, conveyorBelt, sweepers, flap),
+            
+            //Whole other Method
+            // new FlapUpCommand(flap),
+            // new WaitCommand(0.1),
+            new LowShootTimed(shoot, conveyorBelt, sweepers, flap,0.6),
+            // new FlapDownCommand(flap),
+
+            ////option 1
             new ResetWheelPositionCommand(drive), 
-            new DriveCommandDistance(drive, 0.1, -0.5, 0, 1),
+            new DriveCommandDistance(drive, -0.5, 0, 0, 0.7),
+            ////option 2
+            //new DriveTimed(drive, -0.5, 0, 0, 1),
+
+            ////option 1
+            //new ResetWheelPositionCommand(drive), 
+            //new DriveCommandDistance(drive, 0, 0, 0.2, .5),
+            
+            new WaitCommand(0.3),
+
+            ////option 2
+            new DriveTimed(drive, 0, 0, 0.4, 0.52),
+
             new WaitCommand(0.3), 
             new PickUpCommand(shoot, conveyorBelt, sweepers),
+            
+            ////option 1
             new ResetWheelPositionCommand(drive), 
-            new DriveCommandDistance(drive, -0.5, 0, 0, -0.7), 
+            new DriveCommandDistance(drive, -0.5, 0, 0, -0.8),
+
+            ////option 2
+            //new DriveTimed(drive, -0.5, 0, 0, 1),
+
             new MotorsStillCommand(shoot, conveyorBelt, sweepers,flap),
             new WaitCommand(0.3),
+
+            ////option 1
             new ResetWheelPositionCommand(drive), 
-            new DriveCommandDistance(drive, 0.5, 0, 0, 0.6),
+            new DriveCommandDistance(drive, 0.5, 0, 0, 1),
+            
+            ////option 2
+            //new DriveTimed(drive, 0.5, 0, 0, 1),
+            
             new WaitCommand(0.3),
+
+            ////option 1
+            //new ResetWheelPositionCommand(drive), 
+            //new DriveCommandDistance(drive, 0, 0, -0.2, 0.5),
+            
+            ////option 2
+            new DriveTimed(drive, 0, 0, -0.4, 0.52),
+            
+            new WaitCommand(0.3),
+
+            ////option 1
             new ResetWheelPositionCommand(drive), 
-            new DriveCommandDistance(drive, 0.1, 0.5, 0, 1),
-            new FlapUpCommand(flap),
+            new DriveCommandDistance(drive, 0.5, 0, 0, 0.75),
+            ////option 2
+            //new DriveTimed(drive, 0.5, 0, 0, 1),
+
+            new WaitCommand(.3),
+            new DriveTimed(drive, 0, 0, 0.2, 0.1),
+
+            // new FlapUpCommand(flap),
             new WaitCommand(0.1),
-            new LowShootTimed(shoot, conveyorBelt, sweepers, flap, 0.3)         
+            new LowShootTimed(shoot, conveyorBelt, sweepers, flap, 0.6)
+
+
+
             );
     }
 

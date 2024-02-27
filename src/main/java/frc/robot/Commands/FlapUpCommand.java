@@ -39,7 +39,7 @@ import java.util.List;
 
   @Override
   public void initialize() {
-    m_flap.FlapUp(0.5);
+    m_flap.FlapUp(0.3);
     while(m_flap.isRaised()==false){
 
     }

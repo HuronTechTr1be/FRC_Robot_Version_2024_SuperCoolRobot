@@ -78,7 +78,10 @@ public class Robot extends TimedRobot {
     
      //CameraServer.startAutomaticCapture();
 
-    CameraServer.startAutomaticCapture(0);
+
+    //Test 1
+    //could also move to teleop init
+    //CameraServer.startAutomaticCapture(0);
 
   }
 
@@ -148,9 +151,6 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-
-    m_robotContainer.resetRobot();
-    SmartDashboard.setDefaultString("FlapDown", "Default");
   }
 
   /** This function is called periodically during operator control. */
@@ -170,7 +170,8 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.setDefaultNumber("Speed Factor", DriveConstants.kSpeedFactor);
     SmartDashboard.setDefaultNumber("Rotate Factor", DriveConstants.kRotateFactor);
-    
+    m_robotContainer.resetRobot();
+
 
 
     // SmartDashboard.putNumber("Bottom Low Shoot Factor:", EgressConstants.id41LowShootFactor);

@@ -16,7 +16,11 @@ import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.PS4Controller.Button;
-import frc.robot.Autons.AmpNote;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Autons.AmpRightNote;
+import frc.robot.Autons.AmpRightNote;
+import frc.robot.Autons.SpeakerLeftNote;
+import frc.robot.Autons.SpeakerLeftShootRetreat;
 import frc.robot.Autons.SpeakerMiddleNote;
 import frc.robot.Commands.FlapDownCommand;
 import frc.robot.Commands.FlapUpCommand;
@@ -82,8 +86,10 @@ public class RobotContainer {
   FlapDownCommand FlapDown = new FlapDownCommand(m_robotFlap);
   MotorsStillCommand MotorsStill = new MotorsStillCommand(m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
   SpeakerMiddleNote MiddleSpeaker = new SpeakerMiddleNote(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels,m_robotFlap);
-  AmpNote ampNote = new AmpNote(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
-
+  AmpRightNote ampNote = new AmpRightNote(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
+  AmpRightNote ampNoteTesting = new AmpRightNote(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
+  SpeakerLeftShootRetreat speakerLeftShootRetreat = new SpeakerLeftShootRetreat(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
+  SpeakerLeftNote speakerLeftNote = new SpeakerLeftNote(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
 
   public void periodic(){
     if(!(CrossButton.getAsBoolean()||SquareButton.getAsBoolean()||CircleButton.getAsBoolean()||TriangleButton.getAsBoolean()||ShooterLeftBumper.getAsBoolean()||ShooterRightBumper.getAsBoolean()||ShooterLeftTrigger.getAsBoolean()||ShooterRightTrigger.getAsBoolean())){
@@ -92,6 +98,8 @@ public class RobotContainer {
       m_conveyorBelt.Still();
       m_robotFlap.FlapStill();
     }
+    SmartDashboard.putBoolean("Flap Limit", m_robotFlap.isRaised());
+    
   }
 
   public void FlapRun(){
@@ -137,7 +145,7 @@ public class RobotContainer {
   public void resetRobot(){
     
     m_robotDrive.resetClaws();
-    //m_robotFlap.flapSetZero();
+    m_robotFlap.flapSetZero();
 
   }
 
@@ -215,7 +223,10 @@ public class RobotContainer {
 
   public Command getMiddleSpeakerAuton(){
     //return MiddleSpeaker;
-    return ampNote;
+    //return ampNote;
+    return ampNoteTesting;
+    //return speakerLeftShootRetreat;
+    //return speakerLeftNote;
   }
 
 }
