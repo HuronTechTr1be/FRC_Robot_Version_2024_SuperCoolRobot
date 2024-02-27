@@ -24,24 +24,34 @@ import edu.wpi.first.cscore.VideoSink;
 import edu.wpi.first.cscore.VideoSource.ConnectionStrategy;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.PS5Controller;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 //import main.java.frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.Constants.ArmConstants;
+import edu.wpi.first.wpilibj.AddressableLED;
+import edu.wpi.first.wpilibj.AddressableLEDBuffer;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.robot.Constants.BeltConstants;
 import frc.robot.Constants.DriveConstants;
+import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.Constants.EgressConstants;
 import frc.robot.Constants.SweeperWheelConstants;
 import frc.robot.Subsystems.ClawSubsystem;
 import frc.robot.Subsystems.EgressSubsystem;
 import frc.robot.Subsystems.IntakeModule;
+import frc.robot.Subsystems.LEDSubsystem;
 import frc.robot.Subsystems.SweeperWheelsSubsystem;
 import frc.robot.Subsystems.FlapSubsystem;
 import frc.robot.AutonSwitch;
 import frc.robot.Autons.SpeakerMiddleNote;
 import edu.wpi.first.cameraserver.CameraServer;
+
+
 
  /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -53,17 +63,13 @@ public class Robot extends TimedRobot {
 
   private Command m_autonomousCommand;
   
-
+  private LEDSubsystem m_LedSubsystem;
   private RobotContainer m_robotContainer;
-  private AutonSwitch m_autonSwitch;
-  //private ClawSubsystem m_clawLeft = new ClawSubsystem(21);
-  //private ClawSubsystem m_clawRight = new ClawSubsystem(22);
-  
-  //private FlapSubsystem m_flap = new FlapSubsystem(51);
 
-  
 
   DigitalInput autonSwitchInput = new DigitalInput(0);
+
+  Alliance ally;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -75,6 +81,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    m_LedSubsystem = new LEDSubsystem();
     
      //CameraServer.startAutomaticCapture();
 
@@ -108,7 +115,17 @@ public class Robot extends TimedRobot {
   public void disabledInit() {}
 /** a */
   @Override
-  public void disabledPeriodic() {}
+  public void disabledPeriodic() {
+
+    if (ally == Alliance.Blue) {
+      m_LedSubsystem.setAll(Color.kBlue);
+    } else if (ally == Alliance.Red) {
+      m_LedSubsystem.setAll(Color.kRed);
+    } else {
+      m_LedSubsystem.rainbow();
+    }
+
+  }
 
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   /** This function is run once each time the robot enters autonomous mode. */
