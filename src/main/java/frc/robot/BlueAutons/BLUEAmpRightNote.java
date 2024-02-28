@@ -58,13 +58,12 @@ public class BLUEAmpRightNote extends SequentialCommandGroup     {
     public BLUEAmpRightNote(DriveSubsystem drive, EgressSubsystem shoot, IntakeModule conveyorBelt, SweeperWheelsSubsystem sweepers, FlapSubsystem flap){
         addCommands(
             
-            //Whole other Method
+            
             new FlapUpCommand(flap),
             new WaitCommand(0.1),
             new LowShootTimed(shoot, conveyorBelt, sweepers, flap,0.9, 0.3),
             new FlapDownCommand(flap),
 
-            ////option 1
             new ResetWheelPositionCommand(drive), 
             new DriveCommandDistance(drive, -0.5, 0, 0, 0.6),
             
@@ -75,7 +74,6 @@ public class BLUEAmpRightNote extends SequentialCommandGroup     {
             new WaitCommand(0.3), 
             new PickUpCommand(shoot, conveyorBelt, sweepers),
             
-            ////option 1
             new ResetWheelPositionCommand(drive), 
             new DriveCommandDistance(drive, -0.5, 0, 0, -0.8),
 
@@ -84,7 +82,6 @@ public class BLUEAmpRightNote extends SequentialCommandGroup     {
             new MotorsStillCommand(shoot, conveyorBelt, sweepers,flap),
             new WaitCommand(0.3),
 
-            ////option 1
             new ResetWheelPositionCommand(drive), 
             new DriveCommandDistance(drive, 0.5, 0, 0, 1),
             
@@ -92,19 +89,13 @@ public class BLUEAmpRightNote extends SequentialCommandGroup     {
             new WaitCommand(0.3),
 
 
-            ////option 2
             new DriveTimed(drive, 0, 0, -0.4, 0.45),
             
             new WaitCommand(0.3),
 
-            ////option 1
             new ResetWheelPositionCommand(drive), 
             new DriveCommandDistance(drive, 0.5, 0, 0, 0.8),
-            ////option 2
-            //new DriveTimed(drive, 0.5, 0, 0, 1),
-
-            //new WaitCommand(.3),
-           // new DriveTimed(drive, 0, 0, 0.2, 0.3),
+          
 
             new FlapUpCommand(flap),
             new WaitCommand(0.1),

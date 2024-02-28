@@ -1,4 +1,4 @@
-package frc.robot.BlueAutons;
+package frc.robot.RedAutons;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
@@ -45,11 +45,11 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import java.util.List;
 import frc.robot.Commands.HighShootCommand;
 
-public class BLUESpeakerRightNote extends SequentialCommandGroup     {
+public class REDSpeakerRightNote extends SequentialCommandGroup     {
     
   private RobotContainer m_robotContainer;
 
-    public BLUESpeakerRightNote(DriveSubsystem drive, EgressSubsystem shoot, IntakeModule conveyorBelt, SweeperWheelsSubsystem sweepers, FlapSubsystem flap){
+    public REDSpeakerRightNote(DriveSubsystem drive, EgressSubsystem shoot, IntakeModule conveyorBelt, SweeperWheelsSubsystem sweepers, FlapSubsystem flap){
         addCommands(
           
           
@@ -67,20 +67,20 @@ public class BLUESpeakerRightNote extends SequentialCommandGroup     {
             new PickUpCommand(shoot, conveyorBelt, sweepers),
             new WaitCommand(.1), 
             new ResetWheelPositionCommand(drive),        
-            new DriveCommandDistance(drive, -0.5, 0, 0, 2.3), 
+            new DriveCommandDistance(drive, -0.5, 0, 0, 1.70), 
             new WaitCommand(0.3),
             new MotorsStillCommand(shoot, conveyorBelt, sweepers,flap),
             new WaitCommand(0.1),
             new ResetWheelPositionCommand(drive),        
-            new DriveCommandDistance(drive, 0.5, 0, 0, 2.3),         
-            new WaitCommand(.1), 
-            new DriveTimed(drive, 0, 0, 0.3, 0.52),
+            new DriveCommandDistance(drive, 0.5, 0, 0, 1.70),         
+            new WaitCommand(.2), 
+            new DriveTimed(drive, 0, 0, 0.3, 0.35),
             new WaitCommand(.1),
-            new DriveTimed(drive, .2, 0, 0, .43),
+            //new DriveTimed(drive, .2, 0, 0, .20),
             new WaitCommand(0.1),
             new HighShootTimed(shoot, conveyorBelt, sweepers,flap, 0.6),
             new WaitCommand(0.1),
-            new DriveTimed(drive, 0, 0, -0.3, 0.30),
+            //new DriveTimed(drive, 0, 0, -0.3, 0.1),
             new WaitCommand(0.1),
             new ResetWheelPositionCommand(drive),
             new DriveCommandDistance(drive, -0.5, 0, 0, 2.2)

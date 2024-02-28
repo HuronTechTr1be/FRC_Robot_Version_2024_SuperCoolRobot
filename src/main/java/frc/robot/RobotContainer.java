@@ -17,11 +17,27 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.PS4Controller.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import frc.robot.BlueAutons.BLUEAmpRightNote;
+import frc.robot.BlueAutons.BLUEAmpMiddleRightNotes;
+import frc.robot.BlueAutons.BLUESpeakerAllNotes;
 import frc.robot.BlueAutons.BLUESpeakerLeftNote;
+import frc.robot.BlueAutons.BLUESpeakerMiddleLeftNotes;
 import frc.robot.BlueAutons.BLUESpeakerLeftShootRetreat;
+import frc.robot.BlueAutons.BLUESpeakerMiddleRightNotes;
 import frc.robot.BlueAutons.BLUESpeakerRightNote;
+
 import frc.robot.BlueAutons.BOTHSpeakerMiddleNote;
+
+import frc.robot.RedAutons.REDAmpRightNote;
+import frc.robot.RedAutons.REDAmpMiddleRightNotes;
+import frc.robot.RedAutons.REDSpeakerAllNotes;
+import frc.robot.RedAutons.REDSpeakerLeftNote;
+import frc.robot.RedAutons.REDSpeakerMiddleLeftNotes;
+import frc.robot.RedAutons.REDSpeakerLeftShootRetreat;
+import frc.robot.RedAutons.REDSPeakerMiddleRightNotes;
+import frc.robot.RedAutons.REDSpeakerRightNote;
+
 import frc.robot.Commands.FlapDownCommand;
 import frc.robot.Commands.FlapUpCommand;
 import frc.robot.Commands.HighShootCommand;
@@ -85,11 +101,27 @@ public class RobotContainer {
   FlapUpCommand FlapUp = new FlapUpCommand(m_robotFlap);
   FlapDownCommand FlapDown = new FlapDownCommand(m_robotFlap);
   MotorsStillCommand MotorsStill = new MotorsStillCommand(m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
-  BOTHSpeakerMiddleNote MiddleSpeaker = new BOTHSpeakerMiddleNote(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels,m_robotFlap);
-  BLUEAmpRightNote ampNote = new BLUEAmpRightNote(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
-  BLUESpeakerLeftShootRetreat speakerLeftShootRetreat = new BLUESpeakerLeftShootRetreat(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
-  BLUESpeakerLeftNote speakerLeftNote = new BLUESpeakerLeftNote(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
-  BLUESpeakerRightNote speakerRightNote = new BLUESpeakerRightNote(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
+  
+  BOTHSpeakerMiddleNote BOTHSpeakerMiddleNote = new BOTHSpeakerMiddleNote(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels,m_robotFlap);
+  
+  // BLUEAmpRightNote m_BLUEAmpRightNote = new BLUEAmpRightNote(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
+  //BLUESpeakerLeftShootRetreat m_BLUESpeakerLeftShootRetreat = new BLUESpeakerLeftShootRetreat(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
+  BLUESpeakerLeftNote m_BLUESpeakerLeftNote = new BLUESpeakerLeftNote(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
+  BLUESpeakerRightNote m_BLUESpeakerRightNote = new BLUESpeakerRightNote(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
+  //BLUESpeakerMiddleRightNotes
+  //BLUESpeakerAllNotes
+  //BLUESpeakerMiddleRightNotes
+  //BLUEAmpMiddleRightNotes
+
+  // REDAmpRightNote m_REDAmpRightNote = new REDAmpRightNote(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
+  // REDSpeakerLeftShootRetreat m_REDSpeakerLeftShootRetreat = new REDSpeakerLeftShootRetreat(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
+  REDSpeakerLeftNote m_REDSpeakerLeftNote = new REDSpeakerLeftNote(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
+  REDSpeakerRightNote m_REDSpeakerRightNote = new REDSpeakerRightNote(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
+  //REDSpeakerMiddleRightNotes
+  //REDSpeakerAllNotes
+  //REDSpeakerMiddleRightNotes
+  //REDAmpMiddleRightNotes
+
 
   
 
@@ -226,11 +258,28 @@ public class RobotContainer {
   }
 
   public Command getMiddleSpeakerAuton(){
-    //return MiddleSpeaker;
-    //return ampNote;
-    //return speakerLeftShootRetreat;
-    //return speakerLeftNote;
-    return speakerRightNote;
+
+  //return BOTHSpeakerMiddleNote; // works
+
+  //return m_BLUEAmpRightNote; // works
+  // return BLUESpeakerLeftShootRetreat; // test
+  // return m_BLUESpeakerLeftNote; // works
+  //return m_BLUESpeakerRightNote; // works
+  // return BLUESpeakerMiddleRightNotes;
+  // return BLUESpeakerAllNotes;
+  // return BLUESpeakerMiddleRightNotes;
+  // return BLUEAmpMiddleRightNotes;
+
+  // return REDAmpRightNote; // test 
+  // return REDSpeakerLeftShootRetreat; // test - need to work on (rotation?)
+   return m_REDSpeakerLeftNote; // test 
+  // return m_REDSpeakerRightNote; // test 
+  // return REDSpeakerMiddleRightNotes;
+  // return REDSpeakerAllNotes;
+  // return REDSpeakerMiddleRightNotes;
+  // return REDAmpMiddleRightNotes;
+
+
   }
 
 }

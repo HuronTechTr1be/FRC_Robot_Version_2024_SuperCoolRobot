@@ -71,7 +71,7 @@ public class BLUESpeakerLeftNote extends SequentialCommandGroup     {
             new WaitCommand(.1), 
             new ResetWheelPositionCommand(drive),        
             new DriveCommandDistance(drive, -0.5, 0, 0, 1.95), 
-            new WaitCommand(0.1),
+            new WaitCommand(0.3),
             new MotorsStillCommand(shoot, conveyorBelt, sweepers,flap),
             new WaitCommand(0.1),
             new ResetWheelPositionCommand(drive),        
