@@ -28,23 +28,20 @@ import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import java.util.List;
 
-  public class FlapDownCommand extends Command {
+  public class FlapStillCommand extends Command {
   // The subsystem the command runs on
   private final FlapSubsystem m_flap;
 
-  public FlapDownCommand(FlapSubsystem flap) {
+  public FlapStillCommand(FlapSubsystem flap) {
     m_flap = flap;
     addRequirements(m_flap);
   }
 
   @Override
   public void initialize() {
-    m_flap.FlapDown();
-    while(m_flap.getFlapEncoder()>(-15)){
-
-    }
     
     m_flap.FlapStill();
+
   }
 
   @Override

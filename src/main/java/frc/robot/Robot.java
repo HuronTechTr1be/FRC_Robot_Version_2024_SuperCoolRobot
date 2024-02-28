@@ -40,7 +40,7 @@ import frc.robot.Subsystems.IntakeModule;
 import frc.robot.Subsystems.SweeperWheelsSubsystem;
 import frc.robot.Subsystems.FlapSubsystem;
 import frc.robot.AutonSwitch;
-import frc.robot.Autons.SpeakerMiddleNote;
+import frc.robot.BlueAutons.BOTHSpeakerMiddleNote;
 import edu.wpi.first.cameraserver.CameraServer;
 
  /**
@@ -75,6 +75,8 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+
+    SmartDashboard.putNumber("Auton Picker", 0);
     
      //CameraServer.startAutomaticCapture();
 
@@ -143,6 +145,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
 
+
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
@@ -160,7 +163,7 @@ public class Robot extends TimedRobot {
 
      m_robotContainer.periodic();
      m_robotContainer.FlapRun();
-
+    
 
   }
 

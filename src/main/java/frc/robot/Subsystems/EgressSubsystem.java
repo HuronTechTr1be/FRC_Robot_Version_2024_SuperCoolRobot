@@ -47,6 +47,11 @@ public void LowShoot(){
   m_bottom.LowShoot();
 }
 
+public void adjustedLowShoot(double shootPower){
+  m_top.adjustedLowShoot(shootPower);
+  m_bottom.adjustedLowShoot(shootPower);
+}
+
 public void Still(){
   m_bottom.Still();
   m_top.Still();

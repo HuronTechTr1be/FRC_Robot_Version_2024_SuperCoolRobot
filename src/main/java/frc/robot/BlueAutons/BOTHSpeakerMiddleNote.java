@@ -1,4 +1,4 @@
-package frc.robot.Autons;
+package frc.robot.BlueAutons;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
@@ -45,15 +45,30 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import java.util.List;
 import frc.robot.Commands.HighShootCommand;
 
-public class SpeakerLeftShootRetreat extends SequentialCommandGroup     {
+
+// MAKE SURE YOU ARE A BIT AWAY FROM THE SPEAKER
+
+public class BOTHSpeakerMiddleNote extends SequentialCommandGroup     {
     
   private RobotContainer m_robotContainer;
 
-    public SpeakerLeftShootRetreat(DriveSubsystem drive, EgressSubsystem shoot, IntakeModule conveyorBelt, SweeperWheelsSubsystem sweepers, FlapSubsystem flap){
+    public BOTHSpeakerMiddleNote(DriveSubsystem drive, EgressSubsystem shoot, IntakeModule conveyorBelt, SweeperWheelsSubsystem sweepers, FlapSubsystem flap){
         addCommands(
             new HighShootTimed(shoot, conveyorBelt, sweepers,flap, 0.3),
             new WaitCommand(0.5),
-            new DriveCommandDistance(drive, -0.5, 0, 0, 2)
+            new PickUpCommand(shoot, conveyorBelt, sweepers),
+            new WaitCommand(.1), 
+            new ResetWheelPositionCommand(drive),        
+            new DriveCommandDistance(drive, -0.5, 0, 0, -1.7),
+            new WaitCommand(0.2),
+            new MotorsStillCommand(shoot, conveyorBelt, sweepers,flap),
+            new WaitCommand(.1),
+            new ResetWheelPositionCommand(drive),
+            new DriveCommandDistance(drive, 0.5, 0, 0, 1.7),  
+            new WaitCommand(.1),
+            new HighShootTimed(shoot, conveyorBelt, sweepers, flap,0.3),
+            new ResetWheelPositionCommand(drive),        
+            new DriveCommandDistance(drive, -0.5, 0, 0, -1.5)         
             );
     }
 

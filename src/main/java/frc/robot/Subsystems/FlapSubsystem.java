@@ -29,6 +29,11 @@ public class FlapSubsystem extends SubsystemBase {
 
 
     }
+    
+
+    public double getFlapEncoder(){
+      return m_RelativeEncoder.getPosition();
+    }
 
     public void flapEncoderZero(){
       m_RelativeEncoder.setPosition(0);

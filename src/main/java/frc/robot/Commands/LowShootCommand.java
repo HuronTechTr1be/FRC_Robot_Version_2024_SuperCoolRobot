@@ -32,16 +32,19 @@ import java.util.List;
   // The subsystem the command runs on
   private final EgressSubsystem m_Shoot;
   private final IntakeModule m_conveyorBelt;
+  private final double shootFactor;
 
-  public LowShootCommand(EgressSubsystem subsystem, IntakeModule subsystem2) {
+
+  public LowShootCommand(EgressSubsystem subsystem, IntakeModule subsystem2, double shootPower) {
     m_Shoot = subsystem;
     m_conveyorBelt = subsystem2;
+    shootFactor = shootPower;
     addRequirements(m_Shoot, m_conveyorBelt);
   }
 
   @Override
   public void initialize() {
-    m_Shoot.LowShoot();
+    m_Shoot.adjustedLowShoot(shootFactor);
     m_conveyorBelt.LowShoot();
   }
 

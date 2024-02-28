@@ -17,11 +17,11 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.PS4Controller.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Autons.AmpRightNote;
-import frc.robot.Autons.AmpRightNote;
-import frc.robot.Autons.SpeakerLeftNote;
-import frc.robot.Autons.SpeakerLeftShootRetreat;
-import frc.robot.Autons.SpeakerMiddleNote;
+import frc.robot.BlueAutons.BLUEAmpRightNote;
+import frc.robot.BlueAutons.BLUESpeakerLeftNote;
+import frc.robot.BlueAutons.BLUESpeakerLeftShootRetreat;
+import frc.robot.BlueAutons.BLUESpeakerRightNote;
+import frc.robot.BlueAutons.BOTHSpeakerMiddleNote;
 import frc.robot.Commands.FlapDownCommand;
 import frc.robot.Commands.FlapUpCommand;
 import frc.robot.Commands.HighShootCommand;
@@ -79,17 +79,19 @@ public class RobotContainer {
 
 
   HighShootCommand HighShoot = new HighShootCommand(m_Shoot, m_conveyorBelt);
-  LowShootCommand LowShoot = new LowShootCommand(m_Shoot, m_conveyorBelt);
+  LowShootCommand LowShoot = new LowShootCommand(m_Shoot, m_conveyorBelt,0.3);
   RejectCommand Reject = new RejectCommand(m_Shoot, m_conveyorBelt, m_SweeperWheels);
   PickUpCommand PickUp = new PickUpCommand(m_Shoot, m_conveyorBelt, m_SweeperWheels);
   FlapUpCommand FlapUp = new FlapUpCommand(m_robotFlap);
   FlapDownCommand FlapDown = new FlapDownCommand(m_robotFlap);
   MotorsStillCommand MotorsStill = new MotorsStillCommand(m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
-  SpeakerMiddleNote MiddleSpeaker = new SpeakerMiddleNote(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels,m_robotFlap);
-  AmpRightNote ampNote = new AmpRightNote(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
-  AmpRightNote ampNoteTesting = new AmpRightNote(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
-  SpeakerLeftShootRetreat speakerLeftShootRetreat = new SpeakerLeftShootRetreat(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
-  SpeakerLeftNote speakerLeftNote = new SpeakerLeftNote(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
+  BOTHSpeakerMiddleNote MiddleSpeaker = new BOTHSpeakerMiddleNote(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels,m_robotFlap);
+  BLUEAmpRightNote ampNote = new BLUEAmpRightNote(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
+  BLUESpeakerLeftShootRetreat speakerLeftShootRetreat = new BLUESpeakerLeftShootRetreat(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
+  BLUESpeakerLeftNote speakerLeftNote = new BLUESpeakerLeftNote(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
+  BLUESpeakerRightNote speakerRightNote = new BLUESpeakerRightNote(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
+
+  
 
   public void periodic(){
     if(!(CrossButton.getAsBoolean()||SquareButton.getAsBoolean()||CircleButton.getAsBoolean()||TriangleButton.getAsBoolean()||ShooterLeftBumper.getAsBoolean()||ShooterRightBumper.getAsBoolean()||ShooterLeftTrigger.getAsBoolean()||ShooterRightTrigger.getAsBoolean())){
@@ -101,6 +103,8 @@ public class RobotContainer {
     SmartDashboard.putBoolean("Flap Limit", m_robotFlap.isRaised());
     
   }
+
+
 
   public void FlapRun(){
     
@@ -224,9 +228,9 @@ public class RobotContainer {
   public Command getMiddleSpeakerAuton(){
     //return MiddleSpeaker;
     //return ampNote;
-    return ampNoteTesting;
     //return speakerLeftShootRetreat;
     //return speakerLeftNote;
+    return speakerRightNote;
   }
 
 }
