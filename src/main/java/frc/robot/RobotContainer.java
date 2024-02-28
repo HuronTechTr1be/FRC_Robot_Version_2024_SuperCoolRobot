@@ -102,7 +102,7 @@ public class RobotContainer {
   FlapDownCommand FlapDown = new FlapDownCommand(m_robotFlap);
   MotorsStillCommand MotorsStill = new MotorsStillCommand(m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
   
-  BOTHSpeakerMiddleNote BOTHSpeakerMiddleNote = new BOTHSpeakerMiddleNote(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels,m_robotFlap);
+  BOTHSpeakerMiddleNote m_BOTHSpeakerMiddleNote = new BOTHSpeakerMiddleNote(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels,m_robotFlap);
   
   // BLUEAmpRightNote m_BLUEAmpRightNote = new BLUEAmpRightNote(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
   //BLUESpeakerLeftShootRetreat m_BLUESpeakerLeftShootRetreat = new BLUESpeakerLeftShootRetreat(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
@@ -259,13 +259,25 @@ public class RobotContainer {
 
   public Command getMiddleSpeakerAuton(){
 
-  return BOTHSpeakerMiddleNote; // works
-  // return m_BLUESpeakerLeftNote; // works
-  //return m_BLUESpeakerRightNote; // works
-  //return m_REDSpeakerLeftNote; // test 
-  // return m_REDSpeakerRightNote; // test 
-
-
+  double autonPicker = SmartDashboard.getNumber("Auton Picker", 0);
+  if(autonPicker==1){
+    return m_BOTHSpeakerMiddleNote;
+  }
+  if(autonPicker==2){
+    return m_BLUESpeakerLeftNote;
+  }
+  if(autonPicker==3){
+    return m_BLUESpeakerRightNote;
+  }
+  if(autonPicker==4){
+    return m_REDSpeakerLeftNote;
+  }
+  if(autonPicker==5){
+    return m_REDSpeakerRightNote;
+  }
+  else{
+    return null;
+  }
 
   }
 
