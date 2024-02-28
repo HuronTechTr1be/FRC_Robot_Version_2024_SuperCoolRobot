@@ -259,25 +259,12 @@ public class RobotContainer {
 
   public Command getMiddleSpeakerAuton(){
 
-  //return BOTHSpeakerMiddleNote; // works
-
-  //return m_BLUEAmpRightNote; // works
-  // return BLUESpeakerLeftShootRetreat; // test
+  return BOTHSpeakerMiddleNote; // works
   // return m_BLUESpeakerLeftNote; // works
   //return m_BLUESpeakerRightNote; // works
-  // return BLUESpeakerMiddleRightNotes;
-  // return BLUESpeakerAllNotes;
-  // return BLUESpeakerMiddleRightNotes;
-  // return BLUEAmpMiddleRightNotes;
-
-  // return REDAmpRightNote; // test 
-  // return REDSpeakerLeftShootRetreat; // test - need to work on (rotation?)
-   return m_REDSpeakerLeftNote; // test 
+  //return m_REDSpeakerLeftNote; // test 
   // return m_REDSpeakerRightNote; // test 
-  // return REDSpeakerMiddleRightNotes;
-  // return REDSpeakerAllNotes;
-  // return REDSpeakerMiddleRightNotes;
-  // return REDAmpMiddleRightNotes;
+
 
 
   }
