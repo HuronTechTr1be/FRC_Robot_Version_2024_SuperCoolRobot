@@ -6,9 +6,6 @@ import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
-
-
-
 public class LEDSubsystem extends SubsystemBase{
     private final AddressableLED m_led = new AddressableLED(0);
     private final AddressableLEDBuffer m_ledBuffer = new AddressableLEDBuffer(150);
