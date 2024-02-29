@@ -24,23 +24,34 @@ import edu.wpi.first.cscore.VideoSink;
 import edu.wpi.first.cscore.VideoSource.ConnectionStrategy;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.PS5Controller;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 //import main.java.frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.Constants.ArmConstants;
+import edu.wpi.first.wpilibj.AddressableLED;
+import edu.wpi.first.wpilibj.AddressableLEDBuffer;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.robot.Constants.BeltConstants;
 import frc.robot.Constants.DriveConstants;
+import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.Constants.EgressConstants;
 import frc.robot.Constants.SweeperWheelConstants;
 import frc.robot.Subsystems.ClawSubsystem;
 import frc.robot.Subsystems.EgressSubsystem;
 import frc.robot.Subsystems.IntakeModule;
+import frc.robot.Subsystems.LEDSubsystem;
 import frc.robot.Subsystems.SweeperWheelsSubsystem;
 import frc.robot.Subsystems.FlapSubsystem;
 import frc.robot.AutonSwitch;
+import frc.robot.BlueAutons.BOTHSpeakerMiddleNote;
 import edu.wpi.first.cameraserver.CameraServer;
+
+
 
  /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -51,21 +62,14 @@ import edu.wpi.first.cameraserver.CameraServer;
 public class Robot extends TimedRobot {
 
   private Command m_autonomousCommand;
-
+  
+  private LEDSubsystem m_LedSubsystem;
   private RobotContainer m_robotContainer;
-  private AutonSwitch m_autonSwitch;
-  //private ClawSubsystem m_clawLeft = new ClawSubsystem(21);
-  //private ClawSubsystem m_clawRight = new ClawSubsystem(22);
-  private EgressSubsystem m_topShoot = new EgressSubsystem(42);
-  private EgressSubsystem m_bottomShoot = new EgressSubsystem(41);
-  private IntakeModule m_conveyorBelt = new IntakeModule(33);
-  private SweeperWheelsSubsystem m_leftSweeperWheel = new SweeperWheelsSubsystem(31);
-  private SweeperWheelsSubsystem m_rightSweeperWheel = new SweeperWheelsSubsystem(32);
-  //private FlapSubsystem m_flap = new FlapSubsystem(51);
 
-  PS4Controller drive2Controller = new PS4Controller(1);
 
   DigitalInput autonSwitchInput = new DigitalInput(0);
+
+  Alliance ally;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -77,10 +81,16 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+
+    SmartDashboard.putNumber("Auton Picker", 0);
+    m_LedSubsystem = new LEDSubsystem();
     
      //CameraServer.startAutomaticCapture();
 
-    CameraServer.startAutomaticCapture(1);
+
+    //Test 1
+    //could also move to teleop init
+    //CameraServer.startAutomaticCapture(0);
 
   }
 
@@ -107,14 +117,25 @@ public class Robot extends TimedRobot {
   public void disabledInit() {}
 /** a */
   @Override
-  public void disabledPeriodic() {}
+  public void disabledPeriodic() {
+
+    if (ally == Alliance.Blue) {
+      m_LedSubsystem.setAll(Color.kBlue);
+    } else if (ally == Alliance.Red) {
+      m_LedSubsystem.setAll(Color.kRed);
+    } else {
+      m_LedSubsystem.rainbow();
+    }
+
+  }
 
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   /** This function is run once each time the robot enters autonomous mode. */
   @Override
   public void autonomousInit() {
 
-      m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+      m_robotContainer.resetReverseDrive();
+      m_autonomousCommand = m_robotContainer.getMiddleSpeakerAuton();
 
     /*
      * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -142,17 +163,18 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
 
+
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
     
+    CameraServer.startAutomaticCapture(0);
+
+
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-
-    m_robotContainer.resetRobot();
-
   }
 
   /** This function is called periodically during operator control. */
@@ -160,7 +182,9 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
-     
+     m_robotContainer.periodic();
+     m_robotContainer.FlapRun();
+    
 
   }
 
@@ -170,7 +194,8 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.setDefaultNumber("Speed Factor", DriveConstants.kSpeedFactor);
     SmartDashboard.setDefaultNumber("Rotate Factor", DriveConstants.kRotateFactor);
-    
+    m_robotContainer.resetRobot();
+
 
 
     // SmartDashboard.putNumber("Bottom Low Shoot Factor:", EgressConstants.id41LowShootFactor);
@@ -186,6 +211,9 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
     
+    m_robotContainer.periodic();  
+    //m_robotContainer.FlapRun();  
+
     double bottomHighShootFactor = SmartDashboard.getNumber("Bottom High Shoot Factor:", EgressConstants.id41HighShootFactor);
     SmartDashboard.setDefaultNumber("Bottom High Shoot Factor:", bottomHighShootFactor);
     if(Math.abs(bottomHighShootFactor)>1){
@@ -207,66 +235,54 @@ public class Robot extends TimedRobot {
       topLowShootFactor = 0;
     }
 
-    if (drive2Controller.getCircleButton()) {
-      if(bottomHighShootFactor==EgressConstants.id41HighShootFactor && topHighShootFactor==EgressConstants.id42HighShootFactor){
-      m_topShoot.HighShoot();
-      m_bottomShoot.HighShoot();
-      m_conveyorBelt.HighShoot();
-      }
-      else{
-      m_topShoot.adjustedHighShoot(topHighShootFactor);
-      m_bottomShoot.adjustedHighShoot(bottomHighShootFactor);
-      m_conveyorBelt.HighShoot();  
-      }
+    // if (drive2Controller.getCircleButton()) {
+    //   if(bottomHighShootFactor==EgressConstants.id41HighShootFactor && topHighShootFactor==EgressConstants.id42HighShootFactor){
+    //   m_topShoot.HighShoot();
+    //   m_bottomShoot.HighShoot();
+    //   m_conveyorBelt.HighShoot();
+    //   }
+    //   else{
+    //   m_topShoot.adjustedHighShoot(topHighShootFactor);
+    //   m_bottomShoot.adjustedHighShoot(bottomHighShootFactor);
+    //   m_conveyorBelt.HighShoot();  
+    //   }
       
-    }
-    else if (drive2Controller.getSquareButton()) {
-      if(bottomLowShootFactor==EgressConstants.id41LowShootFactor && topLowShootFactor==EgressConstants.id42LowShootFactor){
-      m_topShoot.LowShoot();
-      m_bottomShoot.LowShoot();
-      m_conveyorBelt.LowShoot();
-      }
-      else{
-      m_topShoot.adjustedLowShoot(topLowShootFactor);
-      m_bottomShoot.adjustedLowShoot(bottomLowShootFactor);
-      m_conveyorBelt.LowShoot();
-      }
-    }
-    else if (drive2Controller.getCrossButton()) {
-      m_topShoot.Reject();
-      m_bottomShoot.Reject();
-      m_conveyorBelt.reject();
-      m_leftSweeperWheel.Reject(); 
-      m_rightSweeperWheel.Reject();
-    } 
-     else if (drive2Controller.getTriangleButton()) {;
-      m_conveyorBelt.PickUp();
-      m_leftSweeperWheel.PickUp();
-      m_rightSweeperWheel.PickUp();
-      m_bottomShoot.PickUp();
-    }
-    else {
-      m_topShoot.Still();
-      m_bottomShoot.Still();
-      m_conveyorBelt.still();
-      m_leftSweeperWheel.Still();
-      m_rightSweeperWheel.Still();
-    }
+    // }
+    // else if (drive2Controller.getSquareButton()) {
+    //   if(bottomLowShootFactor==EgressConstants.id41LowShootFactor && topLowShootFactor==EgressConstants.id42LowShootFactor){
+    //   m_topShoot.LowShoot();
+    //   m_bottomShoot.LowShoot();
+    //   m_conveyorBelt.LowShoot();
+    //   }
+    //   else{
+    //   m_topShoot.adjustedLowShoot(topLowShootFactor);
+    //   m_bottomShoot.adjustedLowShoot(bottomLowShootFactor);
+    //   m_conveyorBelt.LowShoot();
+    //   }
+    // }
+    // else if (drive2Controller.getCrossButton()) {
+    //   m_topShoot.Reject();
+    //   m_bottomShoot.Reject();
+    //   m_conveyorBelt.reject();
+    //   m_leftSweeperWheel.Reject(); 
+    //   m_rightSweeperWheel.Reject();
+    // } 
+    //  else if (drive2Controller.getTriangleButton()) {;
+    //   m_conveyorBelt.PickUp();
+    //   m_leftSweeperWheel.PickUp();
+    //   m_rightSweeperWheel.PickUp();
+    //   m_bottomShoot.PickUp();
+    // }
+    // else {
+    //   m_topShoot.Still();
+    //   m_bottomShoot.Still();
+    //   m_conveyorBelt.still();
+    //   m_leftSweeperWheel.Still();
+    //   m_rightSweeperWheel.Still();
+    // }
 
   /*
 
-    if (drive2Controller.get?Button()) {
-      m_flap.Up();
-    } 
-    else{
-      m_flap.Still();
-    }
-    if (drive2Controller.get?Button()) {
-      m_flap.Down();
-    }
-    else {
-      m_flap.Still();
-    }
 
  */
   

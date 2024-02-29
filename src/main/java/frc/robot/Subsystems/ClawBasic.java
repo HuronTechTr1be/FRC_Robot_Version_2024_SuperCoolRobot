@@ -16,7 +16,7 @@ import frc.robot.Constants.ArmConstants;
 
 
 
-public class UppyDownyArms {
+public class ClawBasic {
 
   private CANSparkMax arm;
   private RelativeEncoder m_RelativeEncoder;
@@ -27,7 +27,7 @@ public class UppyDownyArms {
   private SparkLimitSwitch m_LimitSwitch;
 
 
-  public UppyDownyArms(int deviceId, String armSide) {
+  public ClawBasic(int deviceId, String armSide) {
 
     arm = new CANSparkMax(deviceId,MotorType.kBrushless);
     m_RelativeEncoder = arm.getEncoder();
@@ -115,21 +115,22 @@ public class UppyDownyArms {
   public void periodic(){
 
     if(arm.getDeviceId()==21){ 
-      SmartDashboard.putNumber("LeftArmEncoder",m_RelativeEncoder.getPosition());
-      SmartDashboard.putNumber("LeftArmCurrentPeriodic",arm.getOutputCurrent());
-      SmartDashboard.putBoolean("LeftArmIsLowered",isLowered());
+       //SmartDashboard.putNumber("LeftArmEncoder",m_RelativeEncoder.getPosition());
+       //SmartDashboard.putNumber("LeftArmCurrentPeriodic",arm.getOutputCurrent());
+      // SmartDashboard.putBoolean("LeftArmIsLowered",isLowered());
       if(isLowered()){
       m_RelativeEncoder.setPosition(0);
       }
+      
     //   if (arm.getOutputCurrent()>m_maxLeftCurrent){
     //     m_maxLeftCurrent = arm.getOutputCurrent();
     // }
     // SmartDashboard.putNumber("maxLeftCurrent", m_maxLeftCurrent);
   }
     else if(arm.getDeviceId()==22){
-      SmartDashboard.putNumber("RightArmEncoder",m_RelativeEncoder.getPosition());
-      SmartDashboard.putNumber("RightArmCurrentPeriodic",arm.getOutputCurrent());
-      SmartDashboard.putBoolean("RightArmIsLowered",isLowered());
+       //SmartDashboard.putNumber("RightArmEncoder",m_RelativeEncoder.getPosition());
+       //SmartDashboard.putNumber("RightArmCurrentPeriodic",arm.getOutputCurrent());
+      // SmartDashboard.putBoolean("RightArmIsLowered",isLowered());
       if(isLowered()){
       m_RelativeEncoder.setPosition(0);
       }

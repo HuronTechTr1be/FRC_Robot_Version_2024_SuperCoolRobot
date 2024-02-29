@@ -127,7 +127,7 @@ public final class Constants {
  
   public static final class AutoConstants {
     public static final double kMaxSpeedMetersPerSecond = 2;
-    public static final double kMaxAccelerationMetersPerSecondSquared = 3;
+    public static final double kMaxAccelerationMetersPerSecondSquared = 1.5;
     public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
     public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
 
@@ -150,10 +150,10 @@ public final class Constants {
     public static final double id42HighShootFactor = 1; //top high shooter power level
     public static final double id41RejectFactor = -1; //bottom reject power level
     public static final double id42RejectFactor = -1; //top reject power level
-    public static final double id41LowShootFactor = .25; //bottom low shooter power level
-    public static final double id42LowShootFactor = .25; //top low shooter power level
+    public static final double id41LowShootFactor = .35; //bottom low shooter power level
+    public static final double id42LowShootFactor = .35; //top low shooter power level
     public static final double id41PickUpFactor = .1; //bottom pick up power level
-    public static final double id42PickUpFactor = 1; //top pick up power level
+    public static final double id42PickUpFactor = 0; //top pick up power level
 
   }
 
@@ -173,8 +173,8 @@ public final class Constants {
   }
 
   public static final class FlapConstants {
-      public static final double k_initFlapSpeedRoboInit = -0.25; // left pick up power level
-      public static final double k_initFlapSpeedDown = -1; // left pick up power level
+      public static final double k_initFlapSpeedRoboInit = 0.5; // left pick up power level
+      public static final double k_FlapSpeedDown = -0.25; // left pick up power level
 
   }
 
