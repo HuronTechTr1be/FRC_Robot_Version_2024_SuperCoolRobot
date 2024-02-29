@@ -14,6 +14,7 @@ import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.PS4Controller.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -78,6 +79,12 @@ public class RobotContainer {
   private SweeperWheelsSubsystem m_SweeperWheels = new SweeperWheelsSubsystem();
   private final FlapSubsystem m_robotFlap = new FlapSubsystem(51);
 
+  DigitalInput autonSwitch1 = new DigitalInput(9);
+  DigitalInput autonSwitch2 = new DigitalInput(8);
+  DigitalInput autonSwitch3 = new DigitalInput(7);
+  DigitalInput autonSwitch4 = new DigitalInput(6);
+  DigitalInput autonSwitch5 = new DigitalInput(5);
+  DigitalInput autonSwitch6 = new DigitalInput(4);
 
   // The driver's controller
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
@@ -123,6 +130,10 @@ public class RobotContainer {
   //REDAmpMiddleRightNotes
 
 
+
+  public void resetReverseDrive(){
+    m_robotDrive.resetReverseDrive();
+  }
   
 
   public void periodic(){
@@ -259,25 +270,29 @@ public class RobotContainer {
 
   public Command getMiddleSpeakerAuton(){
 
-  double autonPicker = SmartDashboard.getNumber("Auton Picker", 0);
-  if(autonPicker==1){
-    return m_BOTHSpeakerMiddleNote;
+  //double autonPicker = digita
+
+
+  if(!autonSwitch1.get()){
+    return m_BOTHSpeakerMiddleNote; //1 
   }
-  if(autonPicker==2){
-    return m_BLUESpeakerLeftNote;
+  if(!autonSwitch2.get()){
+    return m_BLUESpeakerLeftNote; // 2
   }
-  if(autonPicker==3){
-    return m_BLUESpeakerRightNote;
+  if(!autonSwitch3.get()){
+    return m_BLUESpeakerRightNote; // 3
   }
-  if(autonPicker==4){
-    return m_REDSpeakerLeftNote;
+  if(!autonSwitch4.get()){
+    return m_REDSpeakerLeftNote; // 4
   }
-  if(autonPicker==5){
-    return m_REDSpeakerRightNote;
+  if(!autonSwitch5.get()){
+    return m_REDSpeakerRightNote; // 5
   }
   else{
-    return null;
+    return null; 
   }
+
+
 
   }
 

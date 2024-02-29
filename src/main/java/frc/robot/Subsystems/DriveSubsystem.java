@@ -57,6 +57,10 @@ public class DriveSubsystem extends SubsystemBase {
   
   boolean reverseDrive = false;
 
+  public void resetReverseDrive(){
+    reverseDrive = false;
+  }
+
   // The gyro sensor
   private final Pigeon2 m_gyro = new Pigeon2(10);
 
