@@ -31,8 +31,8 @@ public final class Constants {
     public static final double kMagnitudeSlewRate = 1.8; // percent per second (1 = 100%)
     public static final double kRotationalSlewRate = 2.0; // percent per second (1 = 100%)
     
-    public static final double kReduceSpeedFactor = .25; //reduce drive speed with A on drive controller
-    public static final double kReduceRotationRactor = .25;//reduce rotation speed with A on drive controller
+    public static final double kReduceSpeedFactor = .75; //reduce drive speed with A on drive controller
+    public static final double kReduceRotationRactor = .75;//reduce rotation speed with A on drive controller
 
     public static final double kSpeedFactor = 1; //reduce drive speed with driver dashboard
     public static final double kRotateFactor = 1; //reduce rotation speed with driver dashboard

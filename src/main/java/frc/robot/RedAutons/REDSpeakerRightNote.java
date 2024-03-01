@@ -53,38 +53,44 @@ public class REDSpeakerRightNote extends SequentialCommandGroup     {
         addCommands(
           
           
-          new DriveTimed(drive, -0.2, 0, 0, 0.2),
+        new DriveTimed(drive, -0.2, 0, 0, 0.2),
 
+        new WaitCommand(0.1),
+
+        new HighShootTimed(shoot, conveyorBelt, sweepers,flap, 0.6),
+          new WaitCommand(0.2),
+
+         new DriveTimed(drive, 0, 0, -0.3, 0.33),
+
+         new WaitCommand(0.1),
+
+          new PickUpCommand(shoot, conveyorBelt, sweepers),
+          new WaitCommand(.1), 
+          new ResetWheelPositionCommand(drive),        
+          new DriveCommandDistance(drive, -0.5, 0, 0, 1.75), 
+          new WaitCommand(0.3),
+          new MotorsStillCommand(shoot, conveyorBelt, sweepers,flap),
           new WaitCommand(0.1),
-
+          new RejectCommand(shoot, conveyorBelt, sweepers),
+          new WaitCommand(0.1),
+          new MotorsStillCommand(shoot, conveyorBelt, sweepers, flap),
+          new WaitCommand(0.1),
+          new ResetWheelPositionCommand(drive),        
+          new DriveCommandDistance(drive, 0.5, 0, 0, 1.68),         
+          new WaitCommand(.1), 
+          new DriveTimed(drive, 0, 0, 0.3, 0.4),
+          new WaitCommand(.1),
+          //new DriveTimed(drive, .2, 0, 0, .2),
+          new WaitCommand(0.1),
           new HighShootTimed(shoot, conveyorBelt, sweepers,flap, 0.6),
-            new WaitCommand(0.2),
-
-           new DriveTimed(drive, 0, 0, -0.3, 0.30),
-
-           new WaitCommand(0.1),
-
-            new PickUpCommand(shoot, conveyorBelt, sweepers),
-            new WaitCommand(.1), 
-            new ResetWheelPositionCommand(drive),        
-            new DriveCommandDistance(drive, -0.5, 0, 0, 1.70), 
-            new WaitCommand(0.3),
-            new MotorsStillCommand(shoot, conveyorBelt, sweepers,flap),
-            new WaitCommand(0.1),
-            new ResetWheelPositionCommand(drive),        
-            new DriveCommandDistance(drive, 0.5, 0, 0, 1.70),         
-            new WaitCommand(.2), 
-            new DriveTimed(drive, 0, 0, 0.3, 0.35),
-            new WaitCommand(.1),
-            //new DriveTimed(drive, .2, 0, 0, .20),
-            new WaitCommand(0.1),
-            new HighShootTimed(shoot, conveyorBelt, sweepers,flap, 0.6),
-            new WaitCommand(0.1),
-            //new DriveTimed(drive, 0, 0, -0.3, 0.1),
-            new WaitCommand(0.1),
-            new ResetWheelPositionCommand(drive),
-            new DriveCommandDistance(drive, -0.5, 0, 0, 2.2)
-             
+          new WaitCommand(0.1),
+          new DriveTimed(drive, -0.2, 0, 0, 0.2),
+          new WaitCommand(0.1),
+          new DriveTimed(drive, 0, 0, -0.3, 0.15),
+          new WaitCommand(0.1),
+          new ResetWheelPositionCommand(drive),
+          new DriveCommandDistance(drive, -0.5, 0, 0, 2.2)
+              
             );
     }
 

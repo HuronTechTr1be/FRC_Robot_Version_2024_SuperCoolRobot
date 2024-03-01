@@ -60,7 +60,7 @@ public class BLUESpeakerRightNote extends SequentialCommandGroup     {
           new HighShootTimed(shoot, conveyorBelt, sweepers,flap, 0.6),
             new WaitCommand(0.2),
 
-           new DriveTimed(drive, 0, 0, -0.3, 0.30),
+           new DriveTimed(drive, 0, 0, -0.3, 0.33),
 
            new WaitCommand(0.1),
 
@@ -71,16 +71,22 @@ public class BLUESpeakerRightNote extends SequentialCommandGroup     {
             new WaitCommand(0.3),
             new MotorsStillCommand(shoot, conveyorBelt, sweepers,flap),
             new WaitCommand(0.1),
+            new RejectCommand(shoot, conveyorBelt, sweepers),
+            new WaitCommand(0.1),
+            new MotorsStillCommand(shoot, conveyorBelt, sweepers, flap),
+            new WaitCommand(0.1),
             new ResetWheelPositionCommand(drive),        
             new DriveCommandDistance(drive, 0.5, 0, 0, 2.3),         
             new WaitCommand(.1), 
-            new DriveTimed(drive, 0, 0, 0.3, 0.52),
+            new DriveTimed(drive, 0, 0, 0.3, 0.49),
             new WaitCommand(.1),
             new DriveTimed(drive, .2, 0, 0, .43),
             new WaitCommand(0.1),
             new HighShootTimed(shoot, conveyorBelt, sweepers,flap, 0.6),
             new WaitCommand(0.1),
-            new DriveTimed(drive, 0, 0, -0.3, 0.30),
+            new DriveTimed(drive, -0.2, 0, 0, 0.2),
+            new WaitCommand(0.1),
+            new DriveTimed(drive, 0, 0, -0.3, 0.35),
             new WaitCommand(0.1),
             new ResetWheelPositionCommand(drive),
             new DriveCommandDistance(drive, -0.5, 0, 0, 2.2)

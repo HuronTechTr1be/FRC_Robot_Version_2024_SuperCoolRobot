@@ -43,7 +43,7 @@ import java.util.List;
 
   @Override
   public void initialize() {
-    m_Shoot.PickUp();
+    //m_Shoot.PickUp();
     m_conveyorBelt.PickUp();
     m_Sweepers.PickUp();
   }

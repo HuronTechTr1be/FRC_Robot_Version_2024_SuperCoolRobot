@@ -273,21 +273,39 @@ public class RobotContainer {
   //double autonPicker = digita
 
 
-  if(!autonSwitch1.get()){
-    return m_BOTHSpeakerMiddleNote; //1 
+  double autonPicker = SmartDashboard.getNumber("Auton Picker", 0);
+  if(autonPicker==1){
+    return m_BOTHSpeakerMiddleNote;
   }
-  if(!autonSwitch2.get()){
+  if(autonPicker==2){
     return m_BLUESpeakerLeftNote; // 2
   }
-  if(!autonSwitch3.get()){
+  if(autonPicker==3){
     return m_BLUESpeakerRightNote; // 3
   }
-  if(!autonSwitch4.get()){
+  if(autonPicker==4){
     return m_REDSpeakerLeftNote; // 4
   }
-  if(!autonSwitch5.get()){
+  if(autonPicker==5){
     return m_REDSpeakerRightNote; // 5
   }
+
+  // if(!autonSwitch1.get()){
+  //   return m_BOTHSpeakerMiddleNote; //1 
+  // }
+  // if(!autonSwitch2.get()){
+  //   return m_BLUESpeakerLeftNote; // 2
+  // }
+  // if(!autonSwitch3.get()){
+  //   return m_BLUESpeakerRightNote; // 3
+  // }
+  // if(!autonSwitch4.get()){
+  //   return m_REDSpeakerLeftNote; // 4
+  // }
+  // if(!autonSwitch5.get()){
+  //   return m_REDSpeakerRightNote; // 5
+  // }
+
   else{
     return null; 
   }
