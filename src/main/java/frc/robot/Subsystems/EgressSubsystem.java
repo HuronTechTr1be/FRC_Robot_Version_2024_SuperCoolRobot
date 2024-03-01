@@ -37,6 +37,10 @@ public void Reject(){
   m_bottom.Reject();
 }
 
+public void Reject(double speed){
+  m_bottom.Reject(speed);
+}
+
 public void HighShoot(){
   m_top.HighShoot();
   m_bottom.HighShoot();

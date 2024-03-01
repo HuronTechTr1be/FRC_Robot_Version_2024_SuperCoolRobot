@@ -46,6 +46,7 @@ import frc.robot.Commands.LowShootCommand;
 import frc.robot.Commands.MotorsStillCommand;
 import frc.robot.Commands.PickUpCommand;
 import frc.robot.Commands.RejectCommand;
+import frc.robot.Commands.SlowRejectCommand;
 //import frc.robot.Commands.HighShootCommand;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
@@ -100,9 +101,9 @@ public class RobotContainer {
   JoystickButton ShooterRightTrigger = new JoystickButton(m_shooterController, PS4Controller.Button.kR1.value);
 
 
-
   HighShootCommand HighShoot = new HighShootCommand(m_Shoot, m_conveyorBelt);
   LowShootCommand LowShoot = new LowShootCommand(m_Shoot, m_conveyorBelt,0.3);
+  SlowRejectCommand SlowReject = new SlowRejectCommand(m_Shoot, m_conveyorBelt, m_SweeperWheels);
   RejectCommand Reject = new RejectCommand(m_Shoot, m_conveyorBelt, m_SweeperWheels);
   PickUpCommand PickUp = new PickUpCommand(m_Shoot, m_conveyorBelt, m_SweeperWheels);
   FlapUpCommand FlapUp = new FlapUpCommand(m_robotFlap);
@@ -215,8 +216,9 @@ public class RobotContainer {
             m_robotDrive));
         CircleButton.whileTrue(HighShoot);
         SquareButton.whileTrue(LowShoot);
-        CrossButton.whileTrue(Reject);
+        CrossButton.whileTrue(SlowReject);
         TriangleButton.whileTrue(PickUp);
+        ShooterLeftBumper.whileTrue(Reject);
         // ShooterRightTrigger.whileTrue(FlapUp);
         // ShooterRightBumper.whileTrue(FlapDown);
 

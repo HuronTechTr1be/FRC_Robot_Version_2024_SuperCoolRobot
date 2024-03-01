@@ -26,6 +26,11 @@ public class SweeperWheelsSubsystem extends SubsystemBase{
         m_right.Reject();
     }
 
+    public void Reject(double speed){
+        m_left.Reject(speed);
+        m_right.Reject(speed);
+    }
+
     public void Still(){
         m_left.Still();
         m_right.Still();

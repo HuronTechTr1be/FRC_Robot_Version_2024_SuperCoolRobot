@@ -114,6 +114,16 @@ public void LowShoot() {
     }
 
   }
+
+  public void Reject(double speed){
+    if(speed>0){
+      speed*=-1;
+    }
+    if(shooterWheel.getDeviceId()==41){
+      shooterWheel.set(speed);
+    }
+  }
+
   public void PickUp() {
 
     if(shooterWheel.getDeviceId()==41){
