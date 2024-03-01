@@ -33,6 +33,8 @@ public IntakeModule(int deviceId){
 
 }
 
+
+
     public void Reject(){
         double beltRejectFactor=SmartDashboard.getNumber("Belt Reject Factor", BeltConstants.k_beltRejectSpeed);
         if(Math.abs(beltRejectFactor)>1){
@@ -44,6 +46,17 @@ public IntakeModule(int deviceId){
         else{
         conveyorBelt.set(beltRejectFactor);
         }
+}
+
+
+public void Reject(double speed){
+
+    if(speed>0){
+        speed*=-1;
+    }
+    conveyorBelt.set(speed);
+
+
 }
     // public void pickUp() {
 

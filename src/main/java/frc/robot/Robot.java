@@ -66,6 +66,10 @@ public class Robot extends TimedRobot {
   private LEDSubsystem m_LedSubsystem;
   private RobotContainer m_robotContainer;
 
+  UsbCamera camera1;
+    UsbCamera camera2;
+    VideoSink server;
+
 
   DigitalInput autonSwitchInput = new DigitalInput(0);
 
@@ -85,6 +89,17 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Auton Picker", 0);
     m_LedSubsystem = new LEDSubsystem();
     
+    
+
+    camera1 = CameraServer.startAutomaticCapture(0);
+    camera2 = CameraServer.startAutomaticCapture(1);
+    server = CameraServer.getServer();
+
+    camera1.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
+    camera2.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
+
+
+
      //CameraServer.startAutomaticCapture();
 
 
@@ -109,6 +124,8 @@ public class Robot extends TimedRobot {
      // and running subsystem periodic() methods.  This must be called from the robot's periodic
      // block in order for anything in the Command-based framework to work.
      CommandScheduler.getInstance().run();
+
+    
 
    }
  
@@ -169,9 +186,7 @@ public class Robot extends TimedRobot {
     // continue until interrupted by another command, remove
     // this line or comment it out.
     
-    CameraServer.startAutomaticCapture(0);
-
-
+    
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
@@ -182,9 +197,10 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
-     m_robotContainer.periodic();
-     m_robotContainer.FlapRun();
-    
+    m_robotContainer.periodic();
+    m_robotContainer.FlapRun();
+    m_robotContainer.cameraSwitch(camera1, camera2, server);
+
 
   }
 

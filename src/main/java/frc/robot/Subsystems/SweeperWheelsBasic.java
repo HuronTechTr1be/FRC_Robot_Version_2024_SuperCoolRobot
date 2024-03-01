@@ -79,6 +79,13 @@ public class SweeperWheelsBasic{
 
     }
 
+    public void Reject(double speed){
+        if (speed>1){
+            speed*=-1;
+        }
+        sweeperWheel.set(speed);
+    }
+
     public void Still() {
 
         sweeperWheel.set(0);
