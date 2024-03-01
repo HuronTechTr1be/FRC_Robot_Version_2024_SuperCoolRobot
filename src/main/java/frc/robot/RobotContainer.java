@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.cscore.VideoSink;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
@@ -15,6 +17,7 @@ import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.PS4Controller.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -99,7 +102,6 @@ public class RobotContainer {
   JoystickButton ShooterRightBumper = new JoystickButton(m_shooterController, PS4Controller.Button.kR2.value);
   JoystickButton ShooterLeftTrigger = new JoystickButton(m_shooterController, PS4Controller.Button.kL1.value);
   JoystickButton ShooterRightTrigger = new JoystickButton(m_shooterController, PS4Controller.Button.kR1.value);
-
 
   HighShootCommand HighShoot = new HighShootCommand(m_Shoot, m_conveyorBelt);
   LowShootCommand LowShoot = new LowShootCommand(m_Shoot, m_conveyorBelt,0.3);
@@ -195,6 +197,16 @@ public class RobotContainer {
     m_robotDrive.resetClaws();
     m_robotFlap.flapSetZero();
 
+  }
+
+  public void cameraSwitch(UsbCamera camera1, UsbCamera camera2, VideoSink server){
+    if (ShooterLeftTrigger.getAsBoolean()) {
+      System.out.println("Setting camera 2");
+      server.setSource(camera2);
+  } else if (!ShooterLeftTrigger.getAsBoolean()) {
+      System.out.println("Setting camera 1");
+      server.setSource(camera1);
+  }
   }
 
   
