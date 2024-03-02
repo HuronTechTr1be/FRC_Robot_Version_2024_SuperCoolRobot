@@ -1,55 +1,25 @@
 // HI!
-// IDK refers to temperary code that we are not possitive works or matters OR we are working on making comments there
-
-
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
- 
 import edu.wpi.first.wpilibj.TimedRobot;
-//import edu.wpi.first.wpilibj.Timer;
-//import edu.wpi.first.wpilibj.XboxController;
-//import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-//import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
-/*import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkLowLevel.MotorType;
-import frc.robot.Constants.OIConstants;*/
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.cscore.VideoSink;
 import edu.wpi.first.cscore.VideoSource.ConnectionStrategy;
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.PS4Controller;
-import edu.wpi.first.wpilibj.PS5Controller;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
-//import main.java.frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
-import frc.robot.Constants.ArmConstants;
-import edu.wpi.first.wpilibj.AddressableLED;
-import edu.wpi.first.wpilibj.AddressableLEDBuffer;
-import edu.wpi.first.wpilibj.DriverStation.Alliance;
-import frc.robot.Constants.BeltConstants;
 import frc.robot.Constants.DriveConstants;
-import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj.util.Color; // keeping until leds are worked out
 import frc.robot.Constants.EgressConstants;
-import frc.robot.Constants.SweeperWheelConstants;
-import frc.robot.Subsystems.ClawSubsystem;
-import frc.robot.Subsystems.EgressSubsystem;
-import frc.robot.Subsystems.IntakeModule;
 import frc.robot.Subsystems.LEDSubsystem;
-import frc.robot.Subsystems.SweeperWheelsSubsystem;
-import frc.robot.Subsystems.FlapSubsystem;
-import frc.robot.AutonSwitch;
-import frc.robot.BlueAutons.BOTHSpeakerMiddleNote;
-import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cameraserver.CameraServer; // keeping until cameras are for sure done
 
 
 
@@ -98,15 +68,6 @@ public class Robot extends TimedRobot {
     camera1.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
     camera2.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
 
-
-
-     //CameraServer.startAutomaticCapture();
-
-
-    //Test 1
-    //could also move to teleop init
-    //CameraServer.startAutomaticCapture(0);
-
   }
 
   /**
@@ -152,7 +113,7 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
 
       m_robotContainer.resetReverseDrive();
-      m_autonomousCommand = m_robotContainer.getMiddleSpeakerAuton();
+      m_autonomousCommand = m_robotContainer.getAuton();
 
     /*
      * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -212,12 +173,6 @@ public class Robot extends TimedRobot {
     SmartDashboard.setDefaultNumber("Rotate Factor", DriveConstants.kRotateFactor);
     m_robotContainer.resetRobot();
 
-
-
-    // SmartDashboard.putNumber("Bottom Low Shoot Factor:", EgressConstants.id41LowShootFactor);
-    // SmartDashboard.putNumber("Bottom High Shoot Factor:", EgressConstants.id41HighShootFactor);
-    // SmartDashboard.putNumber("Top Low Shoot Factor:", EgressConstants.id42LowShootFactor);
-    // SmartDashboard.putNumber("Top High Shoot Factor:", EgressConstants.id42HighShootFactor);
     // Cancels all running commands at the start of test mode.
     CommandScheduler.getInstance().cancelAll();
 
@@ -225,7 +180,7 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during test mode.  */
   @Override
-  public void testPeriodic() {
+  public void testPeriodic() { // keeping everything in test the same for now
     
     m_robotContainer.periodic();  
     //m_robotContainer.FlapRun();  
@@ -250,57 +205,6 @@ public class Robot extends TimedRobot {
     if(Math.abs(topLowShootFactor)>1){
       topLowShootFactor = 0;
     }
-
-    // if (drive2Controller.getCircleButton()) {
-    //   if(bottomHighShootFactor==EgressConstants.id41HighShootFactor && topHighShootFactor==EgressConstants.id42HighShootFactor){
-    //   m_topShoot.HighShoot();
-    //   m_bottomShoot.HighShoot();
-    //   m_conveyorBelt.HighShoot();
-    //   }
-    //   else{
-    //   m_topShoot.adjustedHighShoot(topHighShootFactor);
-    //   m_bottomShoot.adjustedHighShoot(bottomHighShootFactor);
-    //   m_conveyorBelt.HighShoot();  
-    //   }
-      
-    // }
-    // else if (drive2Controller.getSquareButton()) {
-    //   if(bottomLowShootFactor==EgressConstants.id41LowShootFactor && topLowShootFactor==EgressConstants.id42LowShootFactor){
-    //   m_topShoot.LowShoot();
-    //   m_bottomShoot.LowShoot();
-    //   m_conveyorBelt.LowShoot();
-    //   }
-    //   else{
-    //   m_topShoot.adjustedLowShoot(topLowShootFactor);
-    //   m_bottomShoot.adjustedLowShoot(bottomLowShootFactor);
-    //   m_conveyorBelt.LowShoot();
-    //   }
-    // }
-    // else if (drive2Controller.getCrossButton()) {
-    //   m_topShoot.Reject();
-    //   m_bottomShoot.Reject();
-    //   m_conveyorBelt.reject();
-    //   m_leftSweeperWheel.Reject(); 
-    //   m_rightSweeperWheel.Reject();
-    // } 
-    //  else if (drive2Controller.getTriangleButton()) {;
-    //   m_conveyorBelt.PickUp();
-    //   m_leftSweeperWheel.PickUp();
-    //   m_rightSweeperWheel.PickUp();
-    //   m_bottomShoot.PickUp();
-    // }
-    // else {
-    //   m_topShoot.Still();
-    //   m_bottomShoot.Still();
-    //   m_conveyorBelt.still();
-    //   m_leftSweeperWheel.Still();
-    //   m_rightSweeperWheel.Still();
-    // }
-
-  /*
-
-
- */
   
   }
 }

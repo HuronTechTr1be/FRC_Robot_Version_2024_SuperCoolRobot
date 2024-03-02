@@ -1,22 +1,7 @@
-
 package frc.robot.Subsystems;
-
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkLowLevel.MotorType;
-
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import com.revrobotics.SparkAbsoluteEncoder.Type;
-import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
-import com.revrobotics.AbsoluteEncoder;
-import com.revrobotics.RelativeEncoder;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants.ArmConstants;
-import com.revrobotics.SparkLimitSwitch;
-
-
 
 public class ClawSubsystem extends SubsystemBase {
   
@@ -45,11 +30,11 @@ public void armSetZero(){
   m_armLeft.ArmsDownInit();
 
   }
-else{
-  m_armLeft.adjustedArmsDownInit(armDownInitFactor);
-  m_armRight.adjustedArmsDownInit(armDownInitFactor);
-}
-    //waitCommand.execute();
+  
+  else{
+    m_armLeft.adjustedArmsDownInit(armDownInitFactor);
+    m_armRight.adjustedArmsDownInit(armDownInitFactor);
+  }
 
   while((LeftArmCurrent<20 || RightArmCurrent<20) && x<100000){
       
@@ -65,7 +50,6 @@ else{
     x++;
     SmartDashboard.putNumber("x", x);
 
-     //waitCommand.execute();
 
   } 
   
@@ -75,8 +59,6 @@ else{
   m_armLeft.finshZero();
   m_armRight.finshZero();
 }
-
-  
 
   public void periodic(){
 
@@ -115,12 +97,10 @@ else{
 
   }
 
-
   public void RightArmStill() {
   
     m_armRight.ArmsStill();
 
   }
-
 
 }

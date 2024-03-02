@@ -1,23 +1,18 @@
 package frc.robot.Subsystems;
  
 // Swerve drive with - 1 pigeon gyro, 4 NEO 550 motors for turning, 4 NEO motors for driving, 4 sparks, 
-
 //package main.java.frc.robot.Subsystems;
   
-// IDK
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.SparkAbsoluteEncoder.Type;
 import com.revrobotics.SparkPIDController;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.RelativeEncoder;
-
 import frc.robot.Constants.ModuleConstants;
-// IDK
 
 
 public class MAXSwerveModule {

@@ -1,31 +1,20 @@
 package frc.robot.Subsystems;
-
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
-
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import com.revrobotics.SparkAbsoluteEncoder.Type;
-import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkLimitSwitch;
-
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants.ArmConstants;
-
-
 
 public class ClawBasic {
 
   private CANSparkMax arm;
   private RelativeEncoder m_RelativeEncoder;
   private double m_PointRaised = 117;
-
   private String m_armSide;
   private static WaitCommand waitCommand = new WaitCommand(10);
   private SparkLimitSwitch m_LimitSwitch;
-
 
   public ClawBasic(int deviceId, String armSide) {
 
@@ -42,7 +31,6 @@ public class ClawBasic {
     arm.setOpenLoopRampRate(rampRate);
 
   }
-
 
   public void ArmsUp(double speed) {
 
@@ -82,7 +70,6 @@ public class ClawBasic {
   private boolean isRaised(){
 
     return Math.abs(m_PointRaised - m_RelativeEncoder.getPosition()) <= 5;
-
       
   }
 
@@ -121,11 +108,6 @@ public class ClawBasic {
       if(isLowered()){
       m_RelativeEncoder.setPosition(0);
       }
-      
-    //   if (arm.getOutputCurrent()>m_maxLeftCurrent){
-    //     m_maxLeftCurrent = arm.getOutputCurrent();
-    // }
-    // SmartDashboard.putNumber("maxLeftCurrent", m_maxLeftCurrent);
   }
     else if(arm.getDeviceId()==22){
        //SmartDashboard.putNumber("RightArmEncoder",m_RelativeEncoder.getPosition());
@@ -134,10 +116,6 @@ public class ClawBasic {
       if(isLowered()){
       m_RelativeEncoder.setPosition(0);
       }
-      // if (arm.getOutputCurrent()>m_maxRightCurrent){
-      //   m_maxRightCurrent = arm.getOutputCurrent();
-      //}
-    // SmartDashboard.putNumber("maxRightCurrent", m_maxRightCurrent);
 
     }
 

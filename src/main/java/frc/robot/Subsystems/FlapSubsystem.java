@@ -1,11 +1,8 @@
 package frc.robot.Subsystems;
-
-import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkLimitSwitch;
 import com.revrobotics.CANSparkLowLevel.MotorType;
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -16,9 +13,7 @@ public class FlapSubsystem extends SubsystemBase {
     private CANSparkMax flap;
     private RelativeEncoder m_RelativeEncoder;
     private SparkLimitSwitch m_LimitSwitch;
-    private double m_PointRaised = 0;
     private double m_PointLowered = -23; 
-    //private double m_maxFlapCurrent = 0;
     private static WaitCommand waitCommand = new WaitCommand(10);
 
     public FlapSubsystem(int deviceId){
@@ -29,7 +24,6 @@ public class FlapSubsystem extends SubsystemBase {
 
 
     }
-    
 
     public double getFlapEncoder(){
       return m_RelativeEncoder.getPosition();
@@ -41,16 +35,11 @@ public class FlapSubsystem extends SubsystemBase {
 
     public void flapSetZero(){
  
-    //waitCommand.initialize();
-    int x = 0; 
+      int x = 0; 
     flap.setOpenLoopRampRate(1.0);       
     UppyDownyFlapUpInit();
-    // while (x<20000){
-    //   x++;
-    // }
+      x=0;
 
-    //waitCommand.execute();
-x=0;
       while(!(isRaised()) && x<100000){
         
        x++;
@@ -147,31 +136,9 @@ x=0;
 
       SmartDashboard.putNumber("FlapEncoder",m_RelativeEncoder.getPosition());
       SmartDashboard.putNumber("FlapCurrent",flap.getOutputCurrent());
-      // if (flap.getOutputCurrent()>m_maxFlapCurrent){
-      //   m_maxFlapCurrent = flap.getOutputCurrent();
-      //   SmartDashboard.putNumber("maxFlapCurrent", m_maxFlapCurrent);
-      // }
 
   }
     
-    // public void Up(){
-
-    //     flap.set(1);
-
-    // }
-
-    // public void Down(){
-
-    //     flap.set(-1);
-
-    // }
-
-    // public void Still(){
-
-    //     flap.set(0);
-
-    // }
-
     }
 
 

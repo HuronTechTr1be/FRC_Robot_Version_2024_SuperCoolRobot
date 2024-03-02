@@ -1,6 +1,4 @@
- 
 package frc.robot.Subsystems;
-
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -10,18 +8,9 @@ import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.util.WPIUtilJNI;
-import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Subsystems.ClawSubsystem;
-//import edu.wpi.first.wpilibj.ADIS16470_IMU;
-//import edu.wpi.first.wpilibj.ADIS16470_IMU.IMUAxis;
-import com.ctre.phoenix6.configs.Pigeon2Configuration;
-import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.hardware.Pigeon2;
-import com.ctre.phoenix6.hardware.TalonFX;
-import com.revrobotics.RelativeEncoder;
-
 import frc.robot.Constants.DriveConstants;
 import frc.utils.SwerveUtils;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -144,24 +133,6 @@ public double getFrontRightEncoder(){
     m_Arms.armSetZero();
 
   }
-  
-
-  //Concept for autobalancer using encoder data
-  // public void autoBalance(){
-  //   double tilt = 15;
-  //   if(tilt>10){
-  //     while(tilt>10){
-  //     m_clawLeft.UppyDownyArmsUp(drive1Controller.getLeftTriggerAxis());
-  //     }
-  //     m_clawLeft.UppyDownyArmsStill();
-  //   }
-  //   if(tilt<-10){
-  //     while(tilt<-10){
-  //     m_clawRight.UppyDownyArmsUp(drive1Controller.getRightTriggerAxis());
-  //     }
-  //     m_clawRight.UppyDownyArmsStill();
-  //   }
-  // }
 
   /**
    * Method to drive the robot using joystick info.
@@ -262,8 +233,8 @@ public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelativ
     if(drive1Controller.getYButtonReleased()){
       reverseDrive = !reverseDrive;
     }
-SmartDashboard.setDefaultBoolean("Reverse Drive", reverseDrive);
-SmartDashboard.putBoolean("Reverse Drive", reverseDrive);
+  SmartDashboard.setDefaultBoolean("Reverse Drive", reverseDrive);
+  SmartDashboard.putBoolean("Reverse Drive", reverseDrive);
 
     if(reverseDrive){
       ySpeedDelivered*=-1;
@@ -279,10 +250,10 @@ SmartDashboard.putBoolean("Reverse Drive", reverseDrive);
       rotDelivered*=DriveConstants.kReduceRotationRactor;
     }
 
-SmartDashboard.putNumber("X Speed", xSpeedDelivered);
-SmartDashboard.putNumber("Y Speed", ySpeedDelivered);
-SmartDashboard.putNumber("Rotation Speed", rotDelivered);
-SmartDashboard.putNumber("Position FR", m_frontRight.m_drivingEncoder.getPosition());
+  SmartDashboard.putNumber("X Speed", xSpeedDelivered);
+  SmartDashboard.putNumber("Y Speed", ySpeedDelivered);
+  SmartDashboard.putNumber("Rotation Speed", rotDelivered);
+  SmartDashboard.putNumber("Position FR", m_frontRight.m_drivingEncoder.getPosition());
    
 
     if (drive1Controller.getLeftTriggerAxis()>0.05) {
