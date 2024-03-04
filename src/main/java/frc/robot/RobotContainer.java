@@ -103,6 +103,9 @@ public class RobotContainer {
   JoystickButton ShooterLeftTrigger = new JoystickButton(m_shooterController, PS4Controller.Button.kL1.value);
   JoystickButton ShooterRightTrigger = new JoystickButton(m_shooterController, PS4Controller.Button.kR1.value);
 
+  //JoystickButton DriverRightBumper = new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value);
+
+
   HighShootCommand HighShoot = new HighShootCommand(m_Shoot, m_conveyorBelt);
   LowShootCommand LowShoot = new LowShootCommand(m_Shoot, m_conveyorBelt,0.3);
   SlowRejectCommand SlowReject = new SlowRejectCommand(m_Shoot, m_conveyorBelt, m_SweeperWheels);
@@ -149,8 +152,6 @@ public class RobotContainer {
     SmartDashboard.putBoolean("Flap Limit", m_robotFlap.isRaised());
     
   }
-
-
 
   public void FlapRun(){
     
@@ -199,13 +200,25 @@ public class RobotContainer {
 
   }
 
+
+  int x=0;
+  int y=0;
   public void cameraSwitch(UsbCamera camera1, UsbCamera camera2, VideoSink server){
     if (ShooterLeftTrigger.getAsBoolean()) {
+      if(x==0){
       System.out.println("Setting camera 2");
       server.setSource(camera2);
+      x=1;
+    }
+    y=0;
+
   } else if (!ShooterLeftTrigger.getAsBoolean()) {
-      System.out.println("Setting camera 1");
+      if(y==0){
+        System.out.println("Setting camera 1");
       server.setSource(camera1);
+      y=1;
+      }
+      x=0;
   }
   }
 
@@ -231,8 +244,7 @@ public class RobotContainer {
         CrossButton.whileTrue(SlowReject);
         TriangleButton.whileTrue(PickUp);
         ShooterLeftBumper.whileTrue(Reject);
-        // ShooterRightTrigger.whileTrue(FlapUp);
-        // ShooterRightBumper.whileTrue(FlapDown);
+        
 
   }
 

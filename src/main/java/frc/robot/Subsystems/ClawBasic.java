@@ -79,14 +79,14 @@ public class ClawBasic {
 
   }
 
-  private boolean isRaised(){
+  public boolean isRaised(){
 
     return Math.abs(m_PointRaised - m_RelativeEncoder.getPosition()) <= 5;
 
       
   }
 
-  private boolean isLowered(){
+  public boolean isLowered(){
 
     if (m_LimitSwitch.isPressed()){
       return true;
@@ -110,6 +110,10 @@ public class ClawBasic {
     arm.setOpenLoopRampRate(0);
     arm.burnFlash();
      
+  }
+
+  public double getPosition(){
+    return m_RelativeEncoder.getPosition();
   }
 
   public void periodic(){
