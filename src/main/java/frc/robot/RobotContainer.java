@@ -103,6 +103,9 @@ public class RobotContainer {
   JoystickButton ShooterLeftTrigger = new JoystickButton(m_shooterController, PS4Controller.Button.kL1.value);
   JoystickButton ShooterRightTrigger = new JoystickButton(m_shooterController, PS4Controller.Button.kR1.value);
 
+  //JoystickButton DriverRightBumper = new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value);
+
+
   HighShootCommand HighShoot = new HighShootCommand(m_Shoot, m_conveyorBelt);
   LowShootCommand LowShoot = new LowShootCommand(m_Shoot, m_conveyorBelt,0.3);
   SlowRejectCommand SlowReject = new SlowRejectCommand(m_Shoot, m_conveyorBelt, m_SweeperWheels);
@@ -149,8 +152,6 @@ public class RobotContainer {
     SmartDashboard.putBoolean("Flap Limit", m_robotFlap.isRaised());
     
   }
-
-
 
   public void FlapRun(){
     
@@ -231,8 +232,7 @@ public class RobotContainer {
         CrossButton.whileTrue(SlowReject);
         TriangleButton.whileTrue(PickUp);
         ShooterLeftBumper.whileTrue(Reject);
-        // ShooterRightTrigger.whileTrue(FlapUp);
-        // ShooterRightBumper.whileTrue(FlapDown);
+        
 
   }
 

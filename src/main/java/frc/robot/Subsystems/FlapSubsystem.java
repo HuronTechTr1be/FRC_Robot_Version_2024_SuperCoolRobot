@@ -17,7 +17,7 @@ public class FlapSubsystem extends SubsystemBase {
     private RelativeEncoder m_RelativeEncoder;
     private SparkLimitSwitch m_LimitSwitch;
     private double m_PointRaised = 0;
-    private double m_PointLowered = -23; 
+    private double m_PointLowered = -22; 
     //private double m_maxFlapCurrent = 0;
     private static WaitCommand waitCommand = new WaitCommand(10);
 
@@ -139,7 +139,7 @@ x=0;
   public boolean isLowered(){
 
     //return false;
-    return Math.abs(m_PointLowered - m_RelativeEncoder.getPosition()) <= 5;
+    return ((m_PointLowered - m_RelativeEncoder.getPosition()) >= 2);
 
   }
 

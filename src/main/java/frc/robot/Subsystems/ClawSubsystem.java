@@ -23,6 +23,8 @@ public class ClawSubsystem extends SubsystemBase {
 private ClawBasic m_armLeft = new ClawBasic(21, "left");
 private ClawBasic m_armRight = new ClawBasic(22, "right");
 
+//boolean movingUp = false;
+
 public void armSetZero(){
  
 
@@ -76,7 +78,29 @@ else{
   m_armRight.finshZero();
 }
 
-  
+
+
+  public void raiseArmsPeriodic(){
+    // double leftPosition = m_armLeft.getPosition();
+    // double rightPosition = m_armRight.getPosition();
+      if(m_armLeft.isRaised()){
+        m_armLeft.ArmsStill();
+      }
+      if(m_armRight.isRaised()){
+        m_armRight.ArmsStill();
+      }
+    }
+
+    public boolean BothArmsRaised(){
+      if(m_armLeft.isRaised() && m_armRight.isRaised()){
+        return true;
+      }
+      else{
+        return false;
+      }
+      }
+    
+    
 
   public void periodic(){
 

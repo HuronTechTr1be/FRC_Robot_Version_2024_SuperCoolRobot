@@ -57,6 +57,8 @@ public class DriveSubsystem extends SubsystemBase {
   
   boolean reverseDrive = false;
 
+  boolean movingUp = false;
+
   public void resetReverseDrive(){
     reverseDrive = false;
   }
@@ -285,25 +287,45 @@ SmartDashboard.putNumber("Rotation Speed", rotDelivered);
 SmartDashboard.putNumber("Position FR", m_frontRight.m_drivingEncoder.getPosition());
    
 
+if(drive1Controller.getRightBumper()){
+  m_Arms.LeftArmUp(1);
+  m_Arms.RightArmUp(1);
+  movingUp = true;
+}
+if(movingUp){
+  m_Arms.raiseArmsPeriodic();
+  if(m_Arms.BothArmsRaised()){
+    movingUp=false;
+  }
+  }
+
+
     if (drive1Controller.getLeftTriggerAxis()>0.05) {
-      m_Arms.LeftArmUp(drive1Controller.getLeftTriggerAxis());
-    }
-    else if (drive1Controller.getLeftBumper()) {
       m_Arms.LeftArmDown();
-    } 
+      movingUp = false;
+    }
+    //else if (drive1Controller.getLeftBumper()) {
+      //m_Arms.LeftArmDown();
+    //} 
     else {
+      if(!movingUp){
       m_Arms.LeftArmStill();
+      }
     }
     if (drive1Controller.getRightTriggerAxis()>0.05) {
-      m_Arms.RightArmUp(drive1Controller.getRightTriggerAxis());
-    }
-    else if (drive1Controller.getRightBumper()) {
       m_Arms.RightArmDown();
-    } 
-    else {
-      m_Arms.RightArmStill();
+      movingUp = false;
     }
-
+    
+    //else if (drive1Controller.getRightBumper()) {
+     // m_Arms.RightArmDown();
+    //} 
+    else {
+      if(!movingUp){
+      m_Arms.RightArmStill();
+      }
+    }
+    
     m_Arms.periodic();
   
     SmartDashboard.putNumber("turn rate",getTurnRate());
