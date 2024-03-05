@@ -147,7 +147,7 @@ public class RobotContainer {
       m_Shoot.Still();
       m_SweeperWheels.Still();
       m_conveyorBelt.Still();
-      m_robotFlap.FlapStill();
+      //m_robotFlap.FlapStill();
     }
     SmartDashboard.putBoolean("Flap Limit", m_robotFlap.isRaised());
     
@@ -175,7 +175,6 @@ public class RobotContainer {
       }
     }
     if(movingDown){
-      m_robotFlap.lowerFlapPeriodic();
       if(m_robotFlap.isLowered()){
         movingDown = false;
         m_robotFlap.FlapStill();
