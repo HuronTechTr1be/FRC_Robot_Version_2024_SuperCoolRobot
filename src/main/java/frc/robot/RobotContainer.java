@@ -163,9 +163,6 @@ public class RobotContainer {
         m_robotFlap.FlapStill();
       }
     }
-    // else{
-    // m_robotFlap.FlapStill();
-    // }
 
   }
 
