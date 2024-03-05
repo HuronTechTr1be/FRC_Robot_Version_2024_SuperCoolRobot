@@ -1,126 +1,110 @@
 package frc.robot.Subsystems;
 
-import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
+import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkLimitSwitch;
-import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants.FlapConstants;
 
 public class FlapSubsystem extends SubsystemBase {
-    
-    private CANSparkMax flap;
-    private RelativeEncoder m_RelativeEncoder;
-    private SparkLimitSwitch m_LimitSwitch;
-    private double m_PointRaised = 0;
-    private double m_PointLowered = -22; 
-    //private double m_maxFlapCurrent = 0;
-    private static WaitCommand waitCommand = new WaitCommand(10);
 
-    public FlapSubsystem(int deviceId){
+  private CANSparkMax flap;
+  private RelativeEncoder m_RelativeEncoder;
+  private SparkLimitSwitch m_LimitSwitch;
+  private double m_PointLowered = -22;
 
-        flap = new CANSparkMax(deviceId,MotorType.kBrushless);
-        m_RelativeEncoder = flap.getEncoder();
-        m_LimitSwitch = flap.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyOpen);
+  public FlapSubsystem(int deviceId) {
 
+    flap = new CANSparkMax(deviceId, MotorType.kBrushless);
+    m_RelativeEncoder = flap.getEncoder();
+    m_LimitSwitch = flap.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyOpen);
 
-    }
-    
+  }
 
-    public double getFlapEncoder(){
-      return m_RelativeEncoder.getPosition();
-    }
+  public double getFlapEncoder() {
+    return m_RelativeEncoder.getPosition();
+  }
 
-    public void flapEncoderZero(){
-      m_RelativeEncoder.setPosition(0);
-    }
+  public void flapEncoderZero() {
+    m_RelativeEncoder.setPosition(0);
+  }
 
-    public void flapSetZero(){
- 
-    //waitCommand.initialize();
-    int x = 0; 
-    flap.setOpenLoopRampRate(1.0);       
+  public void flapSetZero() {
+
+    int x = 0;
+    flap.setOpenLoopRampRate(1.0);
     UppyDownyFlapUpInit();
-    // while (x<20000){
-    //   x++;
-    // }
 
-    //waitCommand.execute();
-x=0;
-      while(!(isRaised()) && x<100000){
-        
-       x++;
-       SmartDashboard.putNumber("x", 27);
-       SmartDashboard.putNumber("FlapCurrent", flap.getOutputCurrent());
-       SmartDashboard.putNumber("FlapEncoder", m_RelativeEncoder.getPosition());
+    x = 0;
+    while (!(isRaised()) && x < 100000) {
 
-      }
-      FlapStill();
-      m_RelativeEncoder.setPosition(0);
-      x=0;
-      FlapDown();
-      while(!(isLowered())&& x<1000){
-        x++;
-        SmartDashboard.putNumber("FlapCurrent", flap.getOutputCurrent());
-        SmartDashboard.putNumber("FlapEncoder", m_RelativeEncoder.getPosition());
-      }
-      if(m_LimitSwitch.isPressed()){
-        UppyDownyFlapUpInit();
-        while(!(isRaised()) && x<100000){
-  
+      x++;
+      SmartDashboard.putNumber("x", 27);
+      SmartDashboard.putNumber("FlapCurrent", flap.getOutputCurrent());
+      SmartDashboard.putNumber("FlapEncoder", m_RelativeEncoder.getPosition());
+
+    }
+    FlapStill();
+    m_RelativeEncoder.setPosition(0);
+    x = 0;
+    FlapDown();
+    while (!(isLowered()) && x < 1000) {
+      x++;
+      SmartDashboard.putNumber("FlapCurrent", flap.getOutputCurrent());
+      SmartDashboard.putNumber("FlapEncoder", m_RelativeEncoder.getPosition());
+    }
+    if (m_LimitSwitch.isPressed()) {
+      UppyDownyFlapUpInit();
+      while (!(isRaised()) && x < 100000) {
+
         x++;
         SmartDashboard.putNumber("x", x);
         SmartDashboard.putNumber("FlapCurrent", flap.getOutputCurrent());
         SmartDashboard.putNumber("FlapEncoder", m_RelativeEncoder.getPosition());
 
-        }
-        FlapStill();
-        m_RelativeEncoder.setPosition(0);
-        x=0;
-        FlapDown();
-        while(!(isLowered())&& x<100000){
-          x++;
-          SmartDashboard.putNumber("FlapCurrent", flap.getOutputCurrent());
-        }
       }
-      x=0;
-      while(!(isLowered() && x<100000)){
+      FlapStill();
+      m_RelativeEncoder.setPosition(0);
+      x = 0;
+      FlapDown();
+      while (!(isLowered()) && x < 100000) {
         x++;
+        SmartDashboard.putNumber("FlapCurrent", flap.getOutputCurrent());
       }
-      FlapStill(); 
-      flap.setOpenLoopRampRate(0);
-      // Idk if we need this - arm.burnFlash();
-
     }
-  
+    x = 0;
+    while (!(isLowered() && x < 100000)) {
+      x++;
+    }
+    FlapStill();
+    flap.setOpenLoopRampRate(0);
+
+  }
 
   public void FlapUp(double speed) {
 
-    if (isRaised()){
+    if (isRaised()) {
       flap.set(0);
-    }
-    else{
+    } else {
       flap.set((speed));
     }
-    }
+  }
 
   public void FlapDown() {
-    if (isLowered()){
+    if (isLowered()) {
       flap.set(0);
       SmartDashboard.putString("FlapDown", "IsLowered");
-    }
-    else{
+    } else {
       SmartDashboard.putString("FlapDown", "GoingDown");
       flap.set(FlapConstants.k_FlapSpeedDown);
     }
   }
-  
- public void UppyDownyFlapUpInit() {
-      flap.set(FlapConstants.k_initFlapSpeedRoboInit);
+
+  public void UppyDownyFlapUpInit() {
+    flap.set(FlapConstants.k_initFlapSpeedRoboInit);
 
   }
 
@@ -130,48 +114,23 @@ x=0;
 
   }
 
-  public boolean isRaised(){
-    
+  public boolean isRaised() {
+
     return m_LimitSwitch.isPressed();
 
   }
 
-  public boolean isLowered(){
+  public boolean isLowered() {
 
-    //return false;
     return ((m_PointLowered - m_RelativeEncoder.getPosition()) >= 2);
 
   }
 
-  public void periodic(){
+  public void periodic() {
 
-      SmartDashboard.putNumber("FlapEncoder",m_RelativeEncoder.getPosition());
-      SmartDashboard.putNumber("FlapCurrent",flap.getOutputCurrent());
-      // if (flap.getOutputCurrent()>m_maxFlapCurrent){
-      //   m_maxFlapCurrent = flap.getOutputCurrent();
-      //   SmartDashboard.putNumber("maxFlapCurrent", m_maxFlapCurrent);
-      // }
+    SmartDashboard.putNumber("FlapEncoder", m_RelativeEncoder.getPosition());
+    SmartDashboard.putNumber("FlapCurrent", flap.getOutputCurrent());
 
   }
-    
-    // public void Up(){
 
-    //     flap.set(1);
-
-    // }
-
-    // public void Down(){
-
-    //     flap.set(-1);
-
-    // }
-
-    // public void Still(){
-
-    //     flap.set(0);
-
-    // }
-
-    }
-
-
+}

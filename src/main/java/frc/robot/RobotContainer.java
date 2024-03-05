@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import java.util.List;
+
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.cscore.VideoSink;
 import edu.wpi.first.math.MathUtil;
@@ -15,33 +17,20 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PS4Controller;
-import edu.wpi.first.wpilibj.PS4Controller.Button;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import frc.robot.BlueAutons.BLUEAmpRightNote;
-import frc.robot.BlueAutons.BLUEAmpMiddleRightNotes;
-import frc.robot.BlueAutons.BLUESpeakerAllNotes;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.Constants.AutoConstants;
+import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.OIConstants;
 import frc.robot.BlueAutons.BLUESpeakerLeftNote;
-import frc.robot.BlueAutons.BLUESpeakerMiddleLeftNotes;
-import frc.robot.BlueAutons.BLUESpeakerLeftShootRetreat;
-import frc.robot.BlueAutons.BLUESpeakerMiddleRightNotes;
 import frc.robot.BlueAutons.BLUESpeakerRightNote;
-
 import frc.robot.BlueAutons.BOTHSpeakerMiddleNote;
-
-import frc.robot.RedAutons.REDAmpRightNote;
-import frc.robot.RedAutons.REDAmpMiddleRightNotes;
-import frc.robot.RedAutons.REDSpeakerAllNotes;
-import frc.robot.RedAutons.REDSpeakerLeftNote;
-import frc.robot.RedAutons.REDSpeakerMiddleLeftNotes;
-import frc.robot.RedAutons.REDSpeakerLeftShootRetreat;
-import frc.robot.RedAutons.REDSPeakerMiddleRightNotes;
-import frc.robot.RedAutons.REDSpeakerRightNote;
-
 import frc.robot.Commands.FlapDownCommand;
 import frc.robot.Commands.FlapUpCommand;
 import frc.robot.Commands.HighShootCommand;
@@ -50,24 +39,13 @@ import frc.robot.Commands.MotorsStillCommand;
 import frc.robot.Commands.PickUpCommand;
 import frc.robot.Commands.RejectCommand;
 import frc.robot.Commands.SlowRejectCommand;
-//import frc.robot.Commands.HighShootCommand;
-import frc.robot.Constants.AutoConstants;
-import frc.robot.Constants.DriveConstants;
-import frc.robot.Constants.OIConstants;
+import frc.robot.RedAutons.REDSpeakerLeftNote;
+import frc.robot.RedAutons.REDSpeakerRightNote;
 import frc.robot.Subsystems.DriveSubsystem;
 import frc.robot.Subsystems.EgressSubsystem;
 import frc.robot.Subsystems.FlapSubsystem;
 import frc.robot.Subsystems.IntakeModule;
-import frc.robot.Subsystems.MAXSwerveModule;
 import frc.robot.Subsystems.SweeperWheelsSubsystem;
-import frc.robot.Subsystems.ClawSubsystem;  
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import java.util.List;
-//import frc.robot.Commands.HighShootCommand;
 
 /*
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -103,71 +81,76 @@ public class RobotContainer {
   JoystickButton ShooterLeftTrigger = new JoystickButton(m_shooterController, PS4Controller.Button.kL1.value);
   JoystickButton ShooterRightTrigger = new JoystickButton(m_shooterController, PS4Controller.Button.kR1.value);
 
-  //JoystickButton DriverRightBumper = new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value);
-
-
   HighShootCommand HighShoot = new HighShootCommand(m_Shoot, m_conveyorBelt);
-  LowShootCommand LowShoot = new LowShootCommand(m_Shoot, m_conveyorBelt,0.3);
+  LowShootCommand LowShoot = new LowShootCommand(m_Shoot, m_conveyorBelt, 0.3);
   SlowRejectCommand SlowReject = new SlowRejectCommand(m_Shoot, m_conveyorBelt, m_SweeperWheels);
   RejectCommand Reject = new RejectCommand(m_Shoot, m_conveyorBelt, m_SweeperWheels);
   PickUpCommand PickUp = new PickUpCommand(m_Shoot, m_conveyorBelt, m_SweeperWheels);
   FlapUpCommand FlapUp = new FlapUpCommand(m_robotFlap);
   FlapDownCommand FlapDown = new FlapDownCommand(m_robotFlap);
   MotorsStillCommand MotorsStill = new MotorsStillCommand(m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
-  
-  BOTHSpeakerMiddleNote m_BOTHSpeakerMiddleNote = new BOTHSpeakerMiddleNote(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels,m_robotFlap);
-  
-  // BLUEAmpRightNote m_BLUEAmpRightNote = new BLUEAmpRightNote(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
-  //BLUESpeakerLeftShootRetreat m_BLUESpeakerLeftShootRetreat = new BLUESpeakerLeftShootRetreat(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
-  BLUESpeakerLeftNote m_BLUESpeakerLeftNote = new BLUESpeakerLeftNote(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
-  BLUESpeakerRightNote m_BLUESpeakerRightNote = new BLUESpeakerRightNote(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
-  //BLUESpeakerMiddleRightNotes
-  //BLUESpeakerAllNotes
-  //BLUESpeakerMiddleRightNotes
-  //BLUEAmpMiddleRightNotes
 
-  // REDAmpRightNote m_REDAmpRightNote = new REDAmpRightNote(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
-  // REDSpeakerLeftShootRetreat m_REDSpeakerLeftShootRetreat = new REDSpeakerLeftShootRetreat(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
-  REDSpeakerLeftNote m_REDSpeakerLeftNote = new REDSpeakerLeftNote(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
-  REDSpeakerRightNote m_REDSpeakerRightNote = new REDSpeakerRightNote(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
-  //REDSpeakerMiddleRightNotes
-  //REDSpeakerAllNotes
-  //REDSpeakerMiddleRightNotes
-  //REDAmpMiddleRightNotes
+  BOTHSpeakerMiddleNote m_BOTHSpeakerMiddleNote = new BOTHSpeakerMiddleNote(m_robotDrive, m_Shoot, m_conveyorBelt,
+      m_SweeperWheels, m_robotFlap);
 
+  // BLUEAmpRightNote m_BLUEAmpRightNote = new BLUEAmpRightNote(m_robotDrive,
+  // m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
+  // BLUESpeakerLeftShootRetreat m_BLUESpeakerLeftShootRetreat = new
+  // BLUESpeakerLeftShootRetreat(m_robotDrive, m_Shoot, m_conveyorBelt,
+  // m_SweeperWheels, m_robotFlap);
+  BLUESpeakerLeftNote m_BLUESpeakerLeftNote = new BLUESpeakerLeftNote(m_robotDrive, m_Shoot, m_conveyorBelt,
+      m_SweeperWheels, m_robotFlap);
+  BLUESpeakerRightNote m_BLUESpeakerRightNote = new BLUESpeakerRightNote(m_robotDrive, m_Shoot, m_conveyorBelt,
+      m_SweeperWheels, m_robotFlap);
+  // BLUESpeakerMiddleRightNotes
+  // BLUESpeakerAllNotes
+  // BLUESpeakerMiddleRightNotes
+  // BLUEAmpMiddleRightNotes
 
+  // REDAmpRightNote m_REDAmpRightNote = new REDAmpRightNote(m_robotDrive,
+  // m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
+  // REDSpeakerLeftShootRetreat m_REDSpeakerLeftShootRetreat = new
+  // REDSpeakerLeftShootRetreat(m_robotDrive, m_Shoot, m_conveyorBelt,
+  // m_SweeperWheels, m_robotFlap);
+  REDSpeakerLeftNote m_REDSpeakerLeftNote = new REDSpeakerLeftNote(m_robotDrive, m_Shoot, m_conveyorBelt,
+      m_SweeperWheels, m_robotFlap);
+  REDSpeakerRightNote m_REDSpeakerRightNote = new REDSpeakerRightNote(m_robotDrive, m_Shoot, m_conveyorBelt,
+      m_SweeperWheels, m_robotFlap);
+  // REDSpeakerMiddleRightNotes
+  // REDSpeakerAllNotes
+  // REDSpeakerMiddleRightNotes
+  // REDAmpMiddleRightNotes
 
-  public void resetReverseDrive(){
+  public void resetReverseDrive() {
     m_robotDrive.resetReverseDrive();
   }
-  
 
-  public void periodic(){
-    if(!(CrossButton.getAsBoolean()||SquareButton.getAsBoolean()||CircleButton.getAsBoolean()||TriangleButton.getAsBoolean()||ShooterLeftBumper.getAsBoolean()||ShooterRightBumper.getAsBoolean()||ShooterLeftTrigger.getAsBoolean()||ShooterRightTrigger.getAsBoolean())){
+  public void periodic() {
+    if (!(CrossButton.getAsBoolean() || SquareButton.getAsBoolean() || CircleButton.getAsBoolean()
+        || TriangleButton.getAsBoolean() || ShooterLeftBumper.getAsBoolean() || ShooterRightBumper.getAsBoolean()
+        || ShooterLeftTrigger.getAsBoolean() || ShooterRightTrigger.getAsBoolean())) {
       m_Shoot.Still();
       m_SweeperWheels.Still();
       m_conveyorBelt.Still();
       m_robotFlap.FlapStill();
     }
     SmartDashboard.putBoolean("Flap Limit", m_robotFlap.isRaised());
-    
+
   }
 
-  public void FlapRun(){
-    
-    if(ShooterRightBumper.getAsBoolean()){
+  public void FlapRun() {
+
+    if (ShooterRightBumper.getAsBoolean()) {
       m_robotFlap.FlapUp(0.5);
-    }
-    else if(ShooterRightTrigger.getAsBoolean()){
+    } else if (ShooterRightTrigger.getAsBoolean()) {
       m_robotFlap.FlapDown();
-    }
-    else{
+    } else {
       m_robotFlap.FlapStill();
     }
 
   }
 
-  public void initReset(){
+  public void initReset() {
     m_robotDrive.resetFrontRightEncoder();
   }
 
@@ -175,7 +158,6 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-
 
     // Configure the button bindings
     configureButtonBindings();
@@ -193,37 +175,34 @@ public class RobotContainer {
             m_robotDrive));
   }
 
-  public void resetRobot(){
-    
+  public void resetRobot() {
+
     m_robotDrive.resetClaws();
     m_robotFlap.flapSetZero();
 
   }
 
+  int x = 0;
+  int y = 0;
 
-  int x=0;
-  int y=0;
-  public void cameraSwitch(UsbCamera camera1, UsbCamera camera2, VideoSink server){
+  public void cameraSwitch(UsbCamera camera1, UsbCamera camera2, VideoSink server) {
     if (ShooterLeftTrigger.getAsBoolean()) {
-      if(x==0){
-      System.out.println("Setting camera 2");
-      server.setSource(camera2);
-      x=1;
-    }
-    y=0;
-
-  } else if (!ShooterLeftTrigger.getAsBoolean()) {
-      if(y==0){
-        System.out.println("Setting camera 1");
-      server.setSource(camera1);
-      y=1;
+      if (x == 0) {
+        System.out.println("Setting camera 2");
+        server.setSource(camera2);
+        x = 1;
       }
-      x=0;
-  }
-  }
+      y = 0;
 
-  
-
+    } else if (!ShooterLeftTrigger.getAsBoolean()) {
+      if (y == 0) {
+        System.out.println("Setting camera 1");
+        server.setSource(camera1);
+        y = 1;
+      }
+      x = 0;
+    }
+  }
 
   /**
    * Use this method to define your button->command mappings. Buttons can be
@@ -233,18 +212,17 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then calling
    * passing it to a
    * {@link JoystickButton}.
-   */ 
+   */
   private void configureButtonBindings() {
     new JoystickButton(m_driverController, XboxController.Button.kX.value)
         .whileTrue(new RunCommand(
             () -> m_robotDrive.setX(),
             m_robotDrive));
-        CircleButton.whileTrue(HighShoot);
-        SquareButton.whileTrue(LowShoot);
-        CrossButton.whileTrue(SlowReject);
-        TriangleButton.whileTrue(PickUp);
-        ShooterLeftBumper.whileTrue(Reject);
-        
+    CircleButton.whileTrue(HighShoot);
+    SquareButton.whileTrue(LowShoot);
+    CrossButton.whileTrue(SlowReject);
+    TriangleButton.whileTrue(PickUp);
+    ShooterLeftBumper.whileTrue(Reject);
 
   }
 
@@ -266,7 +244,7 @@ public class RobotContainer {
         // Start at the origin facing the +X direction
         new Pose2d(0, 0, new Rotation2d(0)),
         // Pass through these two interior waypoints, making an 's' curve path
-        List.of(new Translation2d(0,1 )),
+        List.of(new Translation2d(0, 1)),
         // End 3 meters straight ahead of where we started, facing forward
         new Pose2d(0, 2, new Rotation2d(0)),
         config);
@@ -294,49 +272,49 @@ public class RobotContainer {
     return swerveControllerCommand.andThen(() -> m_robotDrive.drive(0, 0, 0, false, false));
   }
 
-  public Command getMiddleSpeakerAuton(){
+  public Command getMiddleSpeakerAuton() {
 
-  //double autonPicker = digita
+    //double autonPicker = SmartDashboard.getNumber("Auton Picker", 0);
 
+    if (!autonSwitch1.get()) {
+      return m_BOTHSpeakerMiddleNote; // 1
+    }
+    if (!autonSwitch2.get()) {
+      return m_BLUESpeakerLeftNote; // 2
+    }
+    if (!autonSwitch3.get()) {
+      return m_BLUESpeakerRightNote; // 3
+    }
+    if (!autonSwitch4.get()) {
+      return m_REDSpeakerLeftNote; // 4
+    }
+    if (!autonSwitch5.get()) {
+      return m_REDSpeakerRightNote; // 5
+    }
 
-  double autonPicker = SmartDashboard.getNumber("Auton Picker", 0);
-  if(autonPicker==1){
-    return m_BOTHSpeakerMiddleNote;
-  }
-  if(autonPicker==2){
-    return m_BLUESpeakerLeftNote; // 2
-  }
-  if(autonPicker==3){
-    return m_BLUESpeakerRightNote; // 3
-  }
-  if(autonPicker==4){
-    return m_REDSpeakerLeftNote; // 4
-  }
-  if(autonPicker==5){
-    return m_REDSpeakerRightNote; // 5
-  }
-
-  // if(!autonSwitch1.get()){
-  //   return m_BOTHSpeakerMiddleNote; //1 
-  // }
-  // if(!autonSwitch2.get()){
-  //   return m_BLUESpeakerLeftNote; // 2
-  // }
-  // if(!autonSwitch3.get()){
-  //   return m_BLUESpeakerRightNote; // 3
-  // }
-  // if(!autonSwitch4.get()){
-  //   return m_REDSpeakerLeftNote; // 4
-  // }
-  // if(!autonSwitch5.get()){
-  //   return m_REDSpeakerRightNote; // 5
-  // }
-
-  else{
-    return null; 
-  }
+    // if(autonPicker ==1){
+    //   return m_BOTHSpeakerMiddleNote; // 1
+    // }
+    // if(autonPicker ==2){
+    //   return m_BLUESpeakerLeftNote; // 2
+    // }
+    // if(autonPicker ==3){
+    //   return m_BLUESpeakerRightNote; // 3
+    // }
+    // if(autonPicker ==4){
+    //   return m_REDSpeakerLeftNote; // 4
+    // }
+    // if(autonPicker ==5){
+    //   return m_REDSpeakerRightNote; // 5
+    // }
 
 
+
+    else {
+      return null;
+    }
+
+    
 
   }
 
