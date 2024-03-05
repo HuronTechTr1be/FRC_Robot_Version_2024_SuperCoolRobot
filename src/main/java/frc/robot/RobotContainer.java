@@ -132,21 +132,40 @@ public class RobotContainer {
       m_Shoot.Still();
       m_SweeperWheels.Still();
       m_conveyorBelt.Still();
-      m_robotFlap.FlapStill();
     }
     SmartDashboard.putBoolean("Flap Limit", m_robotFlap.isRaised());
 
   }
 
+  boolean movingUp = false;
+  boolean movingDown = false;
+
   public void FlapRun() {
 
     if (ShooterRightBumper.getAsBoolean()) {
       m_robotFlap.FlapUp(0.5);
+      movingUp = true;
+      movingDown = false;
     } else if (ShooterRightTrigger.getAsBoolean()) {
       m_robotFlap.FlapDown();
-    } else {
-      m_robotFlap.FlapStill();
+      movingDown = true;
+      movingUp = false;
     }
+    if (movingUp) {
+      if (m_robotFlap.isRaised()) {
+        movingUp = false;
+        m_robotFlap.FlapStill();
+      }
+    }
+    if (movingDown) {
+      if (m_robotFlap.isLowered()) {
+        movingDown = false;
+        m_robotFlap.FlapStill();
+      }
+    }
+    // else{
+    // m_robotFlap.FlapStill();
+    // }
 
   }
 
@@ -274,7 +293,7 @@ public class RobotContainer {
 
   public Command getMiddleSpeakerAuton() {
 
-    //double autonPicker = SmartDashboard.getNumber("Auton Picker", 0);
+    // double autonPicker = SmartDashboard.getNumber("Auton Picker", 0);
 
     if (!autonSwitch1.get()) {
       return m_BOTHSpeakerMiddleNote; // 1
@@ -290,31 +309,27 @@ public class RobotContainer {
     }
     if (!autonSwitch5.get()) {
       return m_REDSpeakerRightNote; // 5
-    }
+    } 
 
     // if(autonPicker ==1){
-    //   return m_BOTHSpeakerMiddleNote; // 1
+    // return m_BOTHSpeakerMiddleNote; // 1
     // }
     // if(autonPicker ==2){
-    //   return m_BLUESpeakerLeftNote; // 2
+    // return m_BLUESpeakerLeftNote; // 2
     // }
     // if(autonPicker ==3){
-    //   return m_BLUESpeakerRightNote; // 3
-    // }
+    // return m_BLUESpeakerRightNote; // 3
+    // } 
     // if(autonPicker ==4){
-    //   return m_REDSpeakerLeftNote; // 4
+    // return m_REDSpeakerLeftNote; // 4
     // }
     // if(autonPicker ==5){
-    //   return m_REDSpeakerRightNote; // 5
+    // return m_REDSpeakerRightNote; // 5
     // }
-
-
 
     else {
       return null;
     }
-
-    
 
   }
 

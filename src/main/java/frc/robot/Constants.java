@@ -177,7 +177,7 @@ public final class Constants {
 
   public static final class FlapConstants {
     public static final double k_initFlapSpeedRoboInit = 0.5; // left pick up power level
-    public static final double k_FlapSpeedDown = -0.25; // left pick up power level
+    public static final double k_FlapSpeedDown = -0.5; // left pick up power level
 
   }
 
