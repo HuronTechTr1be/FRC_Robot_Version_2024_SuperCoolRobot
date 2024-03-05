@@ -191,7 +191,6 @@ public class Robot extends TimedRobot {
   public void testPeriodic() {
 
     m_robotContainer.periodic();
-    // m_robotContainer.FlapRun();
 
     double bottomHighShootFactor = SmartDashboard.getNumber("Bottom High Shoot Factor:",
         EgressConstants.id41HighShootFactor);
