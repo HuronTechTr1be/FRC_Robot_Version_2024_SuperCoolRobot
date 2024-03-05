@@ -1,5 +1,5 @@
 package frc.robot;
- 
+
 import com.revrobotics.CANSparkBase.IdleMode;
 
 import edu.wpi.first.math.geometry.Translation2d;
@@ -30,13 +30,12 @@ public final class Constants {
     public static final double kDirectionSlewRate = 1.2; // radians per second
     public static final double kMagnitudeSlewRate = 1.8; // percent per second (1 = 100%)
     public static final double kRotationalSlewRate = 2.0; // percent per second (1 = 100%)
-    
-    public static final double kReduceSpeedFactor = .75; //reduce drive speed with A on drive controller
-    public static final double kReduceRotationRactor = .75;//reduce rotation speed with A on drive controller
 
-    public static final double kSpeedFactor = 1; //reduce drive speed with driver dashboard
-    public static final double kRotateFactor = 1; //reduce rotation speed with driver dashboard
+    public static final double kReduceSpeedFactor = .75; // reduce drive speed with A on drive controller
+    public static final double kReduceRotationRactor = .75;// reduce rotation speed with A on drive controller
 
+    public static final double kSpeedFactor = 1; // reduce drive speed with driver dashboard
+    public static final double kRotateFactor = 1; // reduce rotation speed with driver dashboard
 
     // Chassis configuration
     public static final double kTrackWidth = Units.inchesToMeters(26.5);
@@ -70,12 +69,15 @@ public final class Constants {
   }
 
   public static final class ModuleConstants {
-    // The MAXSwerve module can be configured with one of three pinion gears: 12T, 13T, or 14T.
-    // This changes the drive speed of the module (a pinion gear with more teeth will result in a
+    // The MAXSwerve module can be configured with one of three pinion gears: 12T,
+    // 13T, or 14T.
+    // This changes the drive speed of the module (a pinion gear with more teeth
+    // will result in a
     // robot that drives faster).
     public static final int kDrivingMotorPinionTeeth = 14;
 
-    // Invert the turning encoder, since the output shaft rotates in the opposite direction of
+    // Invert the turning encoder, since the output shaft rotates in the opposite
+    // direction of
     // the steering motor in the MAXSwerve Module.
     public static final boolean kTurningEncoderInverted = true;
 
@@ -83,7 +85,8 @@ public final class Constants {
     public static final double kDrivingMotorFreeSpeedRps = NeoMotorConstants.kFreeSpeedRpm / 60;
     public static final double kWheelDiameterMeters = 0.0762;
     public static final double kWheelCircumferenceMeters = kWheelDiameterMeters * Math.PI;
-    // 45 teeth on the wheel's bevel gear, 22 teeth on the first-stage spur gear, 15 teeth on the bevel pinion
+    // 45 teeth on the wheel's bevel gear, 22 teeth on the first-stage spur gear, 15
+    // teeth on the bevel pinion
     public static final double kDrivingMotorReduction = (45.0 * 22) / (kDrivingMotorPinionTeeth * 15);
     public static final double kDriveWheelFreeSpeedRps = (kDrivingMotorFreeSpeedRps * kWheelCircumferenceMeters)
         / kDrivingMotorReduction;
@@ -124,7 +127,7 @@ public final class Constants {
     public static final int kDriverControllerPort = 0;
     public static final double kDriveDeadband = 0.05;
   }
- 
+
   public static final class AutoConstants {
     public static final double kMaxSpeedMetersPerSecond = 2;
     public static final double kMaxAccelerationMetersPerSecondSquared = 1.5;
@@ -143,17 +146,17 @@ public final class Constants {
   public static final class NeoMotorConstants {
     public static final double kFreeSpeedRpm = 5676;
   }
- 
+
   public static final class EgressConstants {
 
-    public static final double id41HighShootFactor = 1; //bottom high shooter power level
-    public static final double id42HighShootFactor = 1; //top high shooter power level
-    public static final double id41RejectFactor = -1; //bottom reject power level
-    public static final double id42RejectFactor = -1; //top reject power level
-    public static final double id41LowShootFactor = .35; //bottom low shooter power level
-    public static final double id42LowShootFactor = .35; //top low shooter power level
-    public static final double id41PickUpFactor = .1; //bottom pick up power level
-    public static final double id42PickUpFactor = 0; //top pick up power level
+    public static final double id41HighShootFactor = 1; // bottom high shooter power level
+    public static final double id42HighShootFactor = 1; // top high shooter power level
+    public static final double id41RejectFactor = -1; // bottom reject power level
+    public static final double id42RejectFactor = -1; // top reject power level
+    public static final double id41LowShootFactor = .35; // bottom low shooter power level
+    public static final double id42LowShootFactor = .35; // top low shooter power level
+    public static final double id41PickUpFactor = .1; // bottom pick up power level
+    public static final double id42PickUpFactor = 0; // top pick up power level
 
   }
 
@@ -163,26 +166,26 @@ public final class Constants {
     public static final double id32PickUpFactor = 1; // left pick up power level
     public static final double id31RejectFactor = -1; // right reject power level
     public static final double id32RejectFactor = -1; // left reject power level
-    
+
   }
 
   public static final class ArmConstants {
-      public static final double k_initArmSpeedRoboInit = -1; // left pick up power level
-      public static final double k_initArmSpeedDown = -1; // left pick up power level
+    public static final double k_initArmSpeedRoboInit = -1; // left pick up power level
+    public static final double k_initArmSpeedDown = -1; // left pick up power level
 
   }
 
   public static final class FlapConstants {
-      public static final double k_initFlapSpeedRoboInit = 0.5; // left pick up power level
-      public static final double k_FlapSpeedDown = -0.25; // left pick up power level
+    public static final double k_initFlapSpeedRoboInit = 0.5; // left pick up power level
+    public static final double k_FlapSpeedDown = -0.25; // left pick up power level
 
   }
 
   public static final class BeltConstants {
-      public static final double k_beltRejectSpeed = -1;
-      public static final double k_beltHighShootSpeed = 1;
-      public static final double k_beltLowShootSpeed = 1;
-      public static final double k_beltPickupSpeed = 1;
+    public static final double k_beltRejectSpeed = -1;
+    public static final double k_beltHighShootSpeed = 1;
+    public static final double k_beltLowShootSpeed = 1;
+    public static final double k_beltPickupSpeed = 1;
   }
-  
+
 }
