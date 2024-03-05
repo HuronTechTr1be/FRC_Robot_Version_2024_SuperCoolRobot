@@ -274,6 +274,8 @@ public class RobotContainer {
 
   public Command getMiddleSpeakerAuton() {
 
+    //double autonPicker = SmartDashboard.getNumber("Auton Picker", 0);
+
     if (!autonSwitch1.get()) {
       return m_BOTHSpeakerMiddleNote; // 1
     }
@@ -290,9 +292,29 @@ public class RobotContainer {
       return m_REDSpeakerRightNote; // 5
     }
 
+    // if(autonPicker ==1){
+    //   return m_BOTHSpeakerMiddleNote; // 1
+    // }
+    // if(autonPicker ==2){
+    //   return m_BLUESpeakerLeftNote; // 2
+    // }
+    // if(autonPicker ==3){
+    //   return m_BLUESpeakerRightNote; // 3
+    // }
+    // if(autonPicker ==4){
+    //   return m_REDSpeakerLeftNote; // 4
+    // }
+    // if(autonPicker ==5){
+    //   return m_REDSpeakerRightNote; // 5
+    // }
+
+
+
     else {
       return null;
     }
+
+    
 
   }
 
