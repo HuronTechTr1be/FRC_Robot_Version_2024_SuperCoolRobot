@@ -63,40 +63,56 @@ x=0;
       m_RelativeEncoder.setPosition(0);
       x=0;
       FlapDown();
-      while(!(isLowered())&& x<1000){
+      while(!(isLowered())&& x<100000){
         x++;
         SmartDashboard.putNumber("FlapCurrent", flap.getOutputCurrent());
         SmartDashboard.putNumber("FlapEncoder", m_RelativeEncoder.getPosition());
       }
-      if(m_LimitSwitch.isPressed()){
-        UppyDownyFlapUpInit();
-        while(!(isRaised()) && x<100000){
+      // if(m_LimitSwitch.isPressed()){
+      //   UppyDownyFlapUpInit();
+      //   while(!(isRaised()) && x<100000){
   
-        x++;
-        SmartDashboard.putNumber("x", x);
-        SmartDashboard.putNumber("FlapCurrent", flap.getOutputCurrent());
-        SmartDashboard.putNumber("FlapEncoder", m_RelativeEncoder.getPosition());
+      //   x++;
+      //   SmartDashboard.putNumber("x", x);
+      //   SmartDashboard.putNumber("FlapCurrent", flap.getOutputCurrent());
+      //   SmartDashboard.putNumber("FlapEncoder", m_RelativeEncoder.getPosition());
 
-        }
-        FlapStill();
-        m_RelativeEncoder.setPosition(0);
-        x=0;
-        FlapDown();
-        while(!(isLowered())&& x<100000){
-          x++;
-          SmartDashboard.putNumber("FlapCurrent", flap.getOutputCurrent());
-        }
-      }
-      x=0;
-      while(!(isLowered() && x<100000)){
-        x++;
-      }
+      //   }
+      //   FlapStill();
+      //   m_RelativeEncoder.setPosition(0);
+      //   x=0;
+      //   FlapDown();
+      //   while(!(isLowered())&& x<100000){
+      //     x++;
+      //     SmartDashboard.putNumber("FlapCurrent", flap.getOutputCurrent());
+      //   }
+      // }
+      // x=0;
+      // while(!(isLowered() && x<100000)){
+      //   x++;
+      // }
       FlapStill(); 
       flap.setOpenLoopRampRate(0);
       // Idk if we need this - arm.burnFlash();
 
     }
   
+    public void raiseFlapPeriodic(){
+      // double leftPosition = m_armLeft.getPosition();
+      // double rightPosition = m_armRight.getPosition();
+        if(isRaised()){
+          FlapStill();
+        }
+      }
+
+    public void lowerFlapPeriodic(){
+      // double leftPosition = m_armLeft.getPosition();
+      // double rightPosition = m_armRight.getPosition();
+        if(isLowered()){
+          FlapStill();
+        }
+      }
+
 
   public void FlapUp(double speed) {
 

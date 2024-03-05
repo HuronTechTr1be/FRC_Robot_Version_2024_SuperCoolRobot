@@ -153,17 +153,37 @@ public class RobotContainer {
     
   }
 
+  boolean movingUp = false;
+  boolean movingDown = false;
+
   public void FlapRun(){
     
     if(ShooterRightBumper.getAsBoolean()){
       m_robotFlap.FlapUp(0.5);
+      movingUp = true;
+      movingDown = false;
     }
     else if(ShooterRightTrigger.getAsBoolean()){
       m_robotFlap.FlapDown();
+      movingDown = true;
+      movingUp = false;
     }
-    else{
-      m_robotFlap.FlapStill();
+    if(movingUp){
+      if(m_robotFlap.isRaised()){
+        movingUp = false;
+        m_robotFlap.FlapStill();
+      }
     }
+    if(movingDown){
+      m_robotFlap.lowerFlapPeriodic();
+      if(m_robotFlap.isLowered()){
+        movingDown = false;
+        m_robotFlap.FlapStill();
+      }
+    }
+    // else{
+    //   m_robotFlap.FlapStill();
+    // }
 
   }
 
