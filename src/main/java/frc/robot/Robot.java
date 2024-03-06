@@ -7,11 +7,14 @@
 
 package frc.robot;
 
+import java.util.Optional;
+
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.cscore.VideoSink;
 import edu.wpi.first.cscore.VideoSource.ConnectionStrategy;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -44,7 +47,7 @@ public class Robot extends TimedRobot {
 
   DigitalInput autonSwitchInput = new DigitalInput(0);
 
-  Alliance ally;
+  Optional<Alliance> ally = DriverStation.getAlliance();
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -105,9 +108,9 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledPeriodic() {
 
-    if (ally == Alliance.Blue) {
+    if (ally.get() == Alliance.Blue) {
       m_LedSubsystem.setAll(Color.kBlue);
-    } else if (ally == Alliance.Red) {
+    } else if (ally.get() == Alliance.Red) {
       m_LedSubsystem.setAll(Color.kRed);
     } else {
       m_LedSubsystem.rainbow();
