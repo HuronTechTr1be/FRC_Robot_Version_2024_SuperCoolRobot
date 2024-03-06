@@ -88,6 +88,7 @@ public class FlapSubsystem extends SubsystemBase {
 
     if (isRaised()) {
       flap.set(0);
+      m_RelativeEncoder.setPosition(0);
     } else {
       flap.set((speed));
     }
