@@ -25,19 +25,19 @@ public class BLUESpeakerLeftNote extends SequentialCommandGroup {
 
         new WaitCommand(0.1),
 
-        new DriveTimed(drive, 0, 0, -0.2, 0.21),
+        new DriveTimed(drive, 0, 0, -0.2, 0.19),
 
         new WaitCommand(0.1),
 
         new HighShootTimed(shoot, conveyorBelt, sweepers, flap, 0.6),
         new WaitCommand(0.2),
 
-        new DriveTimed(drive, 0, 0, 0.4, 0.53),
+        new DriveTimed(drive, 0, 0, 0.4, 0.48),
 
         new PickUpCommand(shoot, conveyorBelt, sweepers),
         new WaitCommand(.1),
         new ResetWheelPositionCommand(drive),
-        new DriveCommandDistance(drive, -0.5, 0, 0, 1.95),
+        new DriveCommandDistance(drive, -0.5, 0, 0, 1.8),
         new WaitCommand(0.3),
         new MotorsStillCommand(shoot, conveyorBelt, sweepers, flap),
         new WaitCommand(0.1),
@@ -46,14 +46,14 @@ public class BLUESpeakerLeftNote extends SequentialCommandGroup {
         new MotorsStillCommand(shoot, conveyorBelt, sweepers, flap),
         new WaitCommand(0.1),
         new ResetWheelPositionCommand(drive),
-        new DriveCommandDistance(drive, 0.5, 0, 0, 1.75),
+        new DriveCommandDistance(drive, 0.5, 0, 0, 1.65),
         new WaitCommand(.1),
-        new DriveTimed(drive, 0, 0, -0.4, 0.7),
+        new DriveTimed(drive, 0, 0, -0.4, 0.59),
         new WaitCommand(.1),
         new DriveTimed(drive, 0.2, 0, 0, 0.15),
-        new HighShootTimed(shoot, conveyorBelt, sweepers, flap, 0.6),
+        new HighShootTimed(shoot, conveyorBelt, sweepers, flap, 0.9),
         new WaitCommand(0.1),
-        new DriveTimed(drive, 0, 0, 0.4, 0.27),
+        new DriveTimed(drive, 0, 0, 0.4, 0.2),
         new WaitCommand(0.1),
         new ResetWheelPositionCommand(drive),
         new DriveCommandDistance(drive, -0.5, 0, 0, 2.2)
