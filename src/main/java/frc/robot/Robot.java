@@ -65,13 +65,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Auton Picker", 0);
     m_LedSubsystem = new LEDSubsystem();
 
-    camera1 = CameraServer.startAutomaticCapture(0);
-    camera2 = CameraServer.startAutomaticCapture(1);
-    server = CameraServer.getServer();
-
-    camera1.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
-    camera2.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
-
+    
 
   }
 
@@ -159,6 +153,15 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
+
+    camera1 = CameraServer.startAutomaticCapture(0);
+    camera2 = CameraServer.startAutomaticCapture(1);
+    server = CameraServer.getServer();
+
+    camera1.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
+    camera2.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
+
+
 
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
