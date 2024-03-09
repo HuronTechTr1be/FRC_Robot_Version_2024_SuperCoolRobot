@@ -112,7 +112,9 @@ public class FlapSubsystem extends SubsystemBase {
   public void FlapStill() {
 
     flap.set(0);
-
+    if(isRaised()){
+      m_RelativeEncoder.setPosition(0);
+    }
   }
 
   public boolean isRaised() {
