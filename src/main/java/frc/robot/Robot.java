@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -45,7 +46,8 @@ public class Robot extends TimedRobot {
   UsbCamera camera2;
   VideoSink server;
 
-  DigitalInput autonSwitchInput = new DigitalInput(0);
+ 
+  // DigitalInput autonSwitchInput = new DigitalInput(0);
 
   Optional<Alliance> ally = DriverStation.getAlliance();
 
@@ -62,7 +64,7 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
 
-    SmartDashboard.putNumber("Auton Picker", 0);
+    //SmartDashboard.putNumber("Auton Picker", 0);
     m_LedSubsystem = new LEDSubsystem();
 
     camera1 = CameraServer.startAutomaticCapture(0);
@@ -71,6 +73,7 @@ public class Robot extends TimedRobot {
 
     camera1.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
     camera2.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
+
 
 
   }
@@ -96,6 +99,8 @@ public class Robot extends TimedRobot {
     // robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+
+    
 
   }
 
@@ -127,7 +132,7 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
 
     m_robotContainer.resetReverseDrive();
-    m_autonomousCommand = m_robotContainer.getMiddleSpeakerAuton();
+    // m_autonomousCommand = m_robotContainer.getMiddleSpeakerAuton();
 
     /*
      * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -137,17 +142,26 @@ public class Robot extends TimedRobot {
      */
 
     // schedule the autonomous command (example)
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
-    }
+    // if (m_autonomousCommand != null) {
+    // m_autonomousCommand.schedule();
+    // }
+
+      m_autonomousCommand = m_robotContainer.getAutonCommand();
+
+      if (m_autonomousCommand != null){
+        m_autonomousCommand.schedule();
+      }
 
   }
 
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
+    
 
-  }
+    }
+
+  
 
   /**
    * This function is called once each time the robot enters teleoperated mode.
@@ -161,8 +175,9 @@ public class Robot extends TimedRobot {
     // this line or comment it out.
 
     if (m_autonomousCommand != null) {
-      m_autonomousCommand.cancel();
+    m_autonomousCommand.cancel();
     }
+
   }
 
   /** This function is called periodically during operator control. */
@@ -217,8 +232,6 @@ public class Robot extends TimedRobot {
     if (Math.abs(topLowShootFactor) > 1) {
       topLowShootFactor = 0;
     }
-
-    
 
   }
 }
