@@ -195,7 +195,9 @@ public class RobotContainer {
 
     m_chooser.setDefaultOption("BOTHSpeakerMiddleNote", m_BOTHSpeakerMiddleNote);
     m_chooser.addOption("Blue Left", m_BLUESpeakerLeftNote);
-    m_chooser.addOption("Blue Left", m_BLUESpeakerRightNote);
+    m_chooser.addOption("Blue Right", m_BLUESpeakerRightNote);
+    m_chooser.addOption("Red Left", m_REDSpeakerLeftNote);
+    m_chooser.addOption("Red Right", m_REDSpeakerRightNote);
 
     SmartDashboard.putData(m_chooser);
 
