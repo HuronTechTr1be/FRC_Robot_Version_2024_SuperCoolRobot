@@ -28,7 +28,7 @@ public class REDSpeakerRightNote extends SequentialCommandGroup {
         new HighShootTimed(shoot, conveyorBelt, sweepers, flap, 0.6),
         new WaitCommand(0.2),
 
-        new DriveTimed(drive, 0, 0, -0.3, 0.33),
+        new DriveTimed(drive, 0, 0, -0.3, 0.31),
 
         new WaitCommand(0.1),
 
@@ -44,11 +44,11 @@ public class REDSpeakerRightNote extends SequentialCommandGroup {
         new MotorsStillCommand(shoot, conveyorBelt, sweepers, flap),
         new WaitCommand(0.1),
         new ResetWheelPositionCommand(drive),
-        new DriveCommandDistance(drive, 0.5, 0, 0, 1.51),
+        new DriveCommandDistance(drive, 0.5, 0, 0, 1.54),
         new WaitCommand(.1),
-        new DriveTimed(drive, 0, 0, 0.3, 0.45),
+        new DriveTimed(drive, 0, 0, 0.3, 0.35),
         new WaitCommand(.1),
-        new DriveTimed(drive, .2, 0, 0, .3),
+        new DriveTimed(drive, .2, 0, 0, .4),
         new WaitCommand(0.1),
         new HighShootTimed(shoot, conveyorBelt, sweepers, flap, 0.6),
         new WaitCommand(0.1),

@@ -18,7 +18,7 @@ public class BOTHSpeakerMiddleNote extends SequentialCommandGroup {
   public BOTHSpeakerMiddleNote(DriveSubsystem drive, EgressSubsystem shoot, IntakeModule conveyorBelt,
       SweeperWheelsSubsystem sweepers, FlapSubsystem flap) {
     addCommands(
-        new HighShootTimed(shoot, conveyorBelt, sweepers, flap, 0.3),
+        new HighShootTimed(shoot, conveyorBelt, sweepers, flap, 0.8),
         new WaitCommand(0.5),
         new MotorsStillCommand(shoot, conveyorBelt, sweepers, flap),
         new WaitCommand(.1),
@@ -32,7 +32,7 @@ public class BOTHSpeakerMiddleNote extends SequentialCommandGroup {
         new ResetWheelPositionCommand(drive),
         new DriveCommandDistance(drive, 0.5, 0, 0, 1.6),
         new WaitCommand(.1),
-        new HighShootTimed(shoot, conveyorBelt, sweepers, flap, 0.3),
+        new HighShootTimed(shoot, conveyorBelt, sweepers, flap, 0.8),
         new ResetWheelPositionCommand(drive),
         new DriveCommandDistance(drive, -0.3, 0, 0, -1.5));
   }

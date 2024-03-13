@@ -30,6 +30,8 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.BlueAutons.BLUESpeakerLeftNote;
 import frc.robot.BlueAutons.BLUESpeakerRightNote;
+import frc.robot.BlueAutons.BOTHLeftWaitRetreat;
+import frc.robot.BlueAutons.BOTHRightWaitRetreat;
 import frc.robot.BlueAutons.BOTHSpeakerMiddleNote;
 import frc.robot.Commands.FlapDownCommand;
 import frc.robot.Commands.FlapUpCommand;
@@ -106,6 +108,10 @@ public class RobotContainer {
   // BLUESpeakerAllNotes
   // BLUESpeakerMiddleRightNotes
   // BLUEAmpMiddleRightNotes
+  BOTHLeftWaitRetreat m_BothLeftWaitRetreat = new BOTHLeftWaitRetreat(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
+  BOTHRightWaitRetreat m_BothRightWaitRetreat = new BOTHRightWaitRetreat(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
+
+
 
   // REDAmpRightNote m_REDAmpRightNote = new REDAmpRightNote(m_robotDrive,
   // m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
@@ -294,6 +300,8 @@ public class RobotContainer {
 
     if (!autonSwitch1.get()) {
       return m_BOTHSpeakerMiddleNote; // 1
+      //return m_BothLeftWaitRetreat;
+      //return m_BothRightWaitRetreat;
     }
     if (!autonSwitch2.get()) {
       return m_BLUESpeakerLeftNote; // 2
@@ -307,6 +315,10 @@ public class RobotContainer {
     if (!autonSwitch5.get()) {
       return m_REDSpeakerRightNote; // 5
     } 
+    // if(!autonSwitch6.get()) {
+    //   return m_BothLeftWaitRetreat;
+    //   //return m_BothRightWaitRetreat;
+    // }
 
     // if(autonPicker ==1){
     // return m_BOTHSpeakerMiddleNote; // 1

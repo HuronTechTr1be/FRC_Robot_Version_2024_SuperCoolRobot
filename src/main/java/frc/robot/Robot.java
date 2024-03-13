@@ -47,7 +47,6 @@ public class Robot extends TimedRobot {
 
   DigitalInput autonSwitchInput = new DigitalInput(0);
 
-  Optional<Alliance> ally = DriverStation.getAlliance();
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -65,13 +64,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Auton Picker", 0);
     m_LedSubsystem = new LEDSubsystem();
 
-    camera1 = CameraServer.startAutomaticCapture(0);
-    camera2 = CameraServer.startAutomaticCapture(1);
-    server = CameraServer.getServer();
-
-    camera1.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
-    camera2.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
-
+    
 
   }
 
@@ -108,13 +101,13 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledPeriodic() {
 
-    if (ally.get() == Alliance.Blue) {
-      m_LedSubsystem.setAll(Color.kBlue);
-    } else if (ally.get() == Alliance.Red) {
-      m_LedSubsystem.setAll(Color.kRed);
-    } else {
+    // if (ally.get() == Alliance.Blue) {
+    //   m_LedSubsystem.setAll(Color.kBlue);
+    // } else if (ally.get() == Alliance.Red) {
+    //   m_LedSubsystem.setAll(Color.kRed);
+    // } 
       m_LedSubsystem.rainbow();
-    }
+    
 
   }
 
@@ -159,6 +152,22 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
+
+    camera1 = CameraServer.startAutomaticCapture(0);
+    camera2 = CameraServer.startAutomaticCapture(1);
+    server = CameraServer.getServer();
+
+    camera1.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
+    camera2.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
+
+    Optional<Alliance> ally = DriverStation.getAlliance();
+
+    if (ally.get() == Alliance.Blue) {
+      m_LedSubsystem.setAll(Color.kBlue);
+    } else if (ally.get() == Alliance.Red) {
+      m_LedSubsystem.setAll(Color.kRed);
+    } 
+
 
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
