@@ -6,6 +6,8 @@ package frc.robot;
 
 import java.util.List;
 
+import java.util.Optional;
+
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.cscore.VideoSink;
 import edu.wpi.first.math.MathUtil;
@@ -20,7 +22,9 @@ import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
@@ -47,6 +51,7 @@ import frc.robot.Subsystems.DriveSubsystem;
 import frc.robot.Subsystems.EgressSubsystem;
 import frc.robot.Subsystems.FlapSubsystem;
 import frc.robot.Subsystems.IntakeModule;
+import frc.robot.Subsystems.LEDSubsystem;
 import frc.robot.Subsystems.SweeperWheelsSubsystem;
 
 /*
@@ -68,7 +73,7 @@ public class RobotContainer {
   DigitalInput autonSwitch3 = new DigitalInput(7);
   DigitalInput autonSwitch4 = new DigitalInput(6);
   DigitalInput autonSwitch5 = new DigitalInput(5);
-  DigitalInput autonSwitch6 = new DigitalInput(4);
+  DigitalInput pSwitch = new DigitalInput(4);
 
   // The driver's controller
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
@@ -140,8 +145,36 @@ public class RobotContainer {
       m_conveyorBelt.Still();
     }
     SmartDashboard.putBoolean("Flap Limit", m_robotFlap.isRaised());
+}
+
+  public boolean LEDBase = true;
+
+  public void LEDFunctions(LEDSubsystem ledSubsystem, Optional<Alliance> ally){
+    if(LEDBase){
+      if(TriangleButton.getAsBoolean()){
+      if(!(autonSwitch5.get())){
+        ledSubsystem.setAll(Color.kGreen);
+        LEDBase = false;
+    }
+  }
+
+if(!LEDBase){
+  if ((!(CrossButton.getAsBoolean() || SquareButton.getAsBoolean() || CircleButton.getAsBoolean()
+        || TriangleButton.getAsBoolean() || ShooterLeftBumper.getAsBoolean() || ShooterRightBumper.getAsBoolean()
+        || ShooterLeftTrigger.getAsBoolean() || ShooterRightTrigger.getAsBoolean()))) {
+          if (ally.get() == Alliance.Blue) {
+            ledSubsystem.setAll(Color.kBlue);
+          } else if (ally.get() == Alliance.Red) {
+            ledSubsystem.setAll(Color.kRed);
+          } 
+          LEDBase = true;
+    }
+  }
 
   }
+}
+
+
 
   boolean movingUp = false;
   boolean movingDown = false;

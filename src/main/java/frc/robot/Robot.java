@@ -47,6 +47,9 @@ public class Robot extends TimedRobot {
 
   DigitalInput autonSwitchInput = new DigitalInput(0);
 
+      Optional<Alliance> ally = DriverStation.getAlliance();
+
+
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -160,7 +163,6 @@ public class Robot extends TimedRobot {
     camera1.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
     camera2.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
 
-    Optional<Alliance> ally = DriverStation.getAlliance();
 
     if (ally.get() == Alliance.Blue) {
       m_LedSubsystem.setAll(Color.kBlue);
@@ -180,9 +182,9 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
 
     m_robotContainer.periodic();
-    m_robotContainer.FlapRun();
+    //m_robotContainer.FlapRun();
     m_robotContainer.cameraSwitch(camera1, camera2, server);
-
+    m_robotContainer.LEDFunctions(m_LedSubsystem, ally);
   }
 
   /** This function is called once each time the robot enters test mode. */
