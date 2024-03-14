@@ -157,7 +157,7 @@ public class RobotContainer {
         LEDBase = false;
     }
   }
-
+    }
 if(!LEDBase){
   if ((!(CrossButton.getAsBoolean() || SquareButton.getAsBoolean() || CircleButton.getAsBoolean()
         || TriangleButton.getAsBoolean() || ShooterLeftBumper.getAsBoolean() || ShooterRightBumper.getAsBoolean()
@@ -172,7 +172,7 @@ if(!LEDBase){
   }
 
   }
-}
+
 
 
 
