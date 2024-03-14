@@ -152,7 +152,7 @@ public class RobotContainer {
   public void LEDFunctions(LEDSubsystem ledSubsystem, Optional<Alliance> ally){
     if(LEDBase){
       if(TriangleButton.getAsBoolean()){
-      if(!(autonSwitch5.get())){
+      if(!(autonSwitch1.get())){
         ledSubsystem.setAll(Color.kGreen);
         LEDBase = false;
     }
