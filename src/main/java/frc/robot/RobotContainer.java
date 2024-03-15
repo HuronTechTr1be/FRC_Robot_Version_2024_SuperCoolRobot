@@ -5,11 +5,17 @@
 package frc.robot;
 
 // import java.util.List;
+import java.util.Optional;
+import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.util.Color;
+import frc.robot.Subsystems.LEDSubsystem;
 
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.cscore.VideoSink;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -37,6 +43,7 @@ import frc.robot.Subsystems.DriveSubsystem;
 import frc.robot.Subsystems.EgressSubsystem;
 import frc.robot.Subsystems.FlapSubsystem;
 import frc.robot.Subsystems.IntakeModule;
+import frc.robot.Subsystems.LEDSubsystem;
 import frc.robot.Subsystems.SweeperWheelsSubsystem;
 
 /*
@@ -98,10 +105,10 @@ public class RobotContainer {
   // BLUESpeakerAllNotes
   // BLUESpeakerMiddleRightNotes
   // BLUEAmpMiddleRightNotes
-  BOTHLeftWaitRetreat m_BothLeftWaitRetreat = new BOTHLeftWaitRetreat(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
-  BOTHRightWaitRetreat m_BothRightWaitRetreat = new BOTHRightWaitRetreat(m_robotDrive, m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
-
-
+  BOTHLeftWaitRetreat m_BothLeftWaitRetreat = new BOTHLeftWaitRetreat(m_robotDrive, m_Shoot, m_conveyorBelt,
+      m_SweeperWheels, m_robotFlap);
+  BOTHRightWaitRetreat m_BothRightWaitRetreat = new BOTHRightWaitRetreat(m_robotDrive, m_Shoot, m_conveyorBelt,
+      m_SweeperWheels, m_robotFlap);
 
   // REDAmpRightNote m_REDAmpRightNote = new REDAmpRightNote(m_robotDrive,
   // m_Shoot, m_conveyorBelt, m_SweeperWheels, m_robotFlap);
@@ -119,8 +126,6 @@ public class RobotContainer {
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
-
-
   public void resetReverseDrive() {
     m_robotDrive.resetReverseDrive();
   }
@@ -135,6 +140,37 @@ public class RobotContainer {
     }
     SmartDashboard.putBoolean("Flap Limit", m_robotFlap.isRaised());
 
+  }
+
+  public boolean LEDBase = true;
+
+  public void LEDFunctions(LEDSubsystem ledSubsystem, Optional<Alliance> ally) {
+    if (LEDBase) {
+      if (TriangleButton.getAsBoolean()) {
+        if (!(autonSwitch1.get())) {
+          ledSubsystem.setAll(Color.kGreen);
+          LEDBase = false;
+          m_driverController.setRumble(GenericHID.RumbleType.kBothRumble, 1);
+          m_shooterController.setRumble(GenericHID.RumbleType.kBothRumble, 1);
+
+        }
+      }
+    }
+    if (!LEDBase) {
+      if ((!(CrossButton.getAsBoolean() || SquareButton.getAsBoolean() || CircleButton.getAsBoolean()
+          || TriangleButton.getAsBoolean() || ShooterLeftBumper.getAsBoolean() || ShooterRightBumper.getAsBoolean()
+          || ShooterLeftTrigger.getAsBoolean() || ShooterRightTrigger.getAsBoolean()))) {
+        if (ally.get() == Alliance.Blue) {
+          ledSubsystem.setAll(Color.kBlue);
+        } else if (ally.get() == Alliance.Red) {
+          ledSubsystem.setAll(Color.kRed);
+        }
+        LEDBase = true;
+        m_driverController.setRumble(GenericHID.RumbleType.kBothRumble, 0);
+        m_shooterController.setRumble(GenericHID.RumbleType.kBothRumble, 0);
+
+      }
+    }
   }
 
   boolean movingUp = false;
@@ -178,7 +214,6 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
 
-
     m_chooser.setDefaultOption("BOTHSpeakerMiddleNote", m_BOTHSpeakerMiddleNote);
     m_chooser.addOption("Blue Left", m_BLUESpeakerLeftNote);
     m_chooser.addOption("Blue Right", m_BLUESpeakerRightNote);
@@ -186,7 +221,6 @@ public class RobotContainer {
     m_chooser.addOption("Red Right", m_REDSpeakerRightNote);
 
     SmartDashboard.putData(m_chooser);
-
 
     // Configure default commands
     m_robotDrive.setDefaultCommand(
@@ -258,27 +292,27 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    
+
     return m_chooser.getSelected();
 
     // if (!autonSwitch1.get()) {
-    //   return m_BOTHSpeakerMiddleNote; // 1
-    //   //return m_BothLeftWaitRetreat;
-    //   //return m_BothRightWaitRetreat;
+    // return m_BOTHSpeakerMiddleNote; // 1
+    // //return m_BothLeftWaitRetreat;
+    // //return m_BothRightWaitRetreat;
     // }
     // if (!autonSwitch2.get()) {
-    //   return m_BLUESpeakerLeftNote; // 2
+    // return m_BLUESpeakerLeftNote; // 2
     // }
     // if (!autonSwitch3.get()) {
-    //   return m_BLUESpeakerRightNote; // 3
+    // return m_BLUESpeakerRightNote; // 3
     // }
     // if (!autonSwitch4.get()) {
-    //   return m_REDSpeakerLeftNote; // 4
+    // return m_REDSpeakerLeftNote; // 4
     // }
     // if (!autonSwitch5.get()) {
-    //   return m_REDSpeakerRightNote; // 5
-    // } 
-   
+    // return m_REDSpeakerRightNote; // 5
+    // }
+
   }
 
 }
