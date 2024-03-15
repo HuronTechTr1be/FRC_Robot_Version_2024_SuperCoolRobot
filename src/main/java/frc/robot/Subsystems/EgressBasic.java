@@ -25,6 +25,10 @@ public class EgressBasic {
       shooterWheel.set(EgressConstants.id41HighShootFactor);
     } else if (shooterWheel.getDeviceId() == 42) {
       shooterWheel.set(EgressConstants.id42HighShootFactor);
+    } else if (shooterWheel.getDeviceId() == 43) {
+      shooterWheel.set(EgressConstants.id43HighShootFactor);
+    } else if (shooterWheel.getDeviceId() == 44) {
+      shooterWheel.set(EgressConstants.id44HighShootFactor);
     }
 
   }
@@ -39,6 +43,10 @@ public class EgressBasic {
       shooterWheel.set(EgressConstants.id41LowShootFactor);
     } else if (shooterWheel.getDeviceId() == 42) {
       shooterWheel.set(EgressConstants.id42LowShootFactor);
+    } else if (shooterWheel.getDeviceId() == 43) {
+      shooterWheel.set(EgressConstants.id43LowShootFactor);
+    } else if (shooterWheel.getDeviceId() == 44) {
+      shooterWheel.set(EgressConstants.id44LowShootFactor);
     }
 
   }
@@ -49,6 +57,10 @@ public class EgressBasic {
       shooterWheel.set(EgressConstants.id41RejectFactor);
     } else if (shooterWheel.getDeviceId() == 42) {
       shooterWheel.set(EgressConstants.id42RejectFactor);
+    } else if (shooterWheel.getDeviceId() == 43) {
+      shooterWheel.set(EgressConstants.id43RejectFactor);
+    } else if (shooterWheel.getDeviceId() == 44) {
+      shooterWheel.set(EgressConstants.id44RejectFactor);
     }
 
   }
@@ -59,6 +71,8 @@ public class EgressBasic {
     }
     if (shooterWheel.getDeviceId() == 41) {
       shooterWheel.set(speed);
+    } else if (shooterWheel.getDeviceId() == 43) {
+      shooterWheel.set(speed);
     }
   }
 
@@ -68,6 +82,10 @@ public class EgressBasic {
       shooterWheel.set(EgressConstants.id41PickUpFactor);
     } else if (shooterWheel.getDeviceId() == 42) {
       shooterWheel.set(EgressConstants.id42PickUpFactor);
+    } else if (shooterWheel.getDeviceId() == 43) {
+      shooterWheel.set(EgressConstants.id43PickUpFactor);
+    } else if (shooterWheel.getDeviceId() == 44) {
+      shooterWheel.set(EgressConstants.id44PickUpFactor);
     }
 
   }

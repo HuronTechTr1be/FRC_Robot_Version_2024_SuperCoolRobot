@@ -151,12 +151,20 @@ public final class Constants {
 
     public static final double id41HighShootFactor = 1; // bottom high shooter power level
     public static final double id42HighShootFactor = 1; // top high shooter power level
+    public static final double id43HighShootFactor = -1; // bottom high shooter power level
+    public static final double id44HighShootFactor = -1; // top high shooter power level
     public static final double id41RejectFactor = -1; // bottom reject power level
     public static final double id42RejectFactor = -1; // top reject power level
+    public static final double id43RejectFactor = 1; // bottom high shooter power level
+    public static final double id44RejectFactor = 1; // top high shooter power level
     public static final double id41LowShootFactor = .35; // bottom low shooter power level
     public static final double id42LowShootFactor = .35; // top low shooter power level
+    public static final double id43LowShootFactor = -.35; // top low shooter power level
+    public static final double id44LowShootFactor = -.35; // top low shooter power level
     public static final double id41PickUpFactor = .1; // bottom pick up power level
     public static final double id42PickUpFactor = 0; // top pick up power level
+    public static final double id43PickUpFactor = -.1; // bottom pick up power level
+    public static final double id44PickUpFactor = 0; // top pick up power level
 
   }
 
