@@ -249,57 +249,61 @@ public class DriveSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Rotation Speed", rotDelivered);
     SmartDashboard.putNumber("Position FR", m_frontRight.m_drivingEncoder.getPosition());
 
-    // if (drive1Controller.getRightBumper()) {
-    //   m_Arms.LeftArmUp(1);
-    //   m_Arms.RightArmUp(1);
-    //   movingUp = true;
-    // }
-    // if (movingUp) {
-    //   m_Arms.raiseArmsPeriodic();
-    //   if (m_Arms.BothArmsRaised()) {
-    //     movingUp = false;
-    //   }
-    // }
+    //arm code with limit switch
 
-    // if (drive1Controller.getLeftTriggerAxis() > 0.05) {
-    //   m_Arms.LeftArmDown();
-    //   movingUp = false;
-    // }
-
-    // else {
-    //   if (!movingUp) {
-    //     m_Arms.LeftArmStill();
-    //   }
-    // }
-    // if (drive1Controller.getRightTriggerAxis() > 0.05) {
-    //   m_Arms.RightArmDown();
-    //   movingUp = false;
-    // }
-
-    // else {
-    //   if (!movingUp) {
-    //     m_Arms.RightArmStill();
-    //   }
-    // }
-
-    //arm code without limit switch
-
-    if(drive1Controller.getRightBumper()){
-      m_Arms.RightArmUp(1);
-    }
-    else if(drive1Controller.getRightTriggerAxis()>0.05){
-      m_Arms.RightArmDown();
-    }
-    if(drive1Controller.getLeftBumper()){
+    if (drive1Controller.getRightBumper()) {
       m_Arms.LeftArmUp(1);
+      m_Arms.RightArmUp(1);
+      movingUp = true;
     }
-    else if(drive1Controller.getLeftTriggerAxis()>0.05){
+    if (movingUp) {
+      m_Arms.raiseArmsPeriodic();
+      if (m_Arms.BothArmsRaised()) {
+        movingUp = false;
+      }
+    }
+
+    if (drive1Controller.getLeftTriggerAxis() > 0.05) {
       m_Arms.LeftArmDown();
+      movingUp = false;
     }
-    if(!(drive1Controller.getRightBumper()||drive1Controller.getRightTriggerAxis()>0.05||drive1Controller.getLeftBumper()||drive1Controller.getLeftTriggerAxis()>0.05)){
-      m_Arms.LeftArmStill();
-      m_Arms.RightArmStill();
+
+    else {
+      if (!movingUp) {
+        m_Arms.LeftArmStill();
+      }
     }
+    if (drive1Controller.getRightTriggerAxis() > 0.05) {
+      m_Arms.RightArmDown();
+      movingUp = false;
+    }
+
+    else {
+      if (!movingUp) {
+        m_Arms.RightArmStill();
+      }
+    }
+
+
+    
+    // //arm code without limit switch
+
+    // if(drive1Controller.getRightBumper()){
+    //   m_Arms.RightArmUp(1);
+    // }
+    // else if(drive1Controller.getRightTriggerAxis()>0.05){
+    //   m_Arms.RightArmDown();
+    // }
+    // if(drive1Controller.getLeftBumper()){
+    //   m_Arms.LeftArmUp(1);
+    // }
+    // else if(drive1Controller.getLeftTriggerAxis()>0.05){
+    //   m_Arms.LeftArmDown();
+    // }
+    // if(!(drive1Controller.getRightBumper()||drive1Controller.getRightTriggerAxis()>0.05||drive1Controller.getLeftBumper()||drive1Controller.getLeftTriggerAxis()>0.05)){
+    //   m_Arms.LeftArmStill();
+    //   m_Arms.RightArmStill();
+    // }
       
     
 
