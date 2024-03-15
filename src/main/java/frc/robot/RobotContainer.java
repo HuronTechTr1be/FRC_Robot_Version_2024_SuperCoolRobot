@@ -272,7 +272,23 @@ public class RobotContainer {
     
     return m_chooser.getSelected();
 
-
+    // if (!autonSwitch1.get()) {
+    //   return m_BOTHSpeakerMiddleNote; // 1
+    //   //return m_BothLeftWaitRetreat;
+    //   //return m_BothRightWaitRetreat;
+    // }
+    // if (!autonSwitch2.get()) {
+    //   return m_BLUESpeakerLeftNote; // 2
+    // }
+    // if (!autonSwitch3.get()) {
+    //   return m_BLUESpeakerRightNote; // 3
+    // }
+    // if (!autonSwitch4.get()) {
+    //   return m_REDSpeakerLeftNote; // 4
+    // }
+    // if (!autonSwitch5.get()) {
+    //   return m_REDSpeakerRightNote; // 5
+    // } 
    
   }
 
