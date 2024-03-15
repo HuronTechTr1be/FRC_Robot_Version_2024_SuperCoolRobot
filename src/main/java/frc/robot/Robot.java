@@ -120,7 +120,7 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
 
     m_robotContainer.resetReverseDrive();
-    m_autonomousCommand = m_robotContainer.getMiddleSpeakerAuton();
+    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     /*
      * String autoSelected = SmartDashboard.getString("Auto Selector",

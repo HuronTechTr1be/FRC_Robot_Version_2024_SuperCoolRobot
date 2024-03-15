@@ -20,6 +20,7 @@ import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -127,6 +128,10 @@ public class RobotContainer {
   // REDSpeakerMiddleRightNotes
   // REDAmpMiddleRightNotes
 
+  SendableChooser<Command> m_chooser = new SendableChooser<>();
+
+
+
   public void resetReverseDrive() {
     m_robotDrive.resetReverseDrive();
   }
@@ -183,6 +188,16 @@ public class RobotContainer {
 
     // Configure the button bindings
     configureButtonBindings();
+
+
+    m_chooser.setDefaultOption("BOTHSpeakerMiddleNote", m_BOTHSpeakerMiddleNote);
+    m_chooser.addOption("Blue Left", m_BLUESpeakerLeftNote);
+    m_chooser.addOption("Blue Right", m_BLUESpeakerRightNote);
+    m_chooser.addOption("Red Left", m_REDSpeakerLeftNote);
+    m_chooser.addOption("Red Right", m_REDSpeakerRightNote);
+
+    SmartDashboard.putData(m_chooser);
+
 
     // Configure default commands
     m_robotDrive.setDefaultCommand(
@@ -254,92 +269,27 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // Create config for trajectory
-    TrajectoryConfig config = new TrajectoryConfig(
-        AutoConstants.kMaxSpeedMetersPerSecond,
-        AutoConstants.kMaxAccelerationMetersPerSecondSquared)
-        // Add kinematics to ensure max speed is actually obeyed
-        .setKinematics(DriveConstants.kDriveKinematics);
+    
+    return m_chooser.getSelected();
 
-    // An example trajectory to follow. All units in meters.
-    Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
-        // Start at the origin facing the +X direction
-        new Pose2d(0, 0, new Rotation2d(0)),
-        // Pass through these two interior waypoints, making an 's' curve path
-        List.of(new Translation2d(0, 1)),
-        // End 3 meters straight ahead of where we started, facing forward
-        new Pose2d(0, 2, new Rotation2d(0)),
-        config);
-
-    var thetaController = new ProfiledPIDController(
-        AutoConstants.kPThetaController, 0, 0, AutoConstants.kThetaControllerConstraints);
-    thetaController.enableContinuousInput(-Math.PI, Math.PI);
-
-    SwerveControllerCommand swerveControllerCommand = new SwerveControllerCommand(
-        exampleTrajectory,
-        m_robotDrive::getPose, // Functional interface to feed supplier
-        DriveConstants.kDriveKinematics,
-
-        // Position controllers
-        new PIDController(AutoConstants.kPXController, 0, 0),
-        new PIDController(AutoConstants.kPYController, 0, 0),
-        thetaController,
-        m_robotDrive::setModuleStates,
-        m_robotDrive);
-
-    // Reset odometry to the starting pose of the trajectory.
-    m_robotDrive.resetOdometry(exampleTrajectory.getInitialPose());
-
-    // Run path following command, then stop at the end.
-    return swerveControllerCommand.andThen(() -> m_robotDrive.drive(0, 0, 0, false, false));
-  }
-
-  public Command getMiddleSpeakerAuton() {
-
-    // double autonPicker = SmartDashboard.getNumber("Auton Picker", 0);
-
-    if (!autonSwitch1.get()) {
-      return m_BOTHSpeakerMiddleNote; // 1
-      //return m_BothLeftWaitRetreat;
-      //return m_BothRightWaitRetreat;
-    }
-    if (!autonSwitch2.get()) {
-      return m_BLUESpeakerLeftNote; // 2
-    }
-    if (!autonSwitch3.get()) {
-      return m_BLUESpeakerRightNote; // 3
-    }
-    if (!autonSwitch4.get()) {
-      return m_REDSpeakerLeftNote; // 4
-    }
-    if (!autonSwitch5.get()) {
-      return m_REDSpeakerRightNote; // 5
-    } 
-    // if(!autonSwitch6.get()) {
-    //   return m_BothLeftWaitRetreat;
+    // if (!autonSwitch1.get()) {
+    //   return m_BOTHSpeakerMiddleNote; // 1
+    //   //return m_BothLeftWaitRetreat;
     //   //return m_BothRightWaitRetreat;
     // }
-
-    // if(autonPicker ==1){
-    // return m_BOTHSpeakerMiddleNote; // 1
+    // if (!autonSwitch2.get()) {
+    //   return m_BLUESpeakerLeftNote; // 2
     // }
-    // if(autonPicker ==2){
-    // return m_BLUESpeakerLeftNote; // 2
+    // if (!autonSwitch3.get()) {
+    //   return m_BLUESpeakerRightNote; // 3
     // }
-    // if(autonPicker ==3){
-    // return m_BLUESpeakerRightNote; // 3
+    // if (!autonSwitch4.get()) {
+    //   return m_REDSpeakerLeftNote; // 4
+    // }
+    // if (!autonSwitch5.get()) {
+    //   return m_REDSpeakerRightNote; // 5
     // } 
-    // if(autonPicker ==4){
-    // return m_REDSpeakerLeftNote; // 4
-    // }
-    // if(autonPicker ==5){
-    // return m_REDSpeakerRightNote; // 5
-    // }
-
-    else {
-      return null;
-    }
-
+   
   }
 
 }
