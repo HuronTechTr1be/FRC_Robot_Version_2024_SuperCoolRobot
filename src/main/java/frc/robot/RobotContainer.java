@@ -20,6 +20,7 @@ import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -155,6 +156,9 @@ public class RobotContainer {
       if(!(autonSwitch1.get())){
         ledSubsystem.setAll(Color.kGreen);
         LEDBase = false;
+        m_driverController.setRumble(GenericHID.RumbleType.kBothRumble, 1);
+        m_shooterController.setRumble(GenericHID.RumbleType.kBothRumble, 1);
+
     }
   }
     }
@@ -168,6 +172,9 @@ if(!LEDBase){
             ledSubsystem.setAll(Color.kRed);
           } 
           LEDBase = true;
+          m_driverController.setRumble(GenericHID.RumbleType.kBothRumble, 0);
+          m_shooterController.setRumble(GenericHID.RumbleType.kBothRumble, 0);
+
     }
   }
 
