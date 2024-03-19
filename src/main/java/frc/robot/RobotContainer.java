@@ -130,6 +130,7 @@ public class RobotContainer {
   }
 
   public void periodic() {
+    SmartDashboard.putBoolean("photoElectricSensor", photoElectricSensor.get());
     if (!(CrossButton.getAsBoolean() || SquareButton.getAsBoolean() || CircleButton.getAsBoolean()
         || TriangleButton.getAsBoolean() || ShooterLeftBumper.getAsBoolean() || ShooterRightBumper.getAsBoolean()
         || ShooterLeftTrigger.getAsBoolean() || ShooterRightTrigger.getAsBoolean())) {
