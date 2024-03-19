@@ -143,6 +143,8 @@ public class RobotContainer {
   }
 
   public boolean LEDBase = true;
+  public boolean stopPickup = false;
+  public int i = 0;
 
   public void LEDFunctions(LEDSubsystem ledSubsystem, Optional<Alliance> ally) {
     if (LEDBase) {
@@ -152,10 +154,23 @@ public class RobotContainer {
           LEDBase = false;
           m_driverController.setRumble(GenericHID.RumbleType.kBothRumble, 1);
           m_shooterController.setRumble(GenericHID.RumbleType.kBothRumble, 1);
-
+          stopPickup = true;
+          m_Shoot.Reject(-0.2);
         }
       }
     }
+
+
+    if(stopPickup){
+      i++;
+    }
+    if(i==20){
+      m_Shoot.Still();
+      stopPickup=false;
+      i=0;
+    }
+
+
     if (!LEDBase) {
       if ((!(CrossButton.getAsBoolean() || SquareButton.getAsBoolean() || CircleButton.getAsBoolean()
           || TriangleButton.getAsBoolean() || ShooterLeftBumper.getAsBoolean() || ShooterRightBumper.getAsBoolean()
@@ -281,7 +296,9 @@ public class RobotContainer {
     CircleButton.whileTrue(HighShoot);
     SquareButton.whileTrue(LowShoot);
     CrossButton.whileTrue(SlowReject);
-    TriangleButton.whileTrue(PickUp);
+    if(!stopPickup){    
+      TriangleButton.whileTrue(PickUp);
+    }
     ShooterLeftBumper.whileTrue(Reject);
 
   }
