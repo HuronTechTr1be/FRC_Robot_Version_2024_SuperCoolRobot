@@ -14,6 +14,7 @@ import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.cscore.VideoSink;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -129,11 +130,21 @@ public class RobotContainer {
     m_robotDrive.resetReverseDrive();
   }
 
-  public void periodic() {
-    SmartDashboard.putBoolean("photoElectricSensor", photoElectricSensor.get());
+  public boolean noButtonsDown(){
     if (!(CrossButton.getAsBoolean() || SquareButton.getAsBoolean() || CircleButton.getAsBoolean()
         || TriangleButton.getAsBoolean() || ShooterLeftBumper.getAsBoolean() || ShooterRightBumper.getAsBoolean()
         || ShooterLeftTrigger.getAsBoolean() || ShooterRightTrigger.getAsBoolean())) {
+          return  true;
+        }
+    else{
+      return false;
+    }
+  }
+
+
+  public void periodic() {
+    SmartDashboard.putBoolean("photoElectricSensor", photoElectricSensor.get());
+    if (noButtonsDown()) {
       m_Shoot.Still();
       m_SweeperWheels.Still();
       m_conveyorBelt.Still();
@@ -143,8 +154,14 @@ public class RobotContainer {
   }
 
   public boolean LEDBase = true;
+  Color teamColor;
 
-  public void LEDFunctions(LEDSubsystem ledSubsystem, Optional<Alliance> ally) {
+  Optional<Alliance> ally = DriverStation.getAlliance();
+
+  
+
+
+  public void LEDFunctions(LEDSubsystem ledSubsystem) {
     if (LEDBase) {
       if (TriangleButton.getAsBoolean()) {
         if (!(photoElectricSensor.get())) {
@@ -157,14 +174,8 @@ public class RobotContainer {
       }
     }
     if (!LEDBase) {
-      if ((!(CrossButton.getAsBoolean() || SquareButton.getAsBoolean() || CircleButton.getAsBoolean()
-          || TriangleButton.getAsBoolean() || ShooterLeftBumper.getAsBoolean() || ShooterRightBumper.getAsBoolean()
-          || ShooterLeftTrigger.getAsBoolean() || ShooterRightTrigger.getAsBoolean()))) {
-        if (ally.get() == Alliance.Blue) {
-          ledSubsystem.setAll(Color.kBlue);
-        } else if (ally.get() == Alliance.Red) {
-          ledSubsystem.setAll(Color.kRed);
-        }
+      if (noButtonsDown()) {
+        ledSubsystem.setAll(teamColor);
         LEDBase = true;
         m_driverController.setRumble(GenericHID.RumbleType.kBothRumble, 0);
         m_shooterController.setRumble(GenericHID.RumbleType.kBothRumble, 0);
@@ -233,6 +244,14 @@ public class RobotContainer {
                 -MathUtil.applyDeadband(m_driverController.getRightX(), OIConstants.kDriveDeadband),
                 false, true),
             m_robotDrive));
+
+    if (ally.get() == Alliance.Blue) {
+          teamColor = Color.kBlue;
+        } 
+  else if (ally.get() == Alliance.Red) {
+          teamColor = Color.kRed;
+        }
+
   }
 
   public void resetRobot() {

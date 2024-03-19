@@ -174,7 +174,7 @@ public class Robot extends TimedRobot {
     m_robotContainer.periodic();
     m_robotContainer.FlapRun();
    // m_robotContainer.cameraSwitch(camera1, camera2, server);
-    m_robotContainer.LEDFunctions(m_LedSubsystem, ally);
+    m_robotContainer.LEDFunctions(m_LedSubsystem);
 
   }
 
