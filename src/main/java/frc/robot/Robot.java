@@ -8,7 +8,6 @@
 package frc.robot;
 
 import java.util.Optional;
-
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.cscore.VideoSink;
@@ -42,10 +41,10 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
 
   UsbCamera camera1;
-  UsbCamera camera2;
+  //UsbCamera camera2;
   VideoSink server;
 
-  DigitalInput autonSwitchInput = new DigitalInput(0);
+  //DigitalInput autonSwitchInput = new DigitalInput(0);
 
   Optional<Alliance> ally = DriverStation.getAlliance();
 
@@ -64,6 +63,8 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putNumber("Auton Picker", 0);
     m_LedSubsystem = new LEDSubsystem();
+
+    
 
   }
 
@@ -147,11 +148,12 @@ public class Robot extends TimedRobot {
     // this line or comment it out.
 
     camera1 = CameraServer.startAutomaticCapture(0);
-    camera2 = CameraServer.startAutomaticCapture(1);
+    camera1.setFPS(30);
+    //camera2 = CameraServer.startAutomaticCapture(1);
     server = CameraServer.getServer();
 
     camera1.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
-    camera2.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
+   // camera2.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
 
     if (ally.get() == Alliance.Blue) {
       m_LedSubsystem.setAll(Color.kBlue);
@@ -171,7 +173,7 @@ public class Robot extends TimedRobot {
 
     m_robotContainer.periodic();
     m_robotContainer.FlapRun();
-    m_robotContainer.cameraSwitch(camera1, camera2, server);
+   // m_robotContainer.cameraSwitch(camera1, camera2, server);
     m_robotContainer.LEDFunctions(m_LedSubsystem, ally);
 
   }

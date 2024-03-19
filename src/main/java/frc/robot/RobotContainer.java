@@ -10,12 +10,10 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.Subsystems.LEDSubsystem;
-
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.cscore.VideoSink;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -43,7 +41,6 @@ import frc.robot.Subsystems.DriveSubsystem;
 import frc.robot.Subsystems.EgressSubsystem;
 import frc.robot.Subsystems.FlapSubsystem;
 import frc.robot.Subsystems.IntakeModule;
-import frc.robot.Subsystems.LEDSubsystem;
 import frc.robot.Subsystems.SweeperWheelsSubsystem;
 
 /*
@@ -66,6 +63,8 @@ public class RobotContainer {
   DigitalInput autonSwitch4 = new DigitalInput(6);
   DigitalInput autonSwitch5 = new DigitalInput(5);
   DigitalInput autonSwitch6 = new DigitalInput(4);
+
+  DigitalInput photoElectricSensor = new DigitalInput(0);
 
   // The driver's controller
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
@@ -131,6 +130,7 @@ public class RobotContainer {
   }
 
   public void periodic() {
+    SmartDashboard.putBoolean("photoElectricSensor", photoElectricSensor.get());
     if (!(CrossButton.getAsBoolean() || SquareButton.getAsBoolean() || CircleButton.getAsBoolean()
         || TriangleButton.getAsBoolean() || ShooterLeftBumper.getAsBoolean() || ShooterRightBumper.getAsBoolean()
         || ShooterLeftTrigger.getAsBoolean() || ShooterRightTrigger.getAsBoolean())) {
@@ -147,7 +147,7 @@ public class RobotContainer {
   public void LEDFunctions(LEDSubsystem ledSubsystem, Optional<Alliance> ally) {
     if (LEDBase) {
       if (TriangleButton.getAsBoolean()) {
-        if (!(autonSwitch1.get())) {
+        if (!(photoElectricSensor.get())) {
           ledSubsystem.setAll(Color.kGreen);
           LEDBase = false;
           m_driverController.setRumble(GenericHID.RumbleType.kBothRumble, 1);
