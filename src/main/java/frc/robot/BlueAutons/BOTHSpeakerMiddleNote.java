@@ -30,7 +30,7 @@ public class BOTHSpeakerMiddleNote extends SequentialCommandGroup {
         new MotorsStillCommand(shoot, conveyorBelt, sweepers, flap),
         new WaitCommand(.1),
         new ResetWheelPositionCommand(drive),
-        new DriveCommandDistance(drive, 0.5, 0, 0, 1.6),
+        new DriveCommandDistance(drive, 0.5, 0, 0, 1.63),
         new WaitCommand(.1),
         new HighShootTimed(shoot, conveyorBelt, sweepers, flap, 0.8),
         new ResetWheelPositionCommand(drive),

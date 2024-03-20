@@ -21,21 +21,20 @@ public class BLUESpeakerRightNote extends SequentialCommandGroup {
       SweeperWheelsSubsystem sweepers, FlapSubsystem flap) {
     addCommands(
 
-        new DriveTimed(drive, -0.2, 0, 0, 0.2),
-
-        new WaitCommand(0.1),
 
         new HighShootTimed(shoot, conveyorBelt, sweepers, flap, 0.6),
         new WaitCommand(0.2),
 
-        new DriveTimed(drive, 0, 0, -0.3, 0.3),
+        new DriveTimed(drive, -0.2, 0, 0, 0.2),
 
         new WaitCommand(0.1),
+
+        new DriveTimed(drive, 0, 0, -0.4, 0.59),
 
         new PickUpCommand(shoot, conveyorBelt, sweepers),
         new WaitCommand(.1),
         new ResetWheelPositionCommand(drive),
-        new DriveCommandDistance(drive, -0.5, 0, 0, 2.2),
+        new DriveCommandDistance(drive, -0.5, 0, 0, 1.6),
         new WaitCommand(0.3),
         new MotorsStillCommand(shoot, conveyorBelt, sweepers, flap),
         new WaitCommand(0.1),
@@ -44,17 +43,14 @@ public class BLUESpeakerRightNote extends SequentialCommandGroup {
         new MotorsStillCommand(shoot, conveyorBelt, sweepers, flap),
         new WaitCommand(0.1),
         new ResetWheelPositionCommand(drive),
-        new DriveCommandDistance(drive, 0.5, 0, 0, 2.1),
+        new DriveCommandDistance(drive, 0.5, 0, 0, 1.6),
         new WaitCommand(.1),
-        new DriveTimed(drive, 0, 0, 0.3, 0.44),
+        new DriveTimed(drive, 0, 0, 0.4, 0.5),
         new WaitCommand(.1),
-        new DriveTimed(drive, .2, 0, 0, .2),
+        new DriveTimed(drive, 0.2, 0, 0, 0.15),
+        new HighShootTimed(shoot, conveyorBelt, sweepers, flap, 0.9),
         new WaitCommand(0.1),
-        new HighShootTimed(shoot, conveyorBelt, sweepers, flap, 0.6),
-        new WaitCommand(0.1),
-        new DriveTimed(drive, -0.2, 0, 0, 0.2),
-        new WaitCommand(0.1),
-        new DriveTimed(drive, 0, 0, -0.3, 0.35),
+        new DriveTimed(drive, 0, 0, -0.4, 0.2),
         new WaitCommand(0.1),
         new ResetWheelPositionCommand(drive),
         new DriveCommandDistance(drive, -0.5, 0, 0, 2.2)

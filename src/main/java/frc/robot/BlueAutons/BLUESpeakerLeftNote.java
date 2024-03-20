@@ -21,23 +21,20 @@ public class BLUESpeakerLeftNote extends SequentialCommandGroup {
       SweeperWheelsSubsystem sweepers, FlapSubsystem flap) {
     addCommands(
 
-        new DriveTimed(drive, -0.2, 0, 0, 0.4),
-
-        new WaitCommand(0.1),
-
-        new DriveTimed(drive, 0, 0, -0.2, 0.19),
-
-        new WaitCommand(0.1),
 
         new HighShootTimed(shoot, conveyorBelt, sweepers, flap, 0.6),
         new WaitCommand(0.2),
 
-        new DriveTimed(drive, 0, 0, 0.4, 0.52),
+        new DriveTimed(drive, -0.2, 0, 0, 0.2),
+
+        new WaitCommand(0.1),
+
+        new DriveTimed(drive, 0, 0, 0.4, 0.59),
 
         new PickUpCommand(shoot, conveyorBelt, sweepers),
         new WaitCommand(.1),
         new ResetWheelPositionCommand(drive),
-        new DriveCommandDistance(drive, -0.5, 0, 0, 1.8),
+        new DriveCommandDistance(drive, -0.5, 0, 0, 1.6),
         new WaitCommand(0.3),
         new MotorsStillCommand(shoot, conveyorBelt, sweepers, flap),
         new WaitCommand(0.1),
@@ -46,9 +43,9 @@ public class BLUESpeakerLeftNote extends SequentialCommandGroup {
         new MotorsStillCommand(shoot, conveyorBelt, sweepers, flap),
         new WaitCommand(0.1),
         new ResetWheelPositionCommand(drive),
-        new DriveCommandDistance(drive, 0.5, 0, 0, 1.76),
+        new DriveCommandDistance(drive, 0.5, 0, 0, 1.6),
         new WaitCommand(.1),
-        new DriveTimed(drive, 0, 0, -0.4, 0.57),
+        new DriveTimed(drive, 0, 0, -0.4, 0.5),
         new WaitCommand(.1),
         new DriveTimed(drive, 0.2, 0, 0, 0.15),
         new HighShootTimed(shoot, conveyorBelt, sweepers, flap, 0.9),
