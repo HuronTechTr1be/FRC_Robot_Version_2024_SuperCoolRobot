@@ -242,27 +242,27 @@ public class RobotContainer {
 
   }
 
-  int x = 0;
-  int y = 0;
+  // int x = 0;
+  // int y = 0;
 
-  public void cameraSwitch(UsbCamera camera1, UsbCamera camera2, VideoSink server) {
-    if (ShooterLeftTrigger.getAsBoolean()) {
-      if (x == 0) {
-        System.out.println("Setting camera 2");
-        server.setSource(camera2);
-        x = 1;
-      }
-      y = 0;
+  // public void cameraSwitch(UsbCamera camera1, UsbCamera camera2, VideoSink server) {
+  //   if (ShooterLeftTrigger.getAsBoolean()) {
+  //     if (x == 0) {
+  //       System.out.println("Setting camera 2");
+  //       server.setSource(camera2);
+  //       x = 1;
+  //     }
+  //     y = 0;
 
-    } else if (!ShooterLeftTrigger.getAsBoolean()) {
-      if (y == 0) {
-        System.out.println("Setting camera 1");
-        server.setSource(camera1);
-        y = 1;
-      }
-      x = 0;
-    }
-  }
+  //   } else if (!ShooterLeftTrigger.getAsBoolean()) {
+  //     if (y == 0) {
+  //       System.out.println("Setting camera 1");
+  //       server.setSource(camera1);
+  //       y = 1;
+  //     }
+  //     x = 0;
+  //   }
+  // }
 
   /**
    * Use this method to define your button->command mappings. Buttons can be
