@@ -14,7 +14,7 @@ public class FlapSubsystem extends SubsystemBase {
   private CANSparkMax flap;
   private RelativeEncoder m_RelativeEncoder;
   private SparkLimitSwitch m_LimitSwitch;
-  private double m_PointLowered = -22;
+  private double m_PointLowered = -20;
 
   public FlapSubsystem(int deviceId) {
 
