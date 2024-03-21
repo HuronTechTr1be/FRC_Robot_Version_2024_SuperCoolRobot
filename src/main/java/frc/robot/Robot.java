@@ -109,6 +109,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
 
+    m_robotContainer.DriveRampRate3();
     m_robotContainer.resetReverseDrive();
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
@@ -142,6 +143,8 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
+
+    m_robotContainer.DriveRampRate0();
 
     if (ally.get() == Alliance.Blue) {
       m_LedSubsystem.setAll(Color.kBlue);

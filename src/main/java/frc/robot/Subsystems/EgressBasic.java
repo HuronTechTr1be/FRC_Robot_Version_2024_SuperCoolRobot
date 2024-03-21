@@ -19,6 +19,10 @@ public class EgressBasic {
     shooterWheel.set(speed);
   }
 
+  public void AdjustedHighShoot(double power){
+    shooterWheel.set(power);
+  }
+
   public void HighShoot() {
 
     if (shooterWheel.getDeviceId() == 41) {
@@ -29,6 +33,20 @@ public class EgressBasic {
       shooterWheel.set(EgressConstants.id43HighShootFactor);
     } else if (shooterWheel.getDeviceId() == 44) {
       shooterWheel.set(EgressConstants.id44HighShootFactor);
+    }
+
+  }
+
+  public void autonHighShoot() {
+
+    if (shooterWheel.getDeviceId() == 41) {
+      shooterWheel.set(EgressConstants.id41AutonHighShootFactor);
+    } else if (shooterWheel.getDeviceId() == 42) {
+      shooterWheel.set(EgressConstants.id42AutonHighShootFactor);
+    } else if (shooterWheel.getDeviceId() == 43) {
+      shooterWheel.set(EgressConstants.id43AutonHighShootFactor);
+    } else if (shooterWheel.getDeviceId() == 44) {
+      shooterWheel.set(EgressConstants.id44AutonHighShootFactor);
     }
 
   }

@@ -7,12 +7,12 @@ import frc.robot.Subsystems.FlapSubsystem;
 import frc.robot.Subsystems.IntakeModule;
 import frc.robot.Subsystems.SweeperWheelsSubsystem;
 
-public class HighShootTimed extends SequentialCommandGroup {
-    public HighShootTimed(EgressSubsystem shoot, IntakeModule conveyorBelt, SweeperWheelsSubsystem sweepers,
-            FlapSubsystem flap, double time) {
+public class AdjustedHighShootTimedCommand extends SequentialCommandGroup {
+    public AdjustedHighShootTimedCommand(EgressSubsystem shoot, IntakeModule conveyorBelt, SweeperWheelsSubsystem sweepers,
+            FlapSubsystem flap, double time, double power) {
         addCommands(
             
-                new AutonHighShootCommand(shoot, conveyorBelt),
+                new AdjustedHighShootCommand(shoot, conveyorBelt, power),
                 new WaitCommand(time),
                 new MotorsStillCommand(shoot, conveyorBelt, sweepers, flap)
 

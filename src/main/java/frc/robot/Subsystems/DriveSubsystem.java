@@ -52,6 +52,20 @@ public class DriveSubsystem extends SubsystemBase {
     reverseDrive = false;
   }
 
+  public void setRampRate3(){
+    m_frontLeft.setRampRate3();
+    m_frontRight.setRampRate3();
+    m_rearRight.setRampRate3();
+    m_rearLeft.setRampRate3();
+  }
+
+  public void setRampRate0(){
+    m_frontLeft.setRampRate0();
+    m_frontRight.setRampRate0();
+    m_rearRight.setRampRate0();
+    m_rearLeft.setRampRate0();
+  }
+
   // The gyro sensor
   private final Pigeon2 m_gyro = new Pigeon2(10);
 

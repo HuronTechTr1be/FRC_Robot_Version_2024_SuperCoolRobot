@@ -129,6 +129,14 @@ public class RobotContainer {
     m_robotDrive.resetReverseDrive();
   }
 
+  public void DriveRampRate0(){
+    m_robotDrive.setRampRate0();
+  }
+
+  public void DriveRampRate3(){
+    m_robotDrive.setRampRate3();
+  }
+
   public void periodic() {
     SmartDashboard.putBoolean("photoElectricSensor", photoElectricSensor.get());
     if (!(CrossButton.getAsBoolean() || SquareButton.getAsBoolean() || CircleButton.getAsBoolean()

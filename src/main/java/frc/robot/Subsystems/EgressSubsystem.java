@@ -36,6 +36,20 @@ public class EgressSubsystem extends SubsystemBase {
     m_LeftBottom.HighShoot();
   }
 
+  public void AdjustedHighShoot(double power) {
+    m_RightTop.AdjustedHighShoot(power);
+    m_RightBottom.AdjustedHighShoot(power);
+    m_LeftTop.AdjustedHighShoot(power);
+    m_LeftBottom.AdjustedHighShoot(power);
+  }
+
+  public void AutonHighShoot(){
+    m_RightTop.autonHighShoot();
+    m_RightBottom.autonHighShoot();
+    m_LeftTop.autonHighShoot();
+    m_LeftBottom.autonHighShoot();
+  }
+
   public void LowShoot() {
     m_RightTop.LowShoot();
     m_RightBottom.LowShoot();

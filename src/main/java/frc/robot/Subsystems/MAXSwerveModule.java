@@ -167,4 +167,12 @@ public class MAXSwerveModule {
 
   }
 
+  public void setRampRate3(){
+    m_drivingSparkMax.setOpenLoopRampRate(5);
+  }
+
+  public void setRampRate0(){
+    m_drivingSparkMax.setOpenLoopRampRate(0);
+  }
+
 }

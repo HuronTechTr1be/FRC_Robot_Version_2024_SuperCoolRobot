@@ -149,10 +149,16 @@ public final class Constants {
 
   public static final class EgressConstants {
 
-    public static final double id41HighShootFactor = 1; // bottom high shooter power level
-    public static final double id42HighShootFactor = 1; // top high shooter power level
-    public static final double id43HighShootFactor = 1; // bottom high shooter power level
-    public static final double id44HighShootFactor = 1; // top high shooter power level
+    public static final double id41HighShootFactor = .5; // bottom high shooter power level
+    public static final double id42HighShootFactor = .5; // top high shooter power level
+    public static final double id43HighShootFactor = .5; // bottom high shooter power level
+    public static final double id44HighShootFactor = .5; // top high shooter power level
+
+    public static final double id41AutonHighShootFactor = .5; // bottom high shooter power level
+    public static final double id42AutonHighShootFactor = .5; // top high shooter power level
+    public static final double id43AutonHighShootFactor = .5; // bottom high shooter power level
+    public static final double id44AutonHighShootFactor = .5; // top high shooter power level
+
 
     public static final double id41RejectFactor = -1; // bottom reject power level
     public static final double id42RejectFactor = -1; // top reject power level
