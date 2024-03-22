@@ -5,13 +5,9 @@
 package frc.robot;
 
 // import java.util.List;
-import java.util.Optional;
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.Subsystems.LEDSubsystem;
-import edu.wpi.first.cscore.UsbCamera;
-import edu.wpi.first.cscore.VideoSink;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PS4Controller;
@@ -131,19 +127,23 @@ public class RobotContainer {
     m_robotDrive.resetReverseDrive();
   }
 
-  public void DriveRampRate0(){
+  public void DriveRampRate0() {
     m_robotDrive.setRampRate0();
   }
 
-  public void DriveRampRate3(){
+  public void DriveRampRate3() {
     m_robotDrive.setRampRate3();
+  }
+
+  private boolean NoButtonsArePressed() {
+    return (!(CrossButton.getAsBoolean() || SquareButton.getAsBoolean() || CircleButton.getAsBoolean()
+        || TriangleButton.getAsBoolean() || ShooterLeftBumper.getAsBoolean() || ShooterRightBumper.getAsBoolean()
+        || ShooterLeftTrigger.getAsBoolean() || ShooterRightTrigger.getAsBoolean()));
   }
 
   public void periodic() {
     SmartDashboard.putBoolean("photoElectricSensor", photoElectricSensor.get());
-    if (!(CrossButton.getAsBoolean() || SquareButton.getAsBoolean() || CircleButton.getAsBoolean()
-        || TriangleButton.getAsBoolean() || ShooterLeftBumper.getAsBoolean() || ShooterRightBumper.getAsBoolean()
-        || ShooterLeftTrigger.getAsBoolean() || ShooterRightTrigger.getAsBoolean())) {
+    if (NoButtonsArePressed()) {
       m_Shoot.Still();
       m_SweeperWheels.Still();
       m_conveyorBelt.Still();
@@ -153,8 +153,12 @@ public class RobotContainer {
   }
 
   public boolean LEDBase = true;
+  private Color m_allianceColor = Color.kWhite;
 
-
+  public void SetAllianceColor(Color allianceColor) {
+    m_allianceColor = allianceColor;
+    m_LedSubsystem.setAll(m_allianceColor);
+  }
 
   public void LEDFunctions() {
     if (LEDBase) {
@@ -169,15 +173,10 @@ public class RobotContainer {
       }
     }
     if (!LEDBase) {
-      if ((!(CrossButton.getAsBoolean() || SquareButton.getAsBoolean() || CircleButton.getAsBoolean()
-          || TriangleButton.getAsBoolean() || ShooterLeftBumper.getAsBoolean() || ShooterRightBumper.getAsBoolean()
-          || ShooterLeftTrigger.getAsBoolean() || ShooterRightTrigger.getAsBoolean()))) {
-             m_LedSubsystem.rainbow();
-            // if (ally.get() == Alliance.Blue) {
-        //   m_LedSubsystem.setAll(Color.kBlue);
-        // } else if (ally.get() == Alliance.Red) {
-        //   m_LedSubsystem.setAll(Color.kRed);
-        // }
+      if (NoButtonsArePressed()) {
+        // m_LedSubsystem.rainbow();
+        m_LedSubsystem.setAll(m_allianceColor);
+
         LEDBase = true;
         m_driverController.setRumble(GenericHID.RumbleType.kBothRumble, 0);
         m_shooterController.setRumble(GenericHID.RumbleType.kBothRumble, 0);
@@ -258,23 +257,24 @@ public class RobotContainer {
   // int x = 0;
   // int y = 0;
 
-  // public void cameraSwitch(UsbCamera camera1, UsbCamera camera2, VideoSink server) {
-  //   if (ShooterLeftTrigger.getAsBoolean()) {
-  //     if (x == 0) {
-  //       System.out.println("Setting camera 2");
-  //       server.setSource(camera2);
-  //       x = 1;
-  //     }
-  //     y = 0;
+  // public void cameraSwitch(UsbCamera camera1, UsbCamera camera2, VideoSink
+  // server) {
+  // if (ShooterLeftTrigger.getAsBoolean()) {
+  // if (x == 0) {
+  // System.out.println("Setting camera 2");
+  // server.setSource(camera2);
+  // x = 1;
+  // }
+  // y = 0;
 
-  //   } else if (!ShooterLeftTrigger.getAsBoolean()) {
-  //     if (y == 0) {
-  //       System.out.println("Setting camera 1");
-  //       server.setSource(camera1);
-  //       y = 1;
-  //     }
-  //     x = 0;
-  //   }
+  // } else if (!ShooterLeftTrigger.getAsBoolean()) {
+  // if (y == 0) {
+  // System.out.println("Setting camera 1");
+  // server.setSource(camera1);
+  // y = 1;
+  // }
+  // x = 0;
+  // }
   // }
 
   /**
