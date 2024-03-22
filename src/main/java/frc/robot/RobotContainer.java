@@ -57,6 +57,8 @@ public class RobotContainer {
   private SweeperWheelsSubsystem m_SweeperWheels = new SweeperWheelsSubsystem();
   private final FlapSubsystem m_robotFlap = new FlapSubsystem(51);
 
+  public LEDSubsystem m_LedSubsystem = new LEDSubsystem();
+
   DigitalInput autonSwitch1 = new DigitalInput(9);
   DigitalInput autonSwitch2 = new DigitalInput(8);
   DigitalInput autonSwitch3 = new DigitalInput(7);
@@ -152,11 +154,13 @@ public class RobotContainer {
 
   public boolean LEDBase = true;
 
-  public void LEDFunctions(LEDSubsystem ledSubsystem, Optional<Alliance> ally) {
+
+
+  public void LEDFunctions() {
     if (LEDBase) {
       if (TriangleButton.getAsBoolean()) {
         if (!(photoElectricSensor.get())) {
-          ledSubsystem.setAll(Color.kGreen);
+          m_LedSubsystem.setAll(Color.kGreen);
           LEDBase = false;
           m_driverController.setRumble(GenericHID.RumbleType.kBothRumble, 1);
           m_shooterController.setRumble(GenericHID.RumbleType.kBothRumble, 1);
@@ -168,11 +172,12 @@ public class RobotContainer {
       if ((!(CrossButton.getAsBoolean() || SquareButton.getAsBoolean() || CircleButton.getAsBoolean()
           || TriangleButton.getAsBoolean() || ShooterLeftBumper.getAsBoolean() || ShooterRightBumper.getAsBoolean()
           || ShooterLeftTrigger.getAsBoolean() || ShooterRightTrigger.getAsBoolean()))) {
-        if (ally.get() == Alliance.Blue) {
-          ledSubsystem.setAll(Color.kBlue);
-        } else if (ally.get() == Alliance.Red) {
-          ledSubsystem.setAll(Color.kRed);
-        }
+             m_LedSubsystem.rainbow();
+            // if (ally.get() == Alliance.Blue) {
+        //   m_LedSubsystem.setAll(Color.kBlue);
+        // } else if (ally.get() == Alliance.Red) {
+        //   m_LedSubsystem.setAll(Color.kRed);
+        // }
         LEDBase = true;
         m_driverController.setRumble(GenericHID.RumbleType.kBothRumble, 0);
         m_shooterController.setRumble(GenericHID.RumbleType.kBothRumble, 0);

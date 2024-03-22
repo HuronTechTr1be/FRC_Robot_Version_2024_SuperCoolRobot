@@ -22,7 +22,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 // import frc.robot.Constants.DriveConstants;
 // import frc.robot.Constants.EgressConstants;
-import frc.robot.Subsystems.LEDSubsystem;
+//import frc.robot.Subsystems.LEDSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -37,7 +37,7 @@ public class Robot extends TimedRobot {
 
   private Command m_autonomousCommand;
 
-  private LEDSubsystem m_LedSubsystem;
+
   private RobotContainer m_robotContainer;
 
   // DigitalInput autonSwitchInput = new DigitalInput(0);
@@ -58,7 +58,7 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
 
     SmartDashboard.putNumber("Auton Picker", 0);
-    m_LedSubsystem = new LEDSubsystem();
+  
 
     CameraServer.startAutomaticCapture(0);
 
@@ -97,7 +97,7 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledPeriodic() {
 
-    m_LedSubsystem.rainbow();
+    m_robotContainer.m_LedSubsystem.rainbow();
 
   }
 
@@ -146,11 +146,14 @@ public class Robot extends TimedRobot {
 
     m_robotContainer.DriveRampRate0();
 
-    if (ally.get() == Alliance.Blue) {
-      m_LedSubsystem.setAll(Color.kBlue);
-    } else if (ally.get() == Alliance.Red) {
-      m_LedSubsystem.setAll(Color.kRed);
-    }
+  
+    m_robotContainer.m_LedSubsystem.rainbow();
+
+    // if (ally.get() == Alliance.Blue) {
+    //   m_robotContainer.m_LedSubsystem.setAll(Color.kBlue);
+    // } else if (ally.get() == Alliance.Red) {
+    //   m_robotContainer.m_LedSubsystem.setAll(Color.kRed);
+    // }
 
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
@@ -165,7 +168,7 @@ public class Robot extends TimedRobot {
     m_robotContainer.periodic();
     m_robotContainer.FlapRun();
     // m_robotContainer.cameraSwitch(camera1, camera2, server);
-    m_robotContainer.LEDFunctions(m_LedSubsystem, ally);
+    m_robotContainer.LEDFunctions();
 
   }
 
