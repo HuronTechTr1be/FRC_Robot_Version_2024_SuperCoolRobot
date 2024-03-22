@@ -9,10 +9,6 @@ package frc.robot;
 
 import java.util.Optional;
 import edu.wpi.first.cameraserver.CameraServer;
-// import edu.wpi.first.cscore.UsbCamera;
-// import edu.wpi.first.cscore.VideoSink;
-// import edu.wpi.first.cscore.VideoSource.ConnectionStrategy;
-// import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -20,9 +16,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-// import frc.robot.Constants.DriveConstants;
-// import frc.robot.Constants.EgressConstants;
-//import frc.robot.Subsystems.LEDSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -37,12 +30,11 @@ public class Robot extends TimedRobot {
 
   private Command m_autonomousCommand;
 
-
   private RobotContainer m_robotContainer;
 
   // DigitalInput autonSwitchInput = new DigitalInput(0);
 
-  Optional<Alliance> ally = DriverStation.getAlliance();
+  Optional<Alliance> m_ally;
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -58,7 +50,6 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
 
     SmartDashboard.putNumber("Auton Picker", 0);
-  
 
     CameraServer.startAutomaticCapture(0);
 
@@ -146,14 +137,17 @@ public class Robot extends TimedRobot {
 
     m_robotContainer.DriveRampRate0();
 
-  
     m_robotContainer.m_LedSubsystem.rainbow();
+    m_ally = DriverStation.getAlliance();
 
-    // if (ally.get() == Alliance.Blue) {
-    //   m_robotContainer.m_LedSubsystem.setAll(Color.kBlue);
-    // } else if (ally.get() == Alliance.Red) {
-    //   m_robotContainer.m_LedSubsystem.setAll(Color.kRed);
-    // }
+    if (m_ally.isPresent()) {
+      if (m_ally.get() == Alliance.Blue) {
+        m_robotContainer.SetAllianceColor(Color.kBlue);
+      } else if (m_ally.get() == Alliance.Red) {
+        m_robotContainer.SetAllianceColor(Color.kRed);
+      }
+
+    }
 
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();

@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Commands.DriveCommandDistance;
 import frc.robot.Commands.DriveTimed;
-import frc.robot.Commands.HighShootTimed;
 import frc.robot.Commands.AdjustedHighShootTimedCommand;
 import frc.robot.Commands.MotorsStillCommand;
 import frc.robot.Commands.PickUpCommand;
