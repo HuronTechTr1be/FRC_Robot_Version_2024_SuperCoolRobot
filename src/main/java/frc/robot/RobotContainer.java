@@ -10,13 +10,13 @@ import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.Subsystems.LEDSubsystem;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
 import frc.robot.BlueAutons.BLUESpeakerLeftNote;
 import frc.robot.BlueAutons.BLUESpeakerRightNote;
@@ -64,18 +64,25 @@ public class RobotContainer {
 
   DigitalInput photoElectricSensor = new DigitalInput(0);
 
-  // The driver's controller
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
-  PS4Controller m_shooterController = new PS4Controller(1);
+  XboxController m_shooterController = new XboxController(1);
 
-  JoystickButton CrossButton = new JoystickButton(m_shooterController, PS4Controller.Button.kCross.value);
-  JoystickButton CircleButton = new JoystickButton(m_shooterController, PS4Controller.Button.kCircle.value);
-  JoystickButton SquareButton = new JoystickButton(m_shooterController, PS4Controller.Button.kSquare.value);
-  JoystickButton TriangleButton = new JoystickButton(m_shooterController, PS4Controller.Button.kTriangle.value);
-  JoystickButton ShooterLeftBumper = new JoystickButton(m_shooterController, PS4Controller.Button.kL2.value);
-  JoystickButton ShooterRightBumper = new JoystickButton(m_shooterController, PS4Controller.Button.kR2.value);
-  JoystickButton ShooterLeftTrigger = new JoystickButton(m_shooterController, PS4Controller.Button.kL1.value);
-  JoystickButton ShooterRightTrigger = new JoystickButton(m_shooterController, PS4Controller.Button.kR1.value);
+  JoystickButton CrossButton = new JoystickButton(m_shooterController, XboxController.Button.kA.value);
+  JoystickButton CircleButton = new JoystickButton(m_shooterController, XboxController.Button.kB.value);
+  JoystickButton SquareButton = new JoystickButton(m_shooterController, XboxController.Button.kX.value);
+  JoystickButton TriangleButton = new JoystickButton(m_shooterController, XboxController.Button.kY.value);
+  JoystickButton ShooterLeftBumper = new JoystickButton(m_shooterController, XboxController.Button.kLeftBumper.value);
+  JoystickButton ShooterRightBumper = new JoystickButton(m_shooterController, XboxController.Button.kRightBumper.value);
+
+  Trigger ShooterLeftTrigger = new JoystickButton(m_shooterController, XboxController.Axis.kLeftTrigger.value);
+  Trigger ShooterRightTrigger = new JoystickButton(m_shooterController, XboxController.Axis.kRightTrigger.value);
+
+  JoystickButton back = new JoystickButton(m_shooterController, XboxController.Button.kBack.value);
+  JoystickButton start = new JoystickButton(m_shooterController, XboxController.Button.kStart.value);
+
+
+
+
 
   HighShootCommand HighShoot = new HighShootCommand(m_Shoot, m_conveyorBelt);
   LowShootCommand LowShoot = new LowShootCommand(m_Shoot, m_conveyorBelt, 0.3);
@@ -122,6 +129,8 @@ public class RobotContainer {
   // REDAmpMiddleRightNotes
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
+
+  
 
   public void resetReverseDrive() {
     m_robotDrive.resetReverseDrive();
@@ -190,11 +199,11 @@ public class RobotContainer {
 
   public void FlapRun() {
 
-    if (ShooterRightBumper.getAsBoolean()) {
+    if (start.getAsBoolean()) {
       m_robotFlap.FlapUp(0.5);
       movingUp = true;
       movingDown = false;
-    } else if (ShooterRightTrigger.getAsBoolean()) {
+    } else if (back.getAsBoolean()) {
       m_robotFlap.FlapDown();
       movingDown = true;
       movingUp = false;
