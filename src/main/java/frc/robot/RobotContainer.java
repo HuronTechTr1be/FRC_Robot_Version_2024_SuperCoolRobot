@@ -199,11 +199,11 @@ public class RobotContainer {
 
   public void FlapRun() {
 
-    if (start.getAsBoolean()) {
+    if (ShooterRightBumper.getAsBoolean()) {
       m_robotFlap.FlapUp(0.5);
       movingUp = true;
       movingDown = false;
-    } else if (back.getAsBoolean()) {
+    } else if (ShooterLeftBumper.getAsBoolean()) {
       m_robotFlap.FlapDown();
       movingDown = true;
       movingUp = false;
@@ -304,7 +304,10 @@ public class RobotContainer {
     SquareButton.whileTrue(LowShoot);
     CrossButton.whileTrue(SlowReject);
     TriangleButton.whileTrue(PickUp);
-    ShooterLeftBumper.whileTrue(Reject);
+    //back.whileTrue(Reject);
+    //start.whileTrue(Reject);
+    ///ShooterLeftTrigger.whileTrue(Reject);
+    
 
   }
 
