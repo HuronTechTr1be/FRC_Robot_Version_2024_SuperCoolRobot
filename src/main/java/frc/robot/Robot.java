@@ -9,6 +9,9 @@ package frc.robot;
 
 import java.util.Optional;
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.cscore.VideoMode;
+import edu.wpi.first.util.PixelFormat;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -51,8 +54,15 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putNumber("Auton Picker", 0);
 
-    CameraServer.startAutomaticCapture(0);
 
+    int resWidth = 320;
+    int resHeight = 240;
+    int fpsRate = 15;
+
+    PixelFormat pFormat = PixelFormat.kMJPEG;
+    VideoMode vMode = new VideoMode(pFormat, resWidth, resHeight, fpsRate);
+    UsbCamera camera = CameraServer.startAutomaticCapture(0);
+    boolean success = camera.setVideoMode(vMode);
   }
 
   /**
