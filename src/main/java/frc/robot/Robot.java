@@ -59,7 +59,7 @@ public class Robot extends TimedRobot {
     int resHeight = 240;
     int fpsRate = 15;
 
-    PixelFormat pFormat = PixelFormat.kMJPEG;
+    PixelFormat pFormat = PixelFormat.kYUYV;
     VideoMode vMode = new VideoMode(pFormat, resWidth, resHeight, fpsRate);
     UsbCamera camera = CameraServer.startAutomaticCapture(0);
     boolean success = camera.setVideoMode(vMode);
