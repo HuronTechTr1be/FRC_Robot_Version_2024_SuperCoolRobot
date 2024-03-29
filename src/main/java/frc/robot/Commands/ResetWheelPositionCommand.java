@@ -16,7 +16,7 @@ public class ResetWheelPositionCommand extends Command {
 
   @Override
   public void initialize() {
-    m_Drive.resetFrontRightEncoder();
+    m_Drive.resetFrontLeftEncoder();
   }
 
   @Override

@@ -24,10 +24,10 @@ public class DriveCommandDistance extends Command {
   @Override
   public void initialize() {
     m_Drive.drive(xSpeed, ySpeed, rot, false, true);
-    while (Math.abs(m_Drive.getFrontRightEncoder()) < Math.abs(distance)) {
+    // while (Math.abs(m_Drive.getFrontRightEncoder()) < Math.abs(distance)) {
 
-    }
-    m_Drive.drive(0, 0, 0, false, true);
+    // }
+    // m_Drive.drive(0, 0, 0, false, true);
   }
 
   @Override

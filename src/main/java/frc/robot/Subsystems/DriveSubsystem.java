@@ -1,6 +1,8 @@
 
 package frc.robot.Subsystems;
 
+import java.util.function.BooleanSupplier;
+
 import com.ctre.phoenix6.hardware.Pigeon2;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
@@ -52,14 +54,14 @@ public class DriveSubsystem extends SubsystemBase {
     reverseDrive = false;
   }
 
-  public void setRampRate3(){
+  public void setRampRate3() {
     m_frontLeft.setRampRate3();
     m_frontRight.setRampRate3();
     m_rearRight.setRampRate3();
     m_rearLeft.setRampRate3();
   }
 
-  public void setRampRate0(){
+  public void setRampRate0() {
     m_frontLeft.setRampRate0();
     m_frontRight.setRampRate0();
     m_rearRight.setRampRate0();
@@ -93,19 +95,40 @@ public class DriveSubsystem extends SubsystemBase {
   public DriveSubsystem() {
   }
 
-  public void resetFrontRightEncoder() {
-    m_frontRight.m_drivingEncoder.setPosition(0);
+  public void resetFrontLeftEncoder() {
+    m_frontLeft.m_drivingEncoder.setPosition(0);
   }
 
   public double getFrontRightEncoder() {
-    SmartDashboard.putNumber("Position Fr Auton", m_frontRight.m_drivingEncoder.getPosition());
+
     return m_frontRight.m_drivingEncoder.getPosition();
 
+  }
+
+  public double getFrontLeftEncoder() {
+
+    return m_frontLeft.m_drivingEncoder.getPosition();
+
+  }
+
+  public boolean checkEncoder(double valueToCheck) {
+    if (Math.abs(getFrontLeftEncoder()) > Math.abs(valueToCheck)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public BooleanSupplier checkEncoderSup(double valueToCheck) {
+    BooleanSupplier bool = () -> checkEncoder(valueToCheck);
+    return bool;
   }
 
   @Override
   public void periodic() {
     // Update the odometry in the periodic block
+    SmartDashboard.putNumber("Position Fr Auton", m_frontRight.m_drivingEncoder.getPosition());
+    SmartDashboard.putNumber("Position Fl Auton", m_frontLeft.m_drivingEncoder.getPosition());
     m_odometry.update(
         Rotation2d.fromDegrees(m_gyro.getAngle()),
         new SwerveModulePosition[] {
@@ -263,7 +286,7 @@ public class DriveSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Rotation Speed", rotDelivered);
     SmartDashboard.putNumber("Position FR", m_frontRight.m_drivingEncoder.getPosition());
 
-    //arm code with limit switch
+    // arm code with limit switch
 
     if (drive1Controller.getRightBumper()) {
       m_Arms.LeftArmUp(1);
@@ -298,30 +321,26 @@ public class DriveSubsystem extends SubsystemBase {
       }
     }
 
-
-    
     // //arm code without limit switch
 
     // if(drive1Controller.getRightBumper()){
-    //   m_Arms.RightArmUp(1);
+    // m_Arms.RightArmUp(1);
     // }
     // else if(drive1Controller.getRightTriggerAxis()>0.05){
-    //   m_Arms.RightArmDown();
+    // m_Arms.RightArmDown();
     // }
     // if(drive1Controller.getLeftBumper()){
-    //   m_Arms.LeftArmUp(1);
+    // m_Arms.LeftArmUp(1);
     // }
     // else if(drive1Controller.getLeftTriggerAxis()>0.05){
-    //   m_Arms.LeftArmDown();
+    // m_Arms.LeftArmDown();
     // }
     // if(!(drive1Controller.getRightBumper()||drive1Controller.getRightTriggerAxis()>0.05||drive1Controller.getLeftBumper()||drive1Controller.getLeftTriggerAxis()>0.05)){
-    //   m_Arms.LeftArmStill();
-    //   m_Arms.RightArmStill();
+    // m_Arms.LeftArmStill();
+    // m_Arms.RightArmStill();
     // }
-      
-    
 
-    //m_Arms.periodic();
+    // m_Arms.periodic();
 
     SmartDashboard.putNumber("turn rate", getTurnRate());
     SmartDashboard.putNumber("heading", getHeading());

@@ -54,7 +54,6 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putNumber("Auton Picker", 0);
 
-
     int resWidth = 320;
     int resHeight = 240;
     int fpsRate = 15;

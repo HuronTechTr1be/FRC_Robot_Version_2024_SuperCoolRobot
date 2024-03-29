@@ -23,6 +23,7 @@ import frc.robot.BlueAutons.BLUESpeakerRightNote;
 import frc.robot.BlueAutons.BOTHLeftWaitRetreat;
 import frc.robot.BlueAutons.BOTHRightWaitRetreat;
 import frc.robot.BlueAutons.BOTHSpeakerMiddleNote;
+import frc.robot.BlueAutons.BOTHSpeakerMiddleRetreate;
 import frc.robot.Commands.FlapDownCommand;
 import frc.robot.Commands.FlapUpCommand;
 import frc.robot.Commands.HighShootCommand;
@@ -105,6 +106,9 @@ public class RobotContainer {
       m_SweeperWheels, m_robotFlap);
   BLUESpeakerRightNote m_BLUESpeakerRightNote = new BLUESpeakerRightNote(m_robotDrive, m_Shoot, m_conveyorBelt,
       m_SweeperWheels, m_robotFlap);
+  BOTHSpeakerMiddleRetreate m_middleRetreate = new BOTHSpeakerMiddleRetreate(m_robotDrive, m_Shoot, m_conveyorBelt,
+      m_SweeperWheels, m_robotFlap);
+
   // BLUESpeakerMiddleRightNotes
   // BLUESpeakerAllNotes
   // BLUESpeakerMiddleRightNotes
@@ -224,7 +228,7 @@ public class RobotContainer {
   }
 
   public void initReset() {
-    m_robotDrive.resetFrontRightEncoder();
+    m_robotDrive.resetFrontLeftEncoder();
   }
 
   /**
@@ -235,11 +239,14 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
 
-    m_chooser.setDefaultOption("BOTHSpeakerMiddleNote", m_BOTHSpeakerMiddleNote);
-    m_chooser.addOption("Blue Left", m_BLUESpeakerLeftNote);
-    m_chooser.addOption("Blue Right", m_BLUESpeakerRightNote);
-    m_chooser.addOption("Red Left", m_REDSpeakerLeftNote);
-    m_chooser.addOption("Red Right", m_REDSpeakerRightNote);
+    // m_chooser.addOption("BOTHSpeakerMiddleNote", m_BOTHSpeakerMiddleNote);
+    // m_chooser.addOption("Blue Left", m_BLUESpeakerLeftNote);
+    // m_chooser.addOption("Blue Right", m_BLUESpeakerRightNote);
+    // m_chooser.addOption("Red Left", m_REDSpeakerLeftNote);
+    // m_chooser.addOption("Red Right", m_REDSpeakerRightNote);
+    m_chooser.setDefaultOption("Middle Retreat", m_middleRetreate);
+    m_chooser.addOption("LeftRetreat", m_BothLeftWaitRetreat);
+    m_chooser.addOption("RightRetreat", m_BothRightWaitRetreat);
 
     SmartDashboard.putData(m_chooser);
 
