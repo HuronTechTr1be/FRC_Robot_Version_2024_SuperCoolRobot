@@ -19,7 +19,7 @@ public class BOTHRightWaitRetreat extends SequentialCommandGroup {
 
         new HighShootTimed(shoot, conveyorBelt, sweepers, flap, 0.6),
 
-        new WaitCommand(4),
+        new WaitCommand(2),
 
         new DriveTimed(drive, -0.2, 0, 0, 0.5),
 
@@ -29,7 +29,7 @@ public class BOTHRightWaitRetreat extends SequentialCommandGroup {
 
         new ResetWheelPositionCommand(drive),
 
-        new DriveTimed(drive, -0.5, 0, 0, 1.2)
+        new DriveTimed(drive, -0.5, 0, 0, 1.4)
         
     );
   }
