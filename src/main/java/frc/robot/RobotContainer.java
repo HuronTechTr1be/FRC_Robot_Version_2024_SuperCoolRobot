@@ -241,7 +241,7 @@ public class RobotContainer {
 
     // m_chooser.addOption("BOTHSpeakerMiddleNote", m_BOTHSpeakerMiddleNote);
     // m_chooser.addOption("Blue Left", m_BLUESpeakerLeftNote);
-    // m_chooser.addOption("Blue Right", m_BLUESpeakerRightNote);
+    m_chooser.addOption("Blue Right", m_BLUESpeakerRightNote);
     // m_chooser.addOption("Red Left", m_REDSpeakerLeftNote);
     // m_chooser.addOption("Red Right", m_REDSpeakerRightNote);
     m_chooser.setDefaultOption("Middle Retreat", m_middleRetreate);

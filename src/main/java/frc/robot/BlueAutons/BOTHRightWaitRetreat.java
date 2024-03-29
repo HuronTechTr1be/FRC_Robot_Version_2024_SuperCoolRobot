@@ -21,9 +21,13 @@ public class BOTHRightWaitRetreat extends SequentialCommandGroup {
 
         new WaitCommand(2),
 
-        new DriveTimed(drive, -0.2, 0, 0, 0.5),
+        new DriveTimed(drive, -0.2, 0, 0, 0.4),
 
-        new DriveTimed(drive, 0, 0, -0.6, 7),
+        new ResetWheelPositionCommand(drive),
+
+        new WaitCommand(0.1),
+
+        new DriveTimed(drive, 0, 0, -0.2, 0.7),
 
         new WaitCommand(0.1),
 
